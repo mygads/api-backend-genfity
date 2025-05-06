@@ -16,12 +16,15 @@ export async function POST(request: NextRequest) {
 
     // Cek apakah ini event QR dan simpan datanya
     // Sesuaikan jika struktur payload dari mywa berbeda
-    if (body && body.qrCode) { // <<< Ganti dari body.qr menjadi body.qrCode
-      latestQrCode = body.qrCode; // <<< Ganti dari body.qr menjadi body.qrCode
-      console.log('QR Code updated:', latestQrCode);
-    } else if (body && body.event === 'qr' && body.data && body.data.qr) { // Struktur alternatif (biarkan untuk fleksibilitas)
+    if (body && body.qrCode) { // Cek 1: Mencari 'qrCode' (dari tes Postman sebelumnya)
+      latestQrCode = body.qrCode;
+      console.log('QR Code updated (from qrCode):', latestQrCode);
+    } else if (body && body.event === 'qr' && body.data && body.data.qr) { // Cek 2: Mencari 'event' dan 'data.qr' (dari analisis kode whatsapp-api)
         latestQrCode = body.data.qr;
-        console.log('QR Code updated (structured):', latestQrCode);
+        console.log('QR Code updated (from event/data):', latestQrCode);
+    } else if (body && body.dataType === 'qr' && body.data && body.data.qr) { // Cek 3: Mencari 'dataType' dan 'data.qr' (dari log terbaru)
+        latestQrCode = body.data.qr;
+        console.log('QR Code updated (from dataType/data):', latestQrCode);
     }
 
     // Kirim respons OK
