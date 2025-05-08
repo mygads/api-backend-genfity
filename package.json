@@ -1,6 +1,6 @@
 {
-  "name": "my-whatsapp-webhook",
-  "version": "0.1.0",
+  "name": "genfity-backend",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
