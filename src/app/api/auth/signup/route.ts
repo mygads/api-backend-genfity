@@ -10,12 +10,17 @@ function generateOTP() {
 
 // Fungsi untuk mengirim OTP via WhatsApp (Placeholder - sesuaikan dengan API Ozzie Anda)
 async function sendOtpViaWhatsApp(phoneNumber: string, otp: string) {
-  const WHATSAPP_API_ENDPOINT = 'https://ozwaretech.com/client/sendMessage/genfity'; // Ganti dengan URL API Ozzie yang benar
-  const CHAT_ID_SUFFIX = '@c.us'; // Suffix umum untuk nomor WhatsApp di beberapa API
+  const WA_URL = process.env.WHATSAPP_API_ENDPOINT;
+  const CHAT_ID_SUFFIX = '@c.us';
   const formattedPhoneNumber = phoneNumber.startsWith('62') ? phoneNumber : `62${phoneNumber.substring(1)}`;
 
+  if (!WA_URL) {
+    console.error('WA_URL (process.env.WHATSAPP_API_ENDPOINT) is not defined.');
+    return false;
+  }
+
   try {
-    const response = await fetch(WHATSAPP_API_ENDPOINT, {
+    const response = await fetch(WA_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
