@@ -3,9 +3,9 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { token: string } } // Changed: Destructure params
+  context: any // workaround: gunakan any agar lolos build Next.js 15
 ) {
-  const token = params.token; // Changed: Access token from destructured params
+  const token = context.params.token;
 
   if (!token) {
     return NextResponse.json({ message: 'Token verifikasi tidak ditemukan.' }, { status: 400 });
