@@ -1,0 +1,597 @@
+openapi: 3.0.0
+info:
+  title: User Authentication and Account API
+  version: 1.0.0
+  description: API for user sign-up, sign-in, email verification, password management, and session handling.
+
+servers:
+  - url: /api # Assuming your API routes are under /api
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          # format: cuid # cuid is not a standard OpenAPI format, comment out or use 'uuid' if applicable
+          description: Unique identifier for the user.
+        name:
+          type: string
+          nullable: true
+          description: User's name.
+        email:
+          type: string
+          format: email
+          nullable: true
+          description: User's email address (unique).
+        phone:
+          type: string
+          nullable: true
+          description: User's phone number (unique, normalized to 62xxxx).
+        emailVerified:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the email was verified.
+        phoneVerified:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the phone number was verified.
+        image:
+          type: string
+          format: url
+          nullable: true
+          description: URL to the user's profile image.
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message.
+        details: # Optional, for more specific error info
+          type: string
+          nullable: true
+
+    SignUpRequest:
+      type: object
+      required:
+        - email
+        - password
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+          description: User's email address.
+        password:
+          type: string
+          format: password
+          minLength: 6
+          description: User's desired password.
+        name:
+          type: string
+          description: User's full name.
+        phone: # Optional
+          type: string
+          description: User's phone number (e.g., 081234567890 or +6281234567890).
+
+    SignUpResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: '#/components/schemas/User' # Or a subset of user fields
+
+    SignInRequest:
+      type: object
+      required:
+        - identifier # Can be email or phone
+        - password
+      properties:
+        identifier:
+          type: string
+          description: User's email address or phone number.
+        password:
+          type: string
+          format: password
+          description: User's password.
+
+    SignInResponse: # Typically handled by NextAuth, but if direct API login:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        # Potentially include JWT token if not using cookie-based sessions directly from NextAuth
+        # token:
+        #   type: string
+
+    VerifyOtpRequest:
+      type: object
+      required:
+        - identifier # email or phone
+        - otp
+      properties:
+        identifier:
+          type: string
+          description: User's email or phone number used for OTP request.
+        otp:
+          type: string
+          description: The OTP received by the user.
+
+    VerifyOtpResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        # Potentially include JWT token for auto-login
+
+    ForgotPasswordRequest:
+      type: object
+      required:
+        - identifier # email or phone
+        - method # 'email' or 'whatsapp'
+      properties:
+        identifier:
+          type: string
+          description: User's email or phone number to send OTP to.
+        method:
+          type: string
+          enum: [email, whatsapp]
+          description: Method to send OTP.
+
+    ForgotPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ResetPasswordRequest:
+      type: object
+      required:
+        - identifier # email or phone
+        - otp
+        - newPassword
+      properties:
+        identifier:
+          type: string
+          description: User's email or phone number.
+        otp:
+          type: string
+          description: The OTP received by the user.
+        newPassword:
+          type: string
+          format: password
+          minLength: 6
+          description: The new password for the user.
+
+    ResetPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ChangePasswordRequest:
+      type: object
+      required:
+        - currentPassword
+        - newPassword
+      properties:
+        currentPassword:
+          type: string
+          format: password
+          description: User's current password.
+        newPassword:
+          type: string
+          format: password
+          minLength: 6
+          description: User's new desired password.
+
+    ChangePasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ResendVerificationEmailResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+  securitySchemes:
+    cookieAuth: # For NextAuth.js session cookies
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token # Or __Secure-next-auth.session-token for HTTPS
+
+security:
+  - cookieAuth: [] # Indicates that most authenticated routes use cookieAuth
+
+paths:
+  /auth/signup:
+    post:
+      summary: Register a new user
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+      responses:
+        '201':
+          description: User registered successfully, verification email/OTP sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUpResponse'
+        '400':
+          description: Invalid input (e.g., email/phone exists, password too short).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/signin: # NextAuth handles this, but for documentation purposes
+    post:
+      summary: Sign in a user (Credentials Provider)
+      tags: [Authentication]
+      description: This endpoint is typically handled by NextAuth.js. The request body shown is for the credentials provider.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignInRequest'
+      responses:
+        '200':
+          description: User signed in successfully. Session cookie is set.
+          content:
+            application/json:
+              schema: # Response might vary based on NextAuth config
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: Redirect URL after successful sign-in.
+        '401':
+          description: Unauthorized (invalid credentials).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/signout: # NextAuth handles this
+    post:
+      summary: Sign out a user
+      tags: [Authentication]
+      description: This endpoint is typically handled by NextAuth.js. Clears the session cookie.
+      responses:
+        '200':
+          description: User signed out successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: Redirect URL after successful sign-out.
+
+  /auth/session: # NextAuth handles this
+    get:
+      summary: Get current session information
+      tags: [Authentication]
+      description: This endpoint is typically handled by NextAuth.js. Returns the current user session if authenticated.
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Session information.
+          content:
+            application/json:
+              schema: # Structure defined by NextAuth session callback
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+                  expires:
+                    type: string
+                    format: date-time
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                type: object # Empty object or specific error
+
+  /auth/verify-email/{token}:
+    get:
+      summary: Verify user's email address using token
+      tags: [Account Management]
+      parameters:
+        - name: token
+          in: path
+          required: true
+          description: The email verification token sent to the user.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Email verified successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Invalid or expired token, or email already verified.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found for this token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/verify-otp:
+    post:
+      summary: Verify OTP for phone verification or email (if OTP based email verification)
+      tags: [Authentication, Account Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyOtpRequest'
+      responses:
+        '200':
+          description: OTP verified successfully. User might be auto-logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyOtpResponse'
+        '400':
+          description: Invalid OTP, expired OTP, or missing fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/resend-verification-email:
+    post:
+      summary: Resend email verification (token or OTP based on your setup)
+      tags: [Account Management]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Verification email/OTP resent successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResendVerificationEmailResponse'
+        '400':
+          description: Email already verified.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error or failed to send email/OTP.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/forgot-password:
+    post:
+      summary: Request a password reset OTP
+      tags: [Account Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordRequest'
+      responses:
+        '200':
+          description: OTP sent successfully via the specified method.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForgotPasswordResponse'
+        '400':
+          description: Invalid input (e.g., invalid method, identifier and method mismatch).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error or failed to send OTP.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/reset-password:
+    post:
+      summary: Reset user password using OTP
+      tags: [Account Management]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+      responses:
+        '200':
+          description: Password reset successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        '400':
+          description: Invalid/expired OTP, or new password too short.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/change-password:
+    post:
+      summary: Change current user's password
+      tags: [Account Management]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '200':
+          description: Password changed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponse'
+        '400':
+          description: Invalid input (e.g., new password too short).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Current password incorrect.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found or no password set (OAuth user).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /account/delete-account: # Assuming you have this route
+    delete:
+      summary: Delete current user's account
+      tags: [Account Management]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Account deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
