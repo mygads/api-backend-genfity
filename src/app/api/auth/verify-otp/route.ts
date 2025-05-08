@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { encode } from 'next-auth/jwt';
-import { authOptions } from '../[...nextauth]/route'; // Impor authOptions
+import { authOptions } from '@/lib/auth'; // Updated import path
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup)
 function normalizePhoneNumber(phone: string): string {
