@@ -82,8 +82,7 @@ export async function POST(request: Request) {
                 return NextResponse.json({ message: 'Nomor telepon pengguna tidak ditemukan untuk mengirim OTP.' }, { status: 500 });
             }
             const message = `Your OTP *${otp}* 
-Please do not share this code with anyone. The code is valid for 60 minutes.
-${process.env.WEBSITE_URL}`;
+Please do not share this code with anyone. The code is valid for 60 minutes.`;
             await sendWhatsAppMessage(user.phone, message).then((result) => {
                 if (!result) {
                     return NextResponse.json({ message: 'Error sending OTP via WhatsApp.' }, { status: 500 });

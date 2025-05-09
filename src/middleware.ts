@@ -26,13 +26,12 @@ export function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/api/auth/[...nextauth]/:path*',
-        '/api/auth/signup/:path*',
-        '/api/auth/send-otp/:path*',
-        '/api/auth/verify-otp/:path*',
-        '/api/auth/verify-email/:path*', // Covers /api/auth/verify-email/[token]
-        '/api/auth/reset-password/:path*',
-        '/api/auth/session/:path*', // NextAuth.js session endpoint
-        '/api/account/resend-verification-email/:path*', // Covers all routes under /api/account
+        // '/api/auth/[...nextauth]/:path*',
+        // '/api/auth/signup/:path*',
+        // '/api/auth/send-otp/:path*',
+        // '/api/auth/verify-otp/:path*',
+        // '/api/auth/verify-email/:path*',
+        // '/api/auth/reset-password/:path*',
+        // '/api/auth/session/:path*',
     ],
 };

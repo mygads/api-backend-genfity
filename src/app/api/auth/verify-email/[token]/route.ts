@@ -3,12 +3,12 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  context: any // workaround: gunakan any agar lolos build Next.js 15
+  { params }: { params: { token: string } }
 ) {
-  const token = context.params.token;
+  const token = params.token;
 
   if (!token) {
-    return NextResponse.json({ message: 'Token verifikasi tidak ditemukan.' }, { status: 400 });
+    return NextResponse.json({ message: 'Verification token not found.' }, { status: 400 });
   }
 
   try {
@@ -19,7 +19,7 @@ export async function GET(
     });
 
     if (!user) {
-      return NextResponse.json({ message: 'Token verifikasi tidak valid atau pengguna tidak ditemukan.' }, { status: 400 });
+      return NextResponse.json({ message: 'Verification token is invalid or user not found.' }, { status: 400 });
     }
 
     if (user.emailVerified) {
@@ -35,7 +35,7 @@ export async function GET(
           emailVerificationTokenExpires: null,
         },
       });
-      return NextResponse.json({ message: 'Token verifikasi sudah kedaluwarsa. Silakan minta token baru.' }, { status: 400 });
+      return NextResponse.json({ message: 'Verification token has expired. Please request a new one.' }, { status: 400 });
     }
 
     // Token valid, update pengguna
@@ -50,10 +50,10 @@ export async function GET(
 
     // Redirect ke halaman sukses atau halaman login dengan pesan
     // Untuk API, kita kembalikan JSON dan biarkan frontend menangani redirect
-    return NextResponse.json({ message: 'Email berhasil diverifikasi. Anda sekarang dapat login.' }, { status: 200 });
+    return NextResponse.json({ message: 'Email has been verified successfully' }, { status: 200 });
 
   } catch (error) {
     console.error('Email verification error:', error);
-    return NextResponse.json({ message: 'Terjadi kesalahan internal saat verifikasi email.' }, { status: 500 });
+    return NextResponse.json({ message: 'Error verifying email' }, { status: 500 });
   }
 }

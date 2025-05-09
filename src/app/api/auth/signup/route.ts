@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
 import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
+import { sendVerificationEmail } from '@/lib/mailer';
 
 // Fungsi untuk menghasilkan OTP 6 digit
 function generateOTP() {
@@ -118,8 +119,7 @@ export async function POST(request: Request) {
     if (normalizedPhone && otp) {
       // Kirim OTP via WhatsApp secara asinkron
       const message = `Your OTP *${otp}* 
-Please do not share this code with anyone. The code is valid for 60 minutes.
-${process.env.WEBSITE_URL}`;
+Please do not share this code with anyone. The code is valid for 60 minutes.`;
       sendWhatsAppMessage(normalizedPhone, message).then(otpSent => {
         if (otpSent) {
           console.log(`SIGNUP API ASYNC: OTP sent to ${normalizedPhone}`);
@@ -133,24 +133,12 @@ ${process.env.WEBSITE_URL}`;
       }).catch(otpError => {
         console.error('SIGNUP API ASYNC: OTP sending threw an error:', otpError);
       })
-      
-      // sendOtpViaWhatsApp(normalizedPhone, otp).then(otpSent => {
-      //   if (otpSent) {
-      //     console.log(`SIGNUP API ASYNC: OTP sent to ${normalizedPhone}`);
-      //   } else {
-      //     console.warn(`SIGNUP API ASYNC: OTP sending failed for ${normalizedPhone}.`);
-      //     // Pertimbangkan untuk memberi tahu user di response jika OTP gagal kirim,
-      //     // atau biarkan mereka request ulang jika ada fitur resend OTP.
-      //   }
-      // }).catch(otpError => {
-      //   console.error('SIGNUP API ASYNC: OTP sending threw an error:', otpError);
-      // });
       responseMessage = 'Pengguna berhasil dibuat. Silakan cek WhatsApp Anda untuk kode OTP.';
       nextStep = 'VERIFY_OTP';
     } else if (email) {
         responseMessage = 'Pengguna berhasil dibuat';
         // Kirim email verifikasi di sini jika diperlukan (menggunakan fungsi mailer.ts Anda)
-        // await sendVerificationEmail(email, emailVerificationToken);
+        await sendVerificationEmail(email!, emailVerificationToken!);
         nextStep = 'LOGIN_THEN_VERIFY_EMAIL'; // Atau LOGIN jika verifikasi email tidak block login
     } else {
         // Fallback, seharusnya tidak terjadi jika validasi di awal benar

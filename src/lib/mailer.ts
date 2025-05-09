@@ -38,9 +38,9 @@ export async function sendVerificationEmail(email: string, token: string, name?:
     const userName = name || 'User';
 
     const mailOptions: MailOptions = {
-        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+        from: `"GENFITY OFFICIAL" <${process.env.EMAIL_TITLE_USER}>`,
         to: email,
-        subject: 'Verifikasi Email Anda - GENFITY',
+        subject: 'Verify Your Email - GENFITY',
         html: `
             <div style="font-family: 'Segoe UI', Arial, sans-serif; background: #f6f8fa; padding: 40px 0;">
                 <div style="max-width: 520px; margin: auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden;">
@@ -49,28 +49,28 @@ export async function sendVerificationEmail(email: string, token: string, name?:
                         <h1 style="color: #fff; font-size: 2rem; margin: 0;">GENFITY</h1>
                     </div>
                     <div style="padding: 32px 32px 24px 32px;">
-                        <h2 style="color: #222; font-size: 1.5rem; margin-bottom: 8px;">Halo, ${userName} 👋</h2>
+                        <h2 style="color: #222; font-size: 1.5rem; margin-bottom: 8px;">Hello, ${userName} 👋</h2>
                         <p style="color: #444; font-size: 1.05rem; margin-bottom: 24px;">
-                            Terima kasih telah bergabung bersama kami! Untuk mengaktifkan akun Anda, silakan verifikasi email dengan menekan tombol di bawah ini:
+                            Thank you for joining us! To activate your account, please verify your email by clicking the button below:
                         </p>
                         <div style="text-align: center; margin-bottom: 28px;">
                             <a href="${verificationLink}"
                                 style="background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%); color: #fff; font-weight: 600; padding: 14px 36px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; box-shadow: 0 2px 8px rgba(0,123,255,0.12); transition: background 0.2s;">
-                                Verifikasi Email Saya
+                                Verify My Email
                             </a>
                         </div>
                         <p style="color: #888; font-size: 0.98rem; margin-bottom: 16px;">
-                            Atau salin dan tempel link berikut ke browser Anda jika tombol di atas tidak berfungsi:
+                            Or copy and paste the following link into your browser if the button above does not work:
                         </p>
                         <div style="background: #f1f3f6; padding: 12px 16px; border-radius: 6px; word-break: break-all; font-size: 0.97rem; color: #007bff;">
                             <a href="${verificationLink}" style="color: #007bff; text-decoration: underline;">${verificationLink}</a>
                         </div>
                         <p style="color: #b0b0b0; font-size: 0.93rem; margin-top: 24px;">
-                            Link ini berlaku selama <b>1 jam</b>. Jika Anda tidak merasa mendaftar, abaikan email ini.
+                            This link is valid for <b>1 hour</b>. If you did not sign up, please ignore this email.
                         </p>
                         <hr style="border: none; border-top: 1px solid #eee; margin: 32px 0 16px 0;" />
                         <p style="color: #aaa; font-size: 0.92rem; text-align: center;">
-                            Email ini dikirim otomatis. Jangan balas email ini.<br>
+                            This email was sent automatically. Please do not reply.<br>
                             &copy; ${new Date().getFullYear()} GENFITY. All rights reserved.
                         </p>
                     </div>
@@ -110,13 +110,13 @@ export async function sendPasswordResetEmail(email: string, token: string) {
             await transporter.sendMail({
                 from: `"GENFITY OFFICIAL" <${process.env.EMAIL_TITLE_USER}>`,
                 to: email,
-                subject: 'Reset Kata Sandi Akun Anda',
+                subject: 'Reset Your Account Password',
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                        <h2 style="color: #333;">Reset Kata Sandi</h2>
-                        <p>Untuk mengatur ulang kata sandi Anda, silakan klik tautan berikut:</p>
+                        <h2 style="color: #333;">Password Reset</h2>
+                        <p>To reset your password, please click the link below:</p>
                         <a href="${resetLink}" style="color: #007bff;">${resetLink}</a>
-                        <p>Jika Anda tidak meminta ini, abaikan email ini.</p>
+                        <p>If you did not request this, please ignore this email.</p>
                     </div>
                 `,
             });
@@ -138,24 +138,24 @@ export async function sendPasswordResetOtpEmail(email: string, otp: string, user
     // Konten email bisa lebih informatif
     const htmlContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-        <h2 style="color: #333;">Reset Kata Sandi</h2>
-        <p>Halo ${userName || 'Pengguna'},</p>
-        <p>Kami menerima permintaan untuk mereset kata sandi akun Anda.</p>
-        <p>Gunakan kode OTP berikut untuk melanjutkan proses reset kata sandi. Kode ini berlaku selama 10 menit:</p>
+        <h2 style="color: #333;">Password Reset</h2>
+        <p>Hello ${userName || 'User'},</p>
+        <p>We received a request to reset your account password.</p>
+        <p>Please use the following OTP code to proceed with the password reset. This code is valid for 10 minutes:</p>
         <p style="font-size: 24px; font-weight: bold; color: #007bff; text-align: center; letter-spacing: 2px; margin: 20px 0;">
             ${otp}
         </p>
-        <p>Jika Anda tidak meminta reset kata sandi, abaikan email ini atau hubungi dukungan kami jika Anda memiliki kekhawatiran.</p>
-        <p>Terima kasih.</p>
+        <p>If you did not request a password reset, please ignore this email or contact our support if you have any concerns.</p>
+        <p>Thank you.</p>
         <hr style="border: none; border-top: 1px solid #eee;" />
-        <p style="font-size: 0.9em; color: #aaa; text-align: center;">Email ini dikirim secara otomatis. Mohon jangan membalas email ini.</p>
+        <p style="font-size: 0.9em; color: #aaa; text-align: center;">This email was sent automatically. Please do not reply to this email.</p>
         </div>
     `;
 
     if (process.env.NODE_ENV === 'production' || (process.env.EMAIL_SERVER_USER && process.env.EMAIL_SERVER_PASSWORD)) {
         try {
             await transporter.sendMail({
-                from: `"GENFITY OFFICIAL" <${process.env.EMAIL_SERVER_USER}>`,
+                from: `"GENFITY OFFICIAL" <${process.env.EMAIL_TITLE_USER}>`,
                 to: email,
                 subject: subject,
                 html: htmlContent,
