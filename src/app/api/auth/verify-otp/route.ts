@@ -4,6 +4,7 @@ import { encode } from 'next-auth/jwt';
 import { authOptions } from '@/lib/auth'; // Updated import path
 import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
+import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup)
 function normalizePhoneNumber(phone: string): string {
@@ -20,51 +21,13 @@ function normalizePhoneNumber(phone: string): string {
 }
 
 // Fungsi untuk menghasilkan password acak
-function generateRandomPassword(length: number = 10): string {
-  return randomBytes(Math.ceil(length / 2))
-    .toString('hex') // convert to hexadecimal format
-    .slice(0, length); // return required number of characters
-}
-
-// Fungsi untuk mengirim pesan WhatsApp (lebih generik)
-async function sendWhatsAppMessage(phoneNumber: string, message: string): Promise<boolean> {
-  const WA_URL = process.env.WHATSAPP_API_ENDPOINT;
-  const CHAT_ID_SUFFIX = '@c.us';
-  const formattedPhoneNumber = phoneNumber.startsWith('62') ? phoneNumber : `62${phoneNumber.substring(1)}`;
-
-  if (!WA_URL) {
-    console.error('WHATSAPP_API_ENDPOINT is not defined.');
-    return false;
+function generateRandomPassword(length: number = 8): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-
-  try {
-    const response = await fetch(WA_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${process.env.WHATSAPP_API_TOKEN}`, // Jika perlu
-      },
-      body: JSON.stringify({
-        chatId: `${formattedPhoneNumber}${CHAT_ID_SUFFIX}`,
-        contentType: "string",
-        content: message,
-      }),
-    });
-
-    if (!response.ok) {
-      let errorData = { message: response.statusText };
-      try {
-        errorData = await response.json();
-      } catch (e) { /* ignore */ }
-      console.error('WhatsApp API error:', response.status, errorData);
-      return false;
-    }
-    console.log('WhatsApp message sent successfully to:', formattedPhoneNumber);
-    return true;
-  } catch (error) {
-    console.error('Error sending WhatsApp message:', error);
-    return false;
-  }
+  return password;
 }
 
 export async function POST(request: Request) {
@@ -126,11 +89,11 @@ export async function POST(request: Request) {
       // Pengguna baru, kirim pesan dengan password sementara
       const welcomeMessage = `Welcome to Genfity, ${updatedUser.name}! Your account has been successfully verified.
 
-  Phone Number: ${updatedUser.phone}
-  Temporary Password: ${newPassword}
+Phone Number: ${updatedUser.phone}
+Temporary Password: ${newPassword}
 
-  Please login at: ${process.env.WEBSITE_URL}
-  Make sure to change your password immediately for your account's security.`;
+Please login at: ${process.env.WEBSITE_URL}
+Make sure to change your password immediately for your account's security.`;
 
       sendWhatsAppMessage(updatedUser.phone, welcomeMessage).catch(err => {
       console.error("Failed to send welcome message via WhatsApp:", err);
@@ -139,11 +102,11 @@ export async function POST(request: Request) {
       // Pengguna sudah ada, kirim pesan konfirmasi
       const confirmationMessage = `Hello ${updatedUser.name},
 
-  Welcome to Genfity! We're excited to be your trusted partner in business digitalization, helping you grow and build stronger customer trust. As your all-in-one software house and digital agency, we offer innovative solutions tailored for your success.
+Welcome to Genfity! We're excited to be your trusted partner in business digitalization, helping you grow and build stronger customer trust. As your all-in-one software house and digital agency, we offer innovative solutions tailored for your success.
 
-  Feel free to explore our products and exclusive offers on our website!
+Feel free to explore our products and exclusive offers on our website!
 
-  ${process.env.WEBSITE_URL}
+${process.env.WEBSITE_URL}
     `;
       sendWhatsAppMessage(updatedUser.phone, confirmationMessage).catch(err => {
       console.error("Failed to send confirmation message via WhatsApp:", err);

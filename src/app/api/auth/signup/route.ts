@@ -2,54 +2,11 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
+import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
 
 // Fungsi untuk menghasilkan OTP 6 digit
 function generateOTP() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-}
-
-// Fungsi untuk mengirim OTP via WhatsApp
-async function sendOtpViaWhatsApp(phoneNumber: string, otp: string) {
-  const WA_URL = process.env.WHATSAPP_API_ENDPOINT;
-  const CHAT_ID_SUFFIX = '@c.us';
-  const formattedPhoneNumber = phoneNumber.startsWith('62') ? phoneNumber : `62${phoneNumber.substring(1)}`;
-
-  if (!WA_URL) {
-    console.error(`WHATSAPP_API_ENDPOINT is not defined.`);
-    return false;
-  }
-
-  try {
-    const response = await fetch(WA_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api_key': `Bearer ${process.env.WHATSAPP_API_TOKEN}`,
-      },
-      body: JSON.stringify({
-        chatId: `${formattedPhoneNumber}${CHAT_ID_SUFFIX}`,
-        contentType: "string",
-        content: `Kode OTP Anda adalah: ${otp}. Jangan bagikan kode ini kepada siapa pun. Kode ini berlaku selama 1 jam.`,
-      }),
-    });
-
-    if (!response.ok) {
-      // Coba parsing error response sebagai JSON, jika gagal, gunakan status text
-      let errorData = { message: response.statusText };
-      try {
-        errorData = await response.json();
-      } catch (e) {
-        // Biarkan errorData seperti semula jika parsing gagal
-      }
-      console.error('WhatsApp API error:', response.status, errorData);
-      return false;
-    }
-    console.log('OTP sent successfully via WhatsApp to:', formattedPhoneNumber);
-    return true;
-  } catch (error) {
-    console.error('Error sending OTP via WhatsApp:', error);
-    return false;
-  }
+  return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
 export async function POST(request: Request) {
@@ -160,17 +117,32 @@ export async function POST(request: Request) {
 
     if (normalizedPhone && otp) {
       // Kirim OTP via WhatsApp secara asinkron
-      sendOtpViaWhatsApp(normalizedPhone, otp).then(otpSent => {
+      const message = `Your OTP code is: ${otp}. Do not share this code with anyone. This code is valid for 1 hour.`;
+      sendWhatsAppMessage(normalizedPhone, message).then(otpSent => {
         if (otpSent) {
           console.log(`SIGNUP API ASYNC: OTP sent to ${normalizedPhone}`);
         } else {
           console.warn(`SIGNUP API ASYNC: OTP sending failed for ${normalizedPhone}.`);
+          // Log additional info for debugging
+          console.warn('Possible reasons: invalid phone number, WhatsApp API error, or quota exceeded.');
           // Pertimbangkan untuk memberi tahu user di response jika OTP gagal kirim,
           // atau biarkan mereka request ulang jika ada fitur resend OTP.
         }
       }).catch(otpError => {
         console.error('SIGNUP API ASYNC: OTP sending threw an error:', otpError);
-      });
+      })
+      
+      // sendOtpViaWhatsApp(normalizedPhone, otp).then(otpSent => {
+      //   if (otpSent) {
+      //     console.log(`SIGNUP API ASYNC: OTP sent to ${normalizedPhone}`);
+      //   } else {
+      //     console.warn(`SIGNUP API ASYNC: OTP sending failed for ${normalizedPhone}.`);
+      //     // Pertimbangkan untuk memberi tahu user di response jika OTP gagal kirim,
+      //     // atau biarkan mereka request ulang jika ada fitur resend OTP.
+      //   }
+      // }).catch(otpError => {
+      //   console.error('SIGNUP API ASYNC: OTP sending threw an error:', otpError);
+      // });
       responseMessage = 'Pengguna berhasil dibuat. Silakan cek WhatsApp Anda untuk kode OTP.';
       nextStep = 'VERIFY_OTP';
     } else if (email) {
