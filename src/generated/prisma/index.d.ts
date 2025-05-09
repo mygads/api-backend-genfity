@@ -1167,6 +1167,7 @@ export namespace Prisma {
     password: string | null
     otp: string | null
     otpExpires: Date | null
+    otpVerificationDeadline: Date | null
     emailVerified: Date | null
     phoneVerified: Date | null
     image: string | null
@@ -1182,6 +1183,7 @@ export namespace Prisma {
     password: string | null
     otp: string | null
     otpExpires: Date | null
+    otpVerificationDeadline: Date | null
     emailVerified: Date | null
     phoneVerified: Date | null
     image: string | null
@@ -1197,6 +1199,7 @@ export namespace Prisma {
     password: number
     otp: number
     otpExpires: number
+    otpVerificationDeadline: number
     emailVerified: number
     phoneVerified: number
     image: number
@@ -1214,6 +1217,7 @@ export namespace Prisma {
     password?: true
     otp?: true
     otpExpires?: true
+    otpVerificationDeadline?: true
     emailVerified?: true
     phoneVerified?: true
     image?: true
@@ -1229,6 +1233,7 @@ export namespace Prisma {
     password?: true
     otp?: true
     otpExpires?: true
+    otpVerificationDeadline?: true
     emailVerified?: true
     phoneVerified?: true
     image?: true
@@ -1244,6 +1249,7 @@ export namespace Prisma {
     password?: true
     otp?: true
     otpExpires?: true
+    otpVerificationDeadline?: true
     emailVerified?: true
     phoneVerified?: true
     image?: true
@@ -1332,6 +1338,7 @@ export namespace Prisma {
     password: string | null
     otp: string | null
     otpExpires: Date | null
+    otpVerificationDeadline: Date | null
     emailVerified: Date | null
     phoneVerified: Date | null
     image: string | null
@@ -1364,6 +1371,7 @@ export namespace Prisma {
     password?: boolean
     otp?: boolean
     otpExpires?: boolean
+    otpVerificationDeadline?: boolean
     emailVerified?: boolean
     phoneVerified?: boolean
     image?: boolean
@@ -1384,6 +1392,7 @@ export namespace Prisma {
     password?: boolean
     otp?: boolean
     otpExpires?: boolean
+    otpVerificationDeadline?: boolean
     emailVerified?: boolean
     phoneVerified?: boolean
     image?: boolean
@@ -1391,7 +1400,7 @@ export namespace Prisma {
     emailVerificationTokenExpires?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "otp" | "otpExpires" | "emailVerified" | "phoneVerified" | "image" | "emailVerificationToken" | "emailVerificationTokenExpires", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "otp" | "otpExpires" | "otpVerificationDeadline" | "emailVerified" | "phoneVerified" | "image" | "emailVerificationToken" | "emailVerificationTokenExpires", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1412,6 +1421,7 @@ export namespace Prisma {
       password: string | null
       otp: string | null
       otpExpires: Date | null
+      otpVerificationDeadline: Date | null
       emailVerified: Date | null
       phoneVerified: Date | null
       image: string | null
@@ -1795,6 +1805,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly otp: FieldRef<"User", 'String'>
     readonly otpExpires: FieldRef<"User", 'DateTime'>
+    readonly otpVerificationDeadline: FieldRef<"User", 'DateTime'>
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly phoneVerified: FieldRef<"User", 'DateTime'>
     readonly image: FieldRef<"User", 'String'>
@@ -5049,6 +5060,7 @@ export namespace Prisma {
     password: 'password',
     otp: 'otp',
     otpExpires: 'otpExpires',
+    otpVerificationDeadline: 'otpVerificationDeadline',
     emailVerified: 'emailVerified',
     phoneVerified: 'phoneVerified',
     image: 'image',
@@ -5207,6 +5219,7 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     otp?: StringNullableFilter<"User"> | string | null
     otpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    otpVerificationDeadline?: DateTimeNullableFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     phoneVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
@@ -5224,6 +5237,7 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
     otpExpires?: SortOrderInput | SortOrder
+    otpVerificationDeadline?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
     phoneVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -5246,6 +5260,7 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     otp?: StringNullableFilter<"User"> | string | null
     otpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    otpVerificationDeadline?: DateTimeNullableFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     phoneVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
@@ -5262,6 +5277,7 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     otp?: SortOrderInput | SortOrder
     otpExpires?: SortOrderInput | SortOrder
+    otpVerificationDeadline?: SortOrderInput | SortOrder
     emailVerified?: SortOrderInput | SortOrder
     phoneVerified?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
@@ -5283,6 +5299,7 @@ export namespace Prisma {
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     otp?: StringNullableWithAggregatesFilter<"User"> | string | null
     otpExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    otpVerificationDeadline?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     phoneVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -5487,6 +5504,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -5504,6 +5522,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -5521,6 +5540,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5538,6 +5558,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5555,6 +5576,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -5570,6 +5592,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5585,6 +5608,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5866,6 +5890,7 @@ export namespace Prisma {
     password?: SortOrder
     otp?: SortOrder
     otpExpires?: SortOrder
+    otpVerificationDeadline?: SortOrder
     emailVerified?: SortOrder
     phoneVerified?: SortOrder
     image?: SortOrder
@@ -5881,6 +5906,7 @@ export namespace Prisma {
     password?: SortOrder
     otp?: SortOrder
     otpExpires?: SortOrder
+    otpVerificationDeadline?: SortOrder
     emailVerified?: SortOrder
     phoneVerified?: SortOrder
     image?: SortOrder
@@ -5896,6 +5922,7 @@ export namespace Prisma {
     password?: SortOrder
     otp?: SortOrder
     otpExpires?: SortOrder
+    otpVerificationDeadline?: SortOrder
     emailVerified?: SortOrder
     phoneVerified?: SortOrder
     image?: SortOrder
@@ -6559,6 +6586,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -6575,6 +6603,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -6607,6 +6636,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6623,6 +6653,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6639,6 +6670,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -6655,6 +6687,7 @@ export namespace Prisma {
     password?: string | null
     otp?: string | null
     otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
     emailVerified?: Date | string | null
     phoneVerified?: Date | string | null
     image?: string | null
@@ -6687,6 +6720,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6703,6 +6737,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     otp?: NullableStringFieldUpdateOperationsInput | string | null
     otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null

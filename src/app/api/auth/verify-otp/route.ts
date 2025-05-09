@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { encode } from 'next-auth/jwt';
 import { authOptions } from '@/lib/auth'; // Updated import path
+import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup)
 function normalizePhoneNumber(phone: string): string {
@@ -17,6 +19,54 @@ function normalizePhoneNumber(phone: string): string {
     return '62' + phone.replace(/\D/g, ''); // Hapus non-digit juga
 }
 
+// Fungsi untuk menghasilkan password acak
+function generateRandomPassword(length: number = 10): string {
+  return randomBytes(Math.ceil(length / 2))
+    .toString('hex') // convert to hexadecimal format
+    .slice(0, length); // return required number of characters
+}
+
+// Fungsi untuk mengirim pesan WhatsApp (lebih generik)
+async function sendWhatsAppMessage(phoneNumber: string, message: string): Promise<boolean> {
+  const WA_URL = process.env.WHATSAPP_API_ENDPOINT;
+  const CHAT_ID_SUFFIX = '@c.us';
+  const formattedPhoneNumber = phoneNumber.startsWith('62') ? phoneNumber : `62${phoneNumber.substring(1)}`;
+
+  if (!WA_URL) {
+    console.error('WHATSAPP_API_ENDPOINT is not defined.');
+    return false;
+  }
+
+  try {
+    const response = await fetch(WA_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${process.env.WHATSAPP_API_TOKEN}`, // Jika perlu
+      },
+      body: JSON.stringify({
+        chatId: `${formattedPhoneNumber}${CHAT_ID_SUFFIX}`,
+        contentType: "string",
+        content: message,
+      }),
+    });
+
+    if (!response.ok) {
+      let errorData = { message: response.statusText };
+      try {
+        errorData = await response.json();
+      } catch (e) { /* ignore */ }
+      console.error('WhatsApp API error:', response.status, errorData);
+      return false;
+    }
+    console.log('WhatsApp message sent successfully to:', formattedPhoneNumber);
+    return true;
+  } catch (error) {
+    console.error('Error sending WhatsApp message:', error);
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const { identifier, otp } = await request.json();
@@ -30,9 +80,8 @@ export async function POST(request: Request) {
     let normalizedPhone = '';
 
     if (isEmail) {
-      user = await prisma.user.findUnique({
-        where: { email: identifier },
-      });
+      // Verifikasi OTP via email tidak diimplementasikan di sini, fokus pada WhatsApp
+      return NextResponse.json({ message: 'Verifikasi OTP via email belum didukung untuk alur ini' }, { status: 400 });
     } else {
       normalizedPhone = normalizePhoneNumber(identifier);
       user = await prisma.user.findUnique({
@@ -52,16 +101,38 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'OTP sudah kedaluwarsa' }, { status: 400 });
     }
 
-    // OTP valid, update pengguna
+    // OTP valid
+    let newPassword = null;
+    let hashedPassword = user.password; // Ambil password yang mungkin sudah ada (jika signup via email dulu)
+
+    if (!user.password && user.phone && normalizedPhone === user.phone) { // Hanya buat password jika belum ada DAN ini adalah verifikasi via phone
+        newPassword = generateRandomPassword();
+        hashedPassword = await bcrypt.hash(newPassword, 10);
+    }
+    
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
       data: {
-        phoneVerified: !isEmail ? new Date() : user.phoneVerified,
-        emailVerified: isEmail ? new Date() : user.emailVerified,
+        phoneVerified: new Date(),
         otp: null,
         otpExpires: null,
+        otpVerificationDeadline: null, // Hapus deadline setelah verifikasi
+        password: hashedPassword, // Simpan password baru jika dibuat
       },
     });
+
+    // Kirim pesan selamat datang dan kredensial jika password baru dibuat
+    if (newPassword && updatedUser.phone) {
+      const welcomeMessage = `Welcome to our service, ${updatedUser.name || 'User'}! Your account has been successfully verified.
+
+    Phone Number: ${updatedUser.phone}
+    Temporary Password: ${newPassword}
+
+    Please change your password immediately for your account's security.`;
+      sendWhatsAppMessage(updatedUser.phone, welcomeMessage).catch(err => {
+          console.error("Failed to send welcome message via WhatsApp:", err);
+      });
+    }
 
     // Buat sesi JWT (Login Otomatis)
     const { callbacks } = authOptions;
@@ -109,7 +180,7 @@ export async function POST(request: Request) {
     });
 
     const response = NextResponse.json({
-      message: 'Verifikasi berhasil. Anda sekarang sudah login.',
+      message: 'Verifikasi berhasil.' + (newPassword ? ' Anda sekarang sudah login dan password sementara telah dikirim via WhatsApp.' : ' Anda sekarang sudah login.'),
       user: {
         id: updatedUser.id,
         email: updatedUser.email,

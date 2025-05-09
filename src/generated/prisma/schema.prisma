@@ -23,6 +23,7 @@ model User {
   password                      String?
   otp                           String?
   otpExpires                    DateTime?
+  otpVerificationDeadline       DateTime?
   emailVerified                 DateTime?
   phoneVerified                 DateTime?
   image                         String?
