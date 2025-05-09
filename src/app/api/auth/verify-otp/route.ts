@@ -121,16 +121,32 @@ export async function POST(request: Request) {
       },
     });
 
-    // Kirim pesan selamat datang dan kredensial jika password baru dibuat
+
     if (newPassword && updatedUser.phone) {
-      const welcomeMessage = `Welcome to our service, ${updatedUser.name || 'User'}! Your account has been successfully verified.
+      // Pengguna baru, kirim pesan dengan password sementara
+      const welcomeMessage = `Welcome to Genfity, ${updatedUser.name}! Your account has been successfully verified.
 
-    Phone Number: ${updatedUser.phone}
-    Temporary Password: ${newPassword}
+  Phone Number: ${updatedUser.phone}
+  Temporary Password: ${newPassword}
 
-    Please change your password immediately for your account's security.`;
+  Please login at: ${process.env.WEBSITE_URL}
+  Make sure to change your password immediately for your account's security.`;
+
       sendWhatsAppMessage(updatedUser.phone, welcomeMessage).catch(err => {
-          console.error("Failed to send welcome message via WhatsApp:", err);
+      console.error("Failed to send welcome message via WhatsApp:", err);
+      });
+    } else if (updatedUser.phone) {
+      // Pengguna sudah ada, kirim pesan konfirmasi
+      const confirmationMessage = `Hello ${updatedUser.name},
+
+  Welcome to Genfity! We're excited to be your trusted partner in business digitalization, helping you grow and build stronger customer trust. As your all-in-one software house and digital agency, we offer innovative solutions tailored for your success.
+
+  Feel free to explore our products and exclusive offers on our website!
+
+  ${process.env.WEBSITE_URL}
+    `;
+      sendWhatsAppMessage(updatedUser.phone, confirmationMessage).catch(err => {
+      console.error("Failed to send confirmation message via WhatsApp:", err);
       });
     }
 
