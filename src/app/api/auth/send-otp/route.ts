@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { sendPasswordResetOtpEmail } from '@/lib/mailer'; // Asumsi ada fungsi ini di mailer
 import { randomInt } from 'crypto';
+import { sendWhatsAppMessage } from '@/lib/whatsapp';
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup dan verify-otp)
 function normalizePhoneNumber(phone: string): string {
@@ -16,42 +17,6 @@ function normalizePhoneNumber(phone: string): string {
     // Jika tidak ada prefix umum, tambahkan 62 (sesuaikan jika perlu)
     return '62' + phone.replace(/\D/g, ''); // Hapus non-digit juga
 }
-
-// Fungsi untuk mengirim OTP via WhatsApp (placeholder)
-async function sendOtpViaWhatsApp(phone: string, otp: string, userName: string | null): Promise<{ success: boolean; message?: string; error?: unknown }> {
-    // console.log(`Sending OTP ${otp} to WhatsApp ${phone} for user ${userName || 'N/A'}`);
-
-    const apiKey = process.env.WHATSAPP_API_KEY;
-    const apiEndpoint = process.env.WHATSAPP_API_ENDPOINT;
-    const formattedPhoneNumber = phone.startsWith('62') ? phone : `62${phone.substring(1)}`;
-    const CHAT_ID_SUFFIX = '@c.us';
-    if (!apiEndpoint) {
-        console.error("WhatsApp API endpoint is not defined.");
-        return { success: false, message: 'WhatsApp API endpoint is not configured.' };
-    }
-    try {
-        const response = await fetch(apiEndpoint, {
-            method: 'POST',
-            headers: { 
-                'Authorization': `Bearer ${apiKey}`, 
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(
-                {     
-                    chatId: `${formattedPhoneNumber}${CHAT_ID_SUFFIX}`,
-                    contentType: "string",
-                    content: `Hi ${userName || 'User'}, kode OTP Anda adalah: ${otp}. Jangan bagikan kode ini.`,
-                }
-            ),
-        });
-        if (!response.ok) throw new Error('Failed to send WhatsApp message');
-        return { success: true, message: 'OTP sent to WhatsApp' };
-    } catch (error) {
-        console.error("WhatsApp OTP sending error:", error);
-        return { success: false, error, message: 'Failed to send OTP via WhatsApp' };
-    }
-}
-
 
 export async function POST(request: Request) {
     try {
@@ -91,8 +56,8 @@ export async function POST(request: Request) {
         }
 
         // Generate OTP
-        const otp = randomInt(100000, 999999).toString(); // 6 digit OTP
-        const otpExpires = new Date(Date.now() + 10 * 60 * 1000); // OTP berlaku 10 menit
+        const otp = randomInt(1000, 9999).toString(); // 4 digit OTP
+        const otpExpires = new Date(Date.now() + 60 * 60 * 1000); // OTP berlaku 60 menit
 
         await prisma.user.update({
             where: { id: user.id },
@@ -116,11 +81,14 @@ export async function POST(request: Request) {
             if (!user.phone) { // Seharusnya tidak terjadi jika identifier adalah phone
                 return NextResponse.json({ message: 'Nomor telepon pengguna tidak ditemukan untuk mengirim OTP.' }, { status: 500 });
             }
-            const whatsappResult = await sendOtpViaWhatsApp(user.phone, otp, user.name);
-            if (!whatsappResult.success) {
-                console.error('Forgot Password - WhatsApp error:', whatsappResult.error);
-                return NextResponse.json({ message: whatsappResult.message || 'Gagal mengirim OTP ke WhatsApp. Silakan coba lagi.' }, { status: 500 });
-            }
+            const message = `Your OTP *${otp}* 
+Please do not share this code with anyone. The code is valid for 60 minutes.
+${process.env.WEBSITE_URL}`;
+            await sendWhatsAppMessage(user.phone, message).then((result) => {
+                if (!result) {
+                    return NextResponse.json({ message: 'Error sending OTP via WhatsApp.' }, { status: 500 });
+                }
+            });
             return NextResponse.json({ message: `OTP telah dikirim ke WhatsApp ${user.phone}. Silakan periksa pesan Anda.` });
         }
 

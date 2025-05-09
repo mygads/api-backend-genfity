@@ -117,7 +117,9 @@ export async function POST(request: Request) {
 
     if (normalizedPhone && otp) {
       // Kirim OTP via WhatsApp secara asinkron
-      const message = `Your OTP code is: ${otp}. Do not share this code with anyone. This code is valid for 1 hour.`;
+      const message = `Your OTP *${otp}* 
+Please do not share this code with anyone. The code is valid for 60 minutes.
+${process.env.WEBSITE_URL}`;
       sendWhatsAppMessage(normalizedPhone, message).then(otpSent => {
         if (otpSent) {
           console.log(`SIGNUP API ASYNC: OTP sent to ${normalizedPhone}`);
