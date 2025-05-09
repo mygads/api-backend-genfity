@@ -4,8 +4,8 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(request: Request) {
   // Optional: Add a secret key check to protect this endpoint
-  const authHeader = request.headers.get('Api-Key');
-  if (authHeader !== process.env.API_KEY_CRON) {
+  const authHeader = request.headers.get('Cron-API-Key');
+  if (authHeader !== process.env.CRON_API_KEY) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
