@@ -8,97 +8,11 @@ import { Label } from '@/components/ui/label'; // Assuming you have a Label comp
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // For category selection
 import Image from 'next/image'; // Import Next Image
 import { PlusCircle, Pencil, Trash2 } from 'lucide-react';
-
-// --- Interface Definitions ---
-interface Feature {
-  id: string;
-  name: string;
-  included: boolean;
-  packageId: string;
-}
-
-interface Subcategory {
-  id: string;
-  name: string;
-  categoryId: string;
-  // packages?: Package[]; // Optional: if you need to show packages under a subcategory directly
-}
-
-interface Addon {
-  id: string;
-  name: string;
-  description?: string | null;
-  price: number;
-  image?: string | null;
-  categoryId: string;
-  // category?: Category; // Optional: if you need to show parent category details
-}
-
-interface Package {
-  id: string;
-  name: string;
-  description?: string | null;
-  price: number;
-  image?: string | null;
-  popular?: boolean | null;
-  bgColor?: string | null;
-  categoryId: string;
-  subcategoryId: string;
-  features: Feature[];
-  // category?: Category; // Optional
-  // subcategory?: Subcategory; // Optional
-}
-
-interface Category {
-  id: string;
-  name: string;
-  icon?: string | null;
-  subcategories: Subcategory[];
-  addons: Addon[];
-  packages: Package[];
-}
-
-// For form data
-interface CategoryFormData {
-  name: string;
-  icon?: string;
-}
-
-// --- Subcategory Interface and Form Data ---
-interface SubcategoryFormData {
-  name: string;
-  categoryId: string;
-}
-
-// --- Addon Interface and Form Data ---
-interface AddonFormData {
-  name: string;
-  description?: string;
-  price: string; // Store as string for input, convert to number before sending
-  categoryId: string;
-  image?: string; // To store existing image URL or new image path after upload
-}
-
-// --- Package Interface and Form Data ---
-interface PackageFeatureFormData {
-  id?: string; // For existing features during edit, or temp client-side ID
-  name: string;
-  included: boolean;
-}
-
-interface PackageFormData {
-  name: string;
-  description?: string;
-  price: string; // Store as string for input
-  categoryId: string;
-  subcategoryId: string;
-  image?: string; // Existing image URL or new path
-  popular: boolean;
-  bgColor?: string;
-  features: PackageFeatureFormData[];
-}
-
-type ProductEntityType = 'categories' | 'subcategories' | 'addons' | 'packages';
+import CategoriesSection from './components/CategoriesSection';
+import SubcategoriesSection from './components/SubcategoriesSection';
+import AddonsSection from './components/AddonsSection';
+import PackagesSection from './components/PackagesSection';
+import type { Category, Subcategory, Addon, Package, CategoryFormData, SubcategoryFormData, AddonFormData, PackageFormData, PackageFeatureFormData, ProductEntityType } from '@/types/product-dashboard';
 
 export default function ProductsPage() {
   const [activeTab, setActiveTab] = useState<ProductEntityType>('categories');
@@ -136,6 +50,7 @@ export default function ProductsPage() {
     bgColor: '#FFFFFF', // Default color
     features: [],
     image: undefined,
+    addonIds: [], // Add this line to satisfy the required property
   });
   const [editingPackage, setEditingPackage] = useState<Package | null>(null);
   // State to hold subcategories filtered by the selected category in the package form
@@ -598,7 +513,6 @@ export default function ProductsPage() {
   };
 
   const openCreatePackageModal = () => {
-    setEditingPackage(null);
     setPackageFormData({
       name: '',
       description: '',
@@ -609,6 +523,7 @@ export default function ProductsPage() {
       bgColor: '#FFFFFF',
       features: [],
       image: undefined,
+      addonIds: [], // Add this line
     });
     setSelectedImageFile(null);
     setImagePreview(null);
@@ -634,6 +549,7 @@ export default function ProductsPage() {
       popular: pkg.popular || false,
       bgColor: pkg.bgColor || '#FFFFFF',
       features: pkg.features.map(f => ({ id: f.id, name: f.name, included: f.included })), // Map features for form
+      addonIds: pkg.addons ? pkg.addons.map(a => a.id) : [],
     });
     setSelectedImageFile(null);
     setImagePreview(pkg.image || null);
@@ -754,8 +670,8 @@ export default function ProductsPage() {
         method: 'DELETE',
       });
       if (!response.ok) {
-         const errorData = await response.json();
-         throw new Error(errorData.message || 'Failed to delete subcategory');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete subcategory');
       }
       // Check for 204 No Content or 200 OK with a success message
       if (response.status === 204 || response.status === 200) {
@@ -797,290 +713,56 @@ export default function ProductsPage() {
     }
   };
 
-  const renderCategories = () => (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Categories</h2>
-        <Button onClick={openCreateCategoryModal} size="sm">
-          <PlusCircle className="mr-2 h-4 w-4" /> Create New Category
-        </Button>
-      </div>
-      {isLoading && activeTab === 'categories' && <p className="text-center py-4">Loading categories...</p>}
-      {error && activeTab === 'categories' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-      {!isLoading && !error && categories.length === 0 && activeTab === 'categories' && (
-        <p className="text-center py-4 text-gray-500 dark:text-gray-400">No categories found. Click &apos;Create New Category&apos; to add one.</p>
-      )}
-      {!isLoading && !error && categories.length > 0 && (
-        <ul className="space-y-3">
-          {categories.map(cat => (
-            <li key={cat.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
-              <div className="flex items-center space-x-4">
-                {(cat.icon && (cat.icon.startsWith('http') || cat.icon.startsWith('/') || cat.icon.startsWith('data:image'))) ? (
-                  <Image
-                    src={cat.icon}
-                    alt={cat.name}
-                    width={40}
-                    height={40}
-                    className="object-contain rounded-md bg-gray-100 dark:bg-gray-700" // Added bg for better visibility of contain
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      // Optionally, find a sibling placeholder and display it
-                    }}
-                  />
-                ) : cat.icon && cat.icon.length < 30 && !cat.icon.includes('<svg') ? ( // Attempt to render simple text/FA class if not a URL or long SVG
-                  <span className="w-[40px] h-[40px] flex items-center justify-center text-gray-600 dark:text-gray-300 text-xl rounded-md bg-gray-200 dark:bg-gray-700">
-                    {/* This might need a dedicated component for FontAwesome or SVG string rendering */}
-                    {cat.icon}
-                  </span>
-                ) : (
-                  <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image/icon URL">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-                    </svg>
-                  </div>
-                )}
-                <span className="font-medium text-gray-700 dark:text-gray-200">{cat.name}</span>
-              </div>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" onClick={() => openEditCategoryModal(cat)}>
-                  <Pencil className="mr-1 h-3 w-3" /> Edit
-                </Button>
-                <Button variant="destructive" size="sm" onClick={() => handleDeleteCategory(cat.id)}>
-                  <Trash2 className="mr-1 h-3 w-3" /> Delete
-                </Button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-
-  const renderSubcategories = () => {
-    return (
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Manage Subcategories</h2>
-          <Button onClick={openCreateSubcategoryModal} disabled={categories.length === 0}>
-            {categories.length === 0 ? "Create Category First" : "Create New Subcategory"}
-          </Button>
-        </div>
-        {isLoading && activeTab === 'subcategories' && <p>Loading subcategories...</p>}
-        {error && activeTab === 'subcategories' && <p className="text-red-500">Error: {error}</p>}
-        
-        {!isLoading && categories.length === 0 && activeTab === 'subcategories' && 
-          <p>Please create a category first to add or view subcategories.</p>
-        }
-        {!isLoading && subcategories.length === 0 && categories.length > 0 && activeTab === 'subcategories' && !error &&
-          <p>No subcategories found. Click &apos;Create New Subcategory&apos; to add one.</p> // Corrected quotes
-        }
-        
-        {!isLoading && !error && subcategories.length > 0 && (
-          <ul className="space-y-2">
-            {subcategories.map(subcat => {
-              const parentCategory = categories.find(c => c.id === subcat.categoryId);
-              return (
-                <li key={subcat.id} className="p-3 border rounded-md shadow-sm flex justify-between items-center">
-                  <div>
-                    <span className="font-medium">{subcat.name}</span>
-                    {parentCategory && <span className="ml-2 text-sm text-gray-500">(Category: {parentCategory.name})</span>}
-                    {!parentCategory && <span className="ml-2 text-sm text-red-500">(Category ID: {subcat.categoryId} - Not Found)</span>}
-                  </div>
-                  <div>
-                    <Button variant="outline" size="sm" onClick={() => openEditSubcategoryModal(subcat)} className="mr-2">
-                      Edit
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => handleDeleteSubcategory(subcat.id)}>
-                      Delete
-                    </Button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    );
-  };
-
-  const renderAddons = () => {
-    return (
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Addons</h2>
-          <Button onClick={openCreateAddonModal} size="sm" disabled={categories.length === 0}>
-            <PlusCircle className="mr-2 h-4 w-4" /> Create New Addon
-          </Button>
-        </div>
-        {isLoading && activeTab === 'addons' && <p className="text-center py-4">Loading addons...</p>}
-        {error && activeTab === 'addons' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-        {!isLoading && categories.length === 0 && activeTab === 'addons' && 
-          <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please create a category first before adding addons.</p>
-        }
-        {!isLoading && addons.length === 0 && categories.length > 0 && activeTab === 'addons' && !error &&
-          <p className="text-center py-4 text-gray-500 dark:text-gray-400">No addons found. Click &apos;Create New Addon&apos; to add one.</p>
-        }
-        {!isLoading && !error && addons.length > 0 && (
-          <ul className="space-y-3">
-            {addons.map(addon => {
-              const categoryName = categories.find(c => c.id === addon.categoryId)?.name || 'N/A';
-              return (
-                <li key={addon.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
-                  <div className="flex items-center space-x-4">
-                    {addon.image ? (
-                      <Image
-                        src={addon.image}
-                        alt={addon.name}
-                        width={40}
-                        height={40}
-                        className="object-cover rounded-md"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                      </div>
-                    )}
-                    <div>
-                      <span className="font-medium text-gray-700 dark:text-gray-200">{addon.name}</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Category: {categoryName} - Price: ${typeof addon.price === 'number' ? addon.price.toFixed(2) : parseFloat(addon.price as string).toFixed(2)}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
-                      <Pencil className="mr-1 h-3 w-3" /> Edit
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => handleDeleteAddon(addon.id)}>
-                      <Trash2 className="mr-1 h-3 w-3" /> Delete
-                    </Button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    );
-  };
-
-  const renderPackages = () => {
-    return (
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Packages</h2>
-          <Button 
-            onClick={openCreatePackageModal} 
-            size="sm" 
-            disabled={categories.length === 0 || subcategories.length === 0}
-          >
-            <PlusCircle className="mr-2 h-4 w-4" /> Create New Package
-          </Button>
-        </div>
-        {isLoading && activeTab === 'packages' && <p className="text-center py-4">Loading packages...</p>}
-        {error && activeTab === 'packages' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-        
-        {!isLoading && (categories.length === 0 || subcategories.length === 0) && activeTab === 'packages' && 
-          <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please ensure you have at least one category and one subcategory before creating packages.</p>
-        }
-        {!isLoading && packages.length === 0 && categories.length > 0 && subcategories.length > 0 && activeTab === 'packages' && !error &&
-          <p className="text-center py-4 text-gray-500 dark:text-gray-400">No packages found. Click &apos;Create New Package&apos; to add one.</p>
-        }
-        
-        {!isLoading && !error && packages.length > 0 && (
-          <ul className="space-y-3">
-            {packages.map(pkg => {
-              const categoryName = categories.find(c => c.id === pkg.categoryId)?.name || 'N/A';
-              const subcategoryName = subcategories.find(sc => sc.id === pkg.subcategoryId)?.name || 'N/A';
-              return (
-                <li key={pkg.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
-                  <div className="flex items-center space-x-4">
-                    {pkg.image ? (
-                      <Image
-                        src={pkg.image}
-                        alt={pkg.name}
-                        width={40}
-                        height={40}
-                        className="object-cover rounded-md"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image">
-                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                         </svg>
-                      </div>
-                    )}
-                    <div>
-                      <span className="font-medium text-gray-700 dark:text-gray-200">{pkg.name}</span>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {categoryName} &gt; {subcategoryName} - Price: ${typeof pkg.price === 'number' ? pkg.price.toFixed(2) : parseFloat(pkg.price as string).toFixed(2)}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" onClick={() => openEditPackageModal(pkg)}>
-                       <Pencil className="mr-1 h-3 w-3" /> Edit
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => handleDeletePackage(pkg.id)}>
-                       <Trash2 className="mr-1 h-3 w-3" /> Delete
-                    </Button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    );
-  };
-
-
   const renderContent = () => {
-    // Error and loading states are handled within each specific renderer now for better granularity
-    // if (isLoading) return <p>Loading...</p>; // General loading can be removed or kept for initial page load
-    // if (error && !categories.length) return <p className="text-red-500">Error: {error}</p>; // General error can be removed
-
     switch (activeTab) {
       case 'categories':
-        return renderCategories();
+        return (
+          <CategoriesSection
+            categories={categories}
+            isLoading={isLoading}
+            error={error}
+            openCreateCategoryModal={openCreateCategoryModal}
+            openEditCategoryModal={openEditCategoryModal}
+            handleDeleteCategory={handleDeleteCategory}
+          />
+        );
       case 'subcategories':
-        // return (
-        //   <div>
-        //     <h2 className="text-xl font-semibold mb-3">Manage Subcategories</h2>
-        //     {/* TODO: Implement Subcategory UI */}
-        //     <p>Subcategory management UI will go here.</p>
-        //   </div>
-        // );
-        return renderSubcategories();
+        return (
+          <SubcategoriesSection
+            subcategories={subcategories}
+            categories={categories}
+            isLoading={isLoading}
+            error={error}
+            openCreateSubcategoryModal={openCreateSubcategoryModal}
+            openEditSubcategoryModal={openEditSubcategoryModal}
+            handleDeleteSubcategory={handleDeleteSubcategory}
+          />
+        );
       case 'addons':
-        // return (
-        //   <div>
-        //     <h2 className="text-xl font-semibold mb-3">Manage Addons</h2>
-        //     {/* TODO: Implement Addon UI */}
-        //     <p>Addon management UI will go here.</p>
-        //   </div>
-        // );
-        return renderAddons();
+        return (
+          <AddonsSection
+            addons={addons}
+            categories={categories}
+            isLoading={isLoading}
+            error={error}
+            openCreateAddonModal={openCreateAddonModal}
+            openEditAddonModal={openEditAddonModal}
+            handleDeleteAddon={handleDeleteAddon}
+          />
+        );
       case 'packages':
-        // return (
-        //   <div>
-        //     <h2 className="text-xl font-semibold mb-3">Manage Packages</h2>
-        //     {/* TODO: Implement Package UI */}
-        //     <p>Package management UI will go here.</p>
-        //   </div>
-        // );
-        return renderPackages();
+        return (
+          <PackagesSection
+            packages={packages}
+            categories={categories}
+            subcategories={subcategories}
+            isLoading={isLoading}
+            error={error}
+            openCreatePackageModal={openCreatePackageModal}
+            openEditPackageModal={openEditPackageModal}
+            handleDeletePackage={handleDeletePackage}
+          />
+        );
       default:
         return null;
     }
@@ -1300,30 +982,27 @@ export default function ProductsPage() {
       {/* Package Create/Edit Modal */}
       {isPackageModalOpen && (
         <Dialog open={isPackageModalOpen} onOpenChange={(isOpen) => { setIsPackageModalOpen(isOpen); if (!isOpen) { setError(null); setImagePreview(null); setSelectedImageFile(null); setFilteredSubcategoriesForPackageForm([]); } }}>
-          <DialogContent className="sm:max-w-lg"> {/* Increased width for package form */}
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader>
               <DialogTitle>{editingPackage ? 'Edit Package' : 'Create New Package'}</DialogTitle>
             </DialogHeader>
-            <div className="grid gap-5 py-4 max-h-[70vh] overflow-y-auto pr-2"> {/* Scrollable content */}
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-name" className="text-right">Name</Label>
-                <Input id="pkg-name" name="name" value={packageFormData.name} onChange={handlePackageFormChange} className="col-span-3" placeholder="e.g., Starter Pack" />
+            <div className="flex flex-col gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
+              <div>
+                <Label htmlFor="pkg-name" className="block mb-1">Name</Label>
+                <Input id="pkg-name" name="name" value={packageFormData.name} onChange={handlePackageFormChange} placeholder="e.g., Starter Pack" />
               </div>
-
-              <div className="grid grid-cols-4 items-start gap-4">
-                <Label htmlFor="pkg-description" className="text-right pt-2">Description</Label>
-                <textarea id="pkg-description" name="description" value={packageFormData.description || ''} onChange={handlePackageFormChange} className="col-span-3 border rounded-md p-2 text-sm min-h-[60px]" placeholder="Optional package description" />
+              <div>
+                <Label htmlFor="pkg-description" className="block mb-1">Description</Label>
+                <textarea id="pkg-description" name="description" value={packageFormData.description || ''} onChange={handlePackageFormChange} className="border rounded-md p-2 text-sm min-h-[60px] w-full" placeholder="Optional package description" />
               </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-price" className="text-right">Price ($)</Label>
-                <Input id="pkg-price" name="price" type="number" value={packageFormData.price} onChange={handlePackageFormChange} className="col-span-3" placeholder="e.g., 49.99" />
+              <div>
+                <Label htmlFor="pkg-price" className="block mb-1">Price ($)</Label>
+                <Input id="pkg-price" name="price" type="number" value={packageFormData.price} onChange={handlePackageFormChange} placeholder="e.g., 49.99" />
               </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-category" className="text-right">Category</Label>
+              <div>
+                <Label htmlFor="pkg-category" className="block mb-1">Category</Label>
                 <Select value={packageFormData.categoryId} onValueChange={handlePackageCategoryChange}>
-                  <SelectTrigger className="col-span-3">
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -1333,11 +1012,10 @@ export default function ProductsPage() {
                   </SelectContent>
                 </Select>
               </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-subcategory" className="text-right">Subcategory</Label>
+              <div>
+                <Label htmlFor="pkg-subcategory" className="block mb-1">Subcategory</Label>
                 <Select value={packageFormData.subcategoryId} onValueChange={handlePackageSubcategoryChange} disabled={!packageFormData.categoryId || filteredSubcategoriesForPackageForm.length === 0}>
-                  <SelectTrigger className="col-span-3">
+                  <SelectTrigger>
                     <SelectValue placeholder={!packageFormData.categoryId ? "Select category first" : (filteredSubcategoriesForPackageForm.length === 0 ? "No subcategories available" : "Select a subcategory")} />
                   </SelectTrigger>
                   <SelectContent>
@@ -1347,60 +1025,50 @@ export default function ProductsPage() {
                   </SelectContent>
                 </Select>
               </div>
-              
-              <div className="grid grid-cols-4 items-start gap-4">
-                <Label htmlFor="pkg-image" className="text-right pt-2">Image</Label>
-                <div className="col-span-3 space-y-2"> {/* Added space-y-2 for better vertical spacing */}
-                  <Input id="pkg-image" type="file" accept="image/*" onChange={handleImageFileChange} className="w-full mb-0" /> {/* Ensure input takes full width, remove mb-2 if space-y is used */}
-                  {imagePreview && (
-                    <div className="flex justify-start pt-1"> {/* Control alignment, added pt-1 for slight separation */}
-                      <Image src={imagePreview} alt="Preview" width={80} height={80} className="object-cover rounded" />
-                    </div>
-                  )}
-                  {!imagePreview && editingPackage?.image && (
-                    <div className="text-xs text-gray-500 pt-1"> {/* Wrap text for consistent spacing */}
-                      Current: {editingPackage.image.split('/').pop()}
-                    </div>
-                  )}
-                </div>
+              <div>
+                <Label htmlFor="pkg-image" className="block mb-1">Image</Label>
+                <Input id="pkg-image" type="file" accept="image/*" onChange={handleImageFileChange} className="w-full" />
+                {imagePreview && (
+                  <div className="flex justify-start pt-1">
+                    <Image src={imagePreview} alt="Preview" width={80} height={80} className="object-cover rounded" />
+                  </div>
+                )}
+                {!imagePreview && editingPackage?.image && (
+                  <div className="text-xs text-gray-500 pt-1">
+                    Current: {editingPackage.image.split('/').pop()}
+                  </div>
+                )}
               </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-popular" className="text-right">Popular</Label>
-                <div className="col-span-3 flex items-center">
-                   <Input type="checkbox" id="pkg-popular" name="popular" checked={packageFormData.popular} onChange={handlePackageFormChange} className="h-4 w-4" />
-                </div>
+              <div className="flex items-center gap-2">
+                <Input type="checkbox" id="pkg-popular" name="popular" checked={packageFormData.popular} onChange={handlePackageFormChange} className="h-4 w-4" />
+                <Label htmlFor="pkg-popular" className="text-sm">Popular</Label>
               </div>
-
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="pkg-bgColor" className="text-right">BG Color</Label>
-                <Input id="pkg-bgColor" name="bgColor" type="color" value={packageFormData.bgColor || '#FFFFFF'} onChange={handlePackageFormChange} className="col-span-1 h-8 w-14 p-1" />
-                <Input id="pkg-bgColor-text" name="bgColor" type="text" value={packageFormData.bgColor || '#FFFFFF'} onChange={handlePackageFormChange} className="col-span-2" placeholder="#FFFFFF" />
+              <div className="flex items-center gap-2">
+                <Label htmlFor="pkg-bgColor" className="mr-2">BG Color</Label>
+                <Input id="pkg-bgColor" name="bgColor" type="color" value={packageFormData.bgColor || '#FFFFFF'} onChange={handlePackageFormChange} className="h-8 w-14 p-1" />
+                <Input id="pkg-bgColor-text" name="bgColor" type="text" value={packageFormData.bgColor || '#FFFFFF'} onChange={handlePackageFormChange} className="w-24" placeholder="#FFFFFF" />
               </div>
-
               {/* Features Section */}
-              <div className="col-span-4">
+              <div>
                 <Label className="text-base font-medium">Features</Label>
                 {packageFormData.features.map((feature, index) => (
-                  <div key={feature.id || index} className="grid grid-cols-12 gap-2 items-center mt-2 p-2 border rounded-md">
+                  <div key={feature.id || index} className="flex gap-2 items-center mt-2 p-2 border rounded-md">
                     <Input
                       type="text"
                       placeholder="Feature name"
                       value={feature.name}
                       onChange={(e) => handlePackageFeatureChange(index, 'name', e.target.value)}
-                      className="col-span-7 text-sm"
+                      className="text-sm flex-1"
                     />
-                    <div className="col-span-4 flex items-center justify-start">
-                      <Input
-                        type="checkbox"
-                        checked={feature.included}
-                        onChange={(e) => handlePackageFeatureChange(index, 'included', e.target.checked)}
-                        className="h-4 w-4 mr-2"
-                        id={`feature-included-${index}`}
-                      />
-                      <Label htmlFor={`feature-included-${index}`} className="text-sm">Included</Label>
-                    </div>
-                    <Button type="button" variant="ghost" size="sm" onClick={() => handleRemovePackageFeature(index)} className="col-span-1 text-red-500">✕</Button>
+                    <Input
+                      type="checkbox"
+                      checked={feature.included}
+                      onChange={(e) => handlePackageFeatureChange(index, 'included', e.target.checked)}
+                      className="h-4 w-4 mr-2"
+                      id={`feature-included-${index}`}
+                    />
+                    <Label htmlFor={`feature-included-${index}`} className="text-sm">Included</Label>
+                    <Button type="button" variant="ghost" size="sm" onClick={() => handleRemovePackageFeature(index)} className="text-red-500">✕</Button>
                   </div>
                 ))}
                 <Button type="button" variant="outline" size="sm" onClick={handleAddPackageFeature} className="mt-3">

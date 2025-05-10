@@ -33,7 +33,7 @@ export interface Package {
   categoryId: string;
   subcategoryId: string;
   features: Feature[];
-  addons: Addon[]; // Added to hold selected/associated addons
+  addons?: Addon[]; // Optional field for associated addons
   // category?: Category; 
   // subcategory?: Subcategory; 
 }
