@@ -206,6 +206,402 @@ components:
         message:
           type: string
 
+    FeatureResponse: # Renamed from Feature and added id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the feature.
+        name:
+          type: string
+          description: Name of the feature.
+        included:
+          type: boolean
+          description: Whether the feature is included.
+      required:
+        - id
+        - name
+        - included
+
+    FeatureInput:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          description: Unique identifier for the feature (used for updates, optional for new features within a package update).
+        name:
+          type: string
+          description: Name of the feature.
+        included:
+          type: boolean
+          description: Whether the feature is included.
+      required:
+        - name
+        - included
+
+    CategoryBrief:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the category.
+        name:
+          type: string
+          description: Name of the category.
+        icon:
+          type: string
+          nullable: true
+          description: Icon for the category (e.g., SVG content or a class name).
+      required:
+        - id
+        - name
+
+    SubcategoryBrief:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the subcategory.
+        name:
+          type: string
+          description: Name of the subcategory.
+        categoryId:
+          type: string
+          description: ID of the parent category.
+      required:
+        - id
+        - name
+        - categoryId
+
+    AddonBrief:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+      required:
+        - id
+        - name
+        - price
+        - categoryId
+
+    PackageBrief:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+        subcategoryId:
+          type: string
+        popular:
+          type: boolean
+          nullable: true
+        bgColor:
+          type: string
+          nullable: true
+      required:
+        - id
+        - name
+        - price
+        - categoryId
+        - subcategoryId
+
+    Category: # Updated to be CategoryFullResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        icon:
+          type: string
+          nullable: true
+        subcategories:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubcategoryBrief'
+        addons:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddonBrief'
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageBrief'
+      required:
+        - id
+        - name
+
+    CreateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the category.
+        icon:
+          type: string
+          nullable: true
+          description: Icon for the category.
+      required:
+        - name
+
+    UpdateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New name for the category.
+        icon:
+          type: string
+          nullable: true
+          description: New icon for the category.
+
+    Subcategory: # Updated to be SubcategoryFullResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        categoryId:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryBrief'
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageBrief'
+      required:
+        - id
+        - name
+        - categoryId
+
+    CreateSubcategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the subcategory.
+        categoryId:
+          type: string
+          description: ID of the parent category.
+      required:
+        - name
+        - categoryId
+
+    UpdateSubcategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New name for the subcategory.
+        categoryId:
+          type: string
+          description: New parent category ID.
+
+    Addon: # Updated to be AddonFullResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryBrief'
+      required:
+        - id
+        - name
+        - price
+        - categoryId
+
+    CreateAddonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+      required:
+        - name
+        - price
+        - categoryId
+
+    UpdateAddonRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+
+    Package: # Updated to be PackageFullResponse
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+        subcategoryId:
+          type: string
+        popular:
+          type: boolean
+          nullable: true
+        bgColor:
+          type: string
+          nullable: true
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureResponse'
+        category:
+          $ref: '#/components/schemas/CategoryBrief'
+        subcategory:
+          $ref: '#/components/schemas/SubcategoryBrief'
+      required:
+        - id
+        - name
+        - price
+        - categoryId
+        - subcategoryId
+
+    CreatePackageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+        subcategoryId:
+          type: string
+        popular:
+          type: boolean
+          default: false
+        bgColor:
+          type: string
+          nullable: true
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureInput' # id should not be provided for new features
+          description: List of features for the package.
+      required:
+        - name
+        - price
+        - categoryId
+        - subcategoryId
+        - features
+
+    UpdatePackageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+          format: url
+          nullable: true
+        categoryId:
+          type: string
+        subcategoryId:
+          type: string
+        popular:
+          type: boolean
+        bgColor:
+          type: string
+          nullable: true # Allow explicitly setting to null
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeatureInput' # id can be used to update existing, or omitted for new
+          description: List of features to update/replace for the package.
+
   securitySchemes:
     cookieAuth: # For NextAuth.js session cookies
       type: apiKey
@@ -595,3 +991,852 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  /product/categories:
+    post:
+      summary: Create a new category
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequest'
+      responses:
+        '201':
+          description: Category created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category' # Returns the full category object
+        '400':
+          description: Invalid input (e.g., name missing, validation error).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., category with this name already exists).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get all categories
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved all categories.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category' # Returns full category objects with relations
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/categories/{categoryId}:
+    parameters:
+      - name: categoryId
+        in: path
+        required: true
+        description: ID of the category.
+        schema:
+          type: string
+    get:
+      summary: Get a specific category by ID
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved the category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category' # Returns full category object
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a category
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryRequest'
+      responses:
+        '200':
+          description: Category updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category' # Returns the updated full category object
+        '400':
+          description: Invalid input or category has related items preventing update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., category with this name already exists).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a category
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
+          description: Category deleted successfully.
+        '400':
+          description: Category cannot be deleted (e.g., has associated subcategories, packages, or addons).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/subcategories:
+    post:
+      summary: Create a new subcategory
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubcategoryRequest'
+      responses:
+        '201':
+          description: Subcategory created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subcategory' # Returns full subcategory
+        '400':
+          description: Invalid input (e.g., name missing, parent category not found, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Parent category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., subcategory with this name already exists in the parent category).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get all subcategories
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          description: Filter subcategories by parent category ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved subcategories.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subcategory' # Returns full subcategories
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/subcategories/{subcategoryId}:
+    parameters:
+      - name: subcategoryId
+        in: path
+        required: true
+        description: ID of the subcategory.
+        schema:
+          type: string
+    get:
+      summary: Get a specific subcategory by ID
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved the subcategory.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subcategory' # Returns full subcategory
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Subcategory not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a subcategory
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSubcategoryRequest'
+      responses:
+        '200':
+          description: Subcategory updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subcategory' # Returns updated full subcategory
+        '400':
+          description: Invalid input (e.g., parent category not found, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Subcategory or target parent category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., subcategory with this name already exists in the target category).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a subcategory
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
+          description: Subcategory deleted successfully.
+        '400':
+          description: Subcategory cannot be deleted (e.g., has associated packages).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Subcategory not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/addons:
+    post:
+      summary: Create a new addon
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAddonRequest'
+      responses:
+        '201':
+          description: Addon created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addon' # Returns full addon
+        '400':
+          description: Invalid input (e.g., name missing, parent category not found, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Parent category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., addon with this name already exists in the parent category).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get all addons
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          description: Filter addons by parent category ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved addons.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Addon' # Returns full addons
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/addons/{addonId}:
+    parameters:
+      - name: addonId
+        in: path
+        required: true
+        description: ID of the addon.
+        schema:
+          type: string
+    get:
+      summary: Get a specific addon by ID
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved the addon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addon' # Returns full addon
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Addon not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an addon
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAddonRequest'
+      responses:
+        '200':
+          description: Addon updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addon' # Returns updated full addon
+        '400':
+          description: Invalid input (e.g., parent category not found, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Addon or target parent category not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., addon with this name already exists in the target category).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete an addon
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
+          description: Addon deleted successfully.
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Addon not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/packages:
+    post:
+      summary: Create a new package
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePackageRequest'
+      responses:
+        '201':
+          description: Package created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package' # Returns full package with features
+        '400':
+          description: Invalid input (e.g., missing fields, category/subcategory mismatch, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Category or Subcategory not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., package with this name already exists).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get all packages
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: categoryId
+          in: query
+          required: false
+          description: Filter packages by category ID.
+          schema:
+            type: string
+        - name: subcategoryId
+          in: query
+          required: false
+          description: Filter packages by subcategory ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved packages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Package' # Returns full packages with features
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/packages/{packageId}:
+    parameters:
+      - name: packageId
+        in: path
+        required: true
+        description: ID of the package.
+        schema:
+          type: string
+    get:
+      summary: Get a specific package by ID
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Successfully retrieved the package.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package' # Returns full package with features
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Package not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a package
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePackageRequest'
+      responses:
+        '200':
+          description: Package updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package' # Returns updated full package with features
+        '400':
+          description: Invalid input (e.g., category/subcategory mismatch, name conflict).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Package, Category, or Subcategory not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict (e.g., package with this name already exists).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a package
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      responses:
+        '204':
+          description: Package deleted successfully.
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Package not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /product/images/upload:
+    post:
+      summary: Upload a product image
+      tags: [Products]
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The image file to upload (jpeg, png, gif, webp). Max 5MB.
+      responses:
+        '200': # Changed from 201 to 200 as it's returning data about an existing resource (the file path)
+          description: File uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: File uploaded successfully
+                  filePath:
+                    type: string
+                    format: uri-relative
+                    example: /product-images/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.png
+                    description: The public relative path to the uploaded image.
+        '400':
+          description: Bad request (e.g., no file, invalid file type, file too large).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error during file upload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+tags:
+  - name: Authentication
+    description: User authentication and session management
+  - name: Account Management
+    description: User account related operations
+  - name: Products
+    description: Product, Category, Subcategory, Addon, and Package management operations

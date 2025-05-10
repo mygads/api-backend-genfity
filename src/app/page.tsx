@@ -26,7 +26,7 @@ export default function HomePage() {
       router.push('/auth/signin');
     }
 
-  }, [status, router, qrCode]); // qrCode tetap di dependencies jika fetchQrCode bergantung padanya
+  }, [status, router]);
 
   if (status === 'loading') {
     return <p>Loading session...</p>;

@@ -67,3 +67,66 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+// Product Catalog Models
+
+model Feature {
+  id        String  @id @default(cuid())
+  name      String
+  included  Boolean
+  packageId String
+  package   Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@index([packageId])
+}
+
+model Subcategory {
+  id         String    @id @default(cuid())
+  name       String
+  categoryId String
+  category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  packages   Package[]
+
+  @@unique([categoryId, name])
+  @@index([categoryId])
+}
+
+model Category {
+  id            String        @id @default(cuid())
+  name          String        @unique
+  icon          String
+  subcategories Subcategory[]
+  packages      Package[]     @relation("CategoryToPackage") // Added relation name here
+  addons        Addon[]
+}
+
+model Addon {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  image       String   @db.Text
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, name])
+  @@index([categoryId])
+}
+
+model Package {
+  id            String      @id @default(cuid())
+  name          String      @unique // Assuming package names are globally unique
+  description   String      @db.Text
+  price         Decimal     @db.Decimal(10, 2)
+  image         String      @db.Text
+  categoryId    String
+  category      Category    @relation("CategoryToPackage", fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  subcategoryId String
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  popular       Boolean?
+  bgColor       String?
+  features      Feature[]
+
+  @@index([categoryId])
+  @@index([subcategoryId])
+}

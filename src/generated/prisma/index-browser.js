@@ -164,6 +164,46 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.FeatureScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  included: 'included',
+  packageId: 'packageId'
+};
+
+exports.Prisma.SubcategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon'
+};
+
+exports.Prisma.AddonScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  image: 'image',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.PackageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  image: 'image',
+  categoryId: 'categoryId',
+  subcategoryId: 'subcategoryId',
+  popular: 'popular',
+  bgColor: 'bgColor'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -210,12 +250,53 @@ exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
   token: 'token'
 };
 
+exports.Prisma.FeatureOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  packageId: 'packageId'
+};
+
+exports.Prisma.SubcategoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  icon: 'icon'
+};
+
+exports.Prisma.AddonOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  image: 'image',
+  categoryId: 'categoryId'
+};
+
+exports.Prisma.PackageOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  image: 'image',
+  categoryId: 'categoryId',
+  subcategoryId: 'subcategoryId',
+  bgColor: 'bgColor'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
   Session: 'Session',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Feature: 'Feature',
+  Subcategory: 'Subcategory',
+  Category: 'Category',
+  Addon: 'Addon',
+  Package: 'Package'
 };
 
 /**

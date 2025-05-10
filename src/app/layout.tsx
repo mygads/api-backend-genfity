@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     shortcut: "/web-icon.svg",
     apple: "/web-icon.svg",
   },
-  manifest: "/manifest.json",
+  // manifest: "/manifest.json",
   openGraph: {
     title: "GENFITY - All In One Business Digitalization Solution, Professional & Affordable",
     description:
@@ -66,10 +66,6 @@ export const metadata: Metadata = {
     locale: "en-US",
     type: "website",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
 };
 
 export default function RootLayout({

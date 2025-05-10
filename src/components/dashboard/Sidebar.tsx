@@ -42,7 +42,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
     },
     {
       title: "Product",
-      href: "/dashboard/product",
+      href: "/dashboard/products",
       icon: Box,
     },
     {
@@ -70,7 +70,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-72 glass-card bg-card backdrop-blur-md shadow-lg lg:static lg:z-auto", // Changed: Used bg-card for consistent theming
+          "fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-900 shadow-lg lg:static lg:z-auto", // Changed background
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
           "transition-transform duration-300 ease-in-out lg:transition-none",
         )}
@@ -104,11 +104,11 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-all duration-200",
                 pathname === item.href
-                  ? "bg-blue-red-gradient text-white shadow-md"
-                  : "text-muted-foreground hover:bg-white/10 dark:hover:bg-white/5 hover:text-foreground",
+                  ? cn("bg-blue-red-gradient shadow-md", resolvedTheme === 'light' ? "text-gray-900" : "text-white") // Active state with conditional text color
+                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white", // Inactive state
               )}
             >
-              <item.icon className={cn("h-5 w-5", pathname === item.href ? "text-white" : "text-muted-foreground")} />
+              <item.icon className={cn("h-5 w-5", pathname === item.href ? (resolvedTheme === 'light' ? "text-gray-900" : "text-white") : "text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white")} />
               <span>{item.title}</span>
             </Link>
           ))}

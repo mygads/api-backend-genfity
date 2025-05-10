@@ -25,12 +25,12 @@ export default function Navbar({ onMenuButtonClick }: NavbarProps) {
     const user = {
         name: "Admin User",
         role: "Administrator",
-        image: "/placeholder.svg?height=32&width=32", // Placeholder image
+        image: "/logo-light.svg", // Placeholder image
         initials: "AU",
     }
 
     return (
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-white/10 bg-background/50 backdrop-blur-md px-4 md:px-6">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 px-4 md:px-6">
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={onMenuButtonClick}>
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
