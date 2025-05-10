@@ -26,40 +26,6 @@ export default function HomePage() {
       router.push('/auth/signin');
     }
 
-    // if (status === 'authenticated') {
-    //   const fetchQrCode = async () => {
-    //     try {
-    //       // Panggil API route GET yang kita buat
-    //       const response = await fetch('/api/webhook'); // Menggunakan endpoint GET
-    //       if (!response.ok) {
-    //         throw new Error(`HTTP error! status: ${response.status}`);
-    //       }
-    //       const data = await response.json();
-
-    //       // Hanya update jika QR code berubah
-    //       if (data.qrCode !== qrCode) {
-    //           setQrCode(data.qrCode);
-    //           setLastUpdated(new Date().toLocaleTimeString());
-    //       }
-    //       setError(null); // Hapus error jika berhasil
-    //     } catch (e) {
-    //       console.error("Failed to fetch QR code:", e);
-    //       setError("Gagal mengambil QR code. Coba lagi nanti.");
-    //       // Jangan hapus QR lama jika fetch gagal
-    //     } finally {
-    //         setIsLoading(false); // Selesai loading setelah fetch pertama
-    //     }
-    //   };
-
-    //   // Panggil pertama kali saat komponen dimuat
-    //   fetchQrCode();
-
-    //   // Set interval untuk polling setiap beberapa detik (misal, 5 detik)
-    //   const intervalId = setInterval(fetchQrCode, 5000);
-
-    //   // Cleanup interval saat komponen di-unmount
-    //   return () => clearInterval(intervalId);
-    // }
   }, [status, router, qrCode]); // qrCode tetap di dependencies jika fetchQrCode bergantung padanya
 
   if (status === 'loading') {

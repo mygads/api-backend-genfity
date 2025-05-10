@@ -5,7 +5,7 @@ export async function GET(
   request: Request,
   { params }: { params: { token: string } }
 ) {
-  const token = params.token;
+  const { token } = await params;
 
   if (!token) {
     return NextResponse.json({ message: 'Verification token not found.' }, { status: 400 });
