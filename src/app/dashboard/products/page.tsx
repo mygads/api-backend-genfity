@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogC
 import { Label } from '@/components/ui/label'; // Assuming you have a Label component
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // For category selection
 import Image from 'next/image'; // Import Next Image
+import { PlusCircle, Pencil, Trash2 } from 'lucide-react';
 
 // --- Interface Definitions ---
 interface Feature {
@@ -408,68 +409,106 @@ export default function ProductsPage() {
   };
 
   const handleSaveAddon = async () => {
+    // ... existing setup code ...
+    // Ensure isLoading is set at the beginning
     setIsLoading(true);
     setError(null);
 
-    if (!addonFormData.categoryId) {
-      setError('Category is required for an addon.');
-      setIsLoading(false);
-      return;
-    }
-    if (isNaN(parseFloat(addonFormData.price)) || parseFloat(addonFormData.price) < 0) {
-        setError('Valid price is required for an addon.');
-        setIsLoading(false);
-        return;
-    }
-
-    let imageUrl = editingAddon?.image || undefined;
-
+    let imageUrl = editingAddon?.image; 
     if (selectedImageFile) {
       try {
-        const imageFormData = new FormData();
-        imageFormData.append('file', selectedImageFile);
-        const uploadResponse = await fetch('/api/product/images/upload', {
+        const formData = new FormData();
+        formData.append('file', selectedImageFile);
+        const res = await fetch('/api/product/images/upload', { // Assuming this is your upload endpoint
           method: 'POST',
-          body: imageFormData,
+          body: formData,
         });
-        if (!uploadResponse.ok) {
-          const errorData = await uploadResponse.json();
-          throw new Error(errorData.message || 'Failed to upload image');
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || 'Image upload failed');
         }
-        const uploadResult = await uploadResponse.json();
-        imageUrl = uploadResult.filePath; // Use the public path returned by the API
-      } catch (err: any) {
-        setError(`Image upload failed: ${err.message}`);
+        const imageData = await res.json();
+        imageUrl = imageData.url; 
+      } catch (uploadError: any) {
+        setError(`Image upload failed: ${uploadError.message}`);
         setIsLoading(false);
         return;
       }
     }
 
-    const method = editingAddon ? 'PUT' : 'POST';
-    const url = editingAddon ? `/api/product/addons/${editingAddon.id}` : '/api/product/addons';
-    const payload = {
-      ...addonFormData,
+    // Frontend validation for new addon image (if image is mandatory)
+    // If your backend's addonSchema requires an image (i.e., not optional), 
+    // you should ensure imageUrl is present before sending.
+    // For now, assuming backend handles optionality or it's always provided if new.
+    // if (!editingAddon && !imageUrl) {
+    //   setError("An image is required to create a new addon.");
+    //   setIsLoading(false);
+    //   return;
+    // }
+
+
+    const dataToSave: {
+      name: string;
+      description: string;
+      price: number;
+      categoryId: string;
+      image?: string; 
+    } = {
+      name: addonFormData.name,
+      description: addonFormData.description || "", 
       price: parseFloat(addonFormData.price),
-      image: imageUrl,
+      categoryId: addonFormData.categoryId,
     };
 
+    if (imageUrl) { // Only add image to payload if it exists or was uploaded
+      dataToSave.image = imageUrl;
+    } else if (editingAddon && editingAddon.image && !selectedImageFile) {
+      // If editing, and had an image, and didn't select a new one, keep the old one.
+      // This case is covered by imageUrl initialization: let imageUrl = editingAddon?.image;
+      // If image was explicitly removed, imageUrl would be undefined/null here.
+      // Depending on schema (if image is required), this might need to be handled.
+    }
+
+
+    const apiUrl = editingAddon ? `/api/product/addons/${editingAddon.id}` : '/api/product/addons';
+
     try {
-      const response = await fetch(url, {
-        method,
+      const response = await fetch(apiUrl, {
+        method: editingAddon ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(dataToSave),
       });
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || (editingAddon ? 'Failed to update addon' : 'Failed to create addon'));
+        let errorMessage = `Failed to ${editingAddon ? 'update' : 'create'} addon. Status: ${response.status}`;
+        
+        // Check for Zod flattened errors
+        if (errorData && errorData.errors && errorData.errors.fieldErrors) {
+          errorMessage = Object.entries(errorData.errors.fieldErrors)
+            .map(([field, messages]) => `${field}: ${(messages as string[]).join(', ')}`)
+            .join('; ');
+        } else if (errorData && Array.isArray(errorData)) { // Handle array of Zod issues (older format)
+           errorMessage = errorData.map(err => `${err.path?.join('.') || 'Validation Error'}: ${err.message}`).join('; ');
+        } else if (errorData && errorData.message) { // General message
+          errorMessage = errorData.message;
+        }
+        setError(errorMessage);
+        // No need to throw new Error here if setError is sufficient for user feedback
+        return; // Stop execution if response is not ok
       }
-      await fetchAddons(); // Refresh list
+
+      // Success
+      fetchAddons(); // Refresh addon list
       setIsAddonModalOpen(false);
       setEditingAddon(null);
+      setAddonFormData({ name: '', description: '', price: '0', categoryId: categories[0]?.id || '', image: undefined });
       setSelectedImageFile(null);
       setImagePreview(null);
+
     } catch (err: any) {
-      setError(err.message);
+      console.error("Error saving addon:", err);
+      setError(err.message || 'An unexpected error occurred.');
     } finally {
       setIsLoading(false);
     }
@@ -761,26 +800,54 @@ export default function ProductsPage() {
   const renderCategories = () => (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Manage Categories</h2>
-        <Button onClick={openCreateCategoryModal}>Create New Category</Button>
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Categories</h2>
+        <Button onClick={openCreateCategoryModal} size="sm">
+          <PlusCircle className="mr-2 h-4 w-4" /> Create New Category
+        </Button>
       </div>
-      {isLoading && <p>Loading categories...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
-      {!isLoading && !error && categories.length === 0 && <p>No categories found.</p>}
+      {isLoading && activeTab === 'categories' && <p className="text-center py-4">Loading categories...</p>}
+      {error && activeTab === 'categories' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
+      {!isLoading && !error && categories.length === 0 && activeTab === 'categories' && (
+        <p className="text-center py-4 text-gray-500 dark:text-gray-400">No categories found. Click &apos;Create New Category&apos; to add one.</p>
+      )}
       {!isLoading && !error && categories.length > 0 && (
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {categories.map(cat => (
-            <li key={cat.id} className="p-3 border rounded-md shadow-sm flex justify-between items-center">
-              <div>
-                <span className="font-medium">{cat.name}</span>
-                {cat.icon && <span className="ml-2 text-sm text-gray-500">({cat.icon})</span>}
+            <li key={cat.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
+              <div className="flex items-center space-x-4">
+                {(cat.icon && (cat.icon.startsWith('http') || cat.icon.startsWith('/') || cat.icon.startsWith('data:image'))) ? (
+                  <Image
+                    src={cat.icon}
+                    alt={cat.name}
+                    width={40}
+                    height={40}
+                    className="object-contain rounded-md bg-gray-100 dark:bg-gray-700" // Added bg for better visibility of contain
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      // Optionally, find a sibling placeholder and display it
+                    }}
+                  />
+                ) : cat.icon && cat.icon.length < 30 && !cat.icon.includes('<svg') ? ( // Attempt to render simple text/FA class if not a URL or long SVG
+                  <span className="w-[40px] h-[40px] flex items-center justify-center text-gray-600 dark:text-gray-300 text-xl rounded-md bg-gray-200 dark:bg-gray-700">
+                    {/* This might need a dedicated component for FontAwesome or SVG string rendering */}
+                    {cat.icon}
+                  </span>
+                ) : (
+                  <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image/icon URL">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                  </div>
+                )}
+                <span className="font-medium text-gray-700 dark:text-gray-200">{cat.name}</span>
               </div>
-              <div>
-                <Button variant="outline" size="sm" onClick={() => openEditCategoryModal(cat)} className="mr-2">
-                  Edit
+              <div className="flex space-x-2">
+                <Button variant="outline" size="sm" onClick={() => openEditCategoryModal(cat)}>
+                  <Pencil className="mr-1 h-3 w-3" /> Edit
                 </Button>
                 <Button variant="destructive" size="sm" onClick={() => handleDeleteCategory(cat.id)}>
-                  Delete
+                  <Trash2 className="mr-1 h-3 w-3" /> Delete
                 </Button>
               </div>
             </li>
@@ -841,43 +908,58 @@ export default function ProductsPage() {
     return (
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Manage Addons</h2>
-          <Button onClick={openCreateAddonModal} disabled={categories.length === 0}>
-            {categories.length === 0 ? "Create Category First" : "Create New Addon"}
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Addons</h2>
+          <Button onClick={openCreateAddonModal} size="sm" disabled={categories.length === 0}>
+            <PlusCircle className="mr-2 h-4 w-4" /> Create New Addon
           </Button>
         </div>
-        {isLoading && activeTab === 'addons' && <p>Loading addons...</p>}
-        {error && activeTab === 'addons' && <p className="text-red-500">Error: {error}</p>}
+        {isLoading && activeTab === 'addons' && <p className="text-center py-4">Loading addons...</p>}
+        {error && activeTab === 'addons' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
         {!isLoading && categories.length === 0 && activeTab === 'addons' && 
-          <p>Please create a category first to add or view addons.</p>
+          <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please create a category first before adding addons.</p>
         }
         {!isLoading && addons.length === 0 && categories.length > 0 && activeTab === 'addons' && !error &&
-          <p>No addons found. Click &apos;Create New Addon&apos; to add one.</p> // Corrected quotes
+          <p className="text-center py-4 text-gray-500 dark:text-gray-400">No addons found. Click &apos;Create New Addon&apos; to add one.</p>
         }
         {!isLoading && !error && addons.length > 0 && (
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {addons.map(addon => {
-              const parentCategory = categories.find(c => c.id === addon.categoryId);
+              const categoryName = categories.find(c => c.id === addon.categoryId)?.name || 'N/A';
               return (
-                <li key={addon.id} className="p-3 border rounded-md shadow-sm flex justify-between items-center">
-                  <div className="flex items-center">
-                    {addon.image && (
-                      <div className="mr-3 flex-shrink-0">
-                        <Image src={addon.image} alt={addon.name} width={40} height={40} className="object-cover rounded" />
+                <li key={addon.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
+                  <div className="flex items-center space-x-4">
+                    {addon.image ? (
+                      <Image
+                        src={addon.image}
+                        alt={addon.name}
+                        width={40}
+                        height={40}
+                        className="object-cover rounded-md"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
                       </div>
                     )}
                     <div>
-                      <span className="font-medium">{addon.name}</span> - <span className="text-sm">${addon.price}</span>
-                      {addon.description && <p className="text-xs text-gray-600">{addon.description}</p>}
-                      {parentCategory && <p className="text-xs text-gray-500">Category: {parentCategory.name}</p>}
+                      <span className="font-medium text-gray-700 dark:text-gray-200">{addon.name}</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Category: {categoryName} - Price: ${typeof addon.price === 'number' ? addon.price.toFixed(2) : parseFloat(addon.price as string).toFixed(2)}
+                      </p>
                     </div>
                   </div>
-                  <div>
-                    <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)} className="mr-2">
-                      Edit
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
+                      <Pencil className="mr-1 h-3 w-3" /> Edit
                     </Button>
                     <Button variant="destructive" size="sm" onClick={() => handleDeleteAddon(addon.id)}>
-                      Delete
+                      <Trash2 className="mr-1 h-3 w-3" /> Delete
                     </Button>
                   </div>
                 </li>
@@ -893,65 +975,67 @@ export default function ProductsPage() {
     return (
       <div>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Manage Packages</h2>
-          <Button onClick={openCreatePackageModal} disabled={categories.length === 0 || subcategories.length === 0}>
-            {categories.length === 0 || subcategories.length === 0 ? "Create Category/Subcategory First" : "Create New Package"}
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Packages</h2>
+          <Button 
+            onClick={openCreatePackageModal} 
+            size="sm" 
+            disabled={categories.length === 0 || subcategories.length === 0}
+          >
+            <PlusCircle className="mr-2 h-4 w-4" /> Create New Package
           </Button>
         </div>
-        {isLoading && activeTab === 'packages' && <p>Loading packages...</p>}
-        {error && activeTab === 'packages' && <p className="text-red-500">Error: {error}</p>}
+        {isLoading && activeTab === 'packages' && <p className="text-center py-4">Loading packages...</p>}
+        {error && activeTab === 'packages' && <p className="text-red-500 text-center py-4">Error: {error}</p>}
         
         {!isLoading && (categories.length === 0 || subcategories.length === 0) && activeTab === 'packages' && 
-          <p>Please ensure you have at least one category and one subcategory before creating packages.</p>
+          <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please ensure you have at least one category and one subcategory before creating packages.</p>
         }
         {!isLoading && packages.length === 0 && categories.length > 0 && subcategories.length > 0 && activeTab === 'packages' && !error &&
-          <p>No packages found. Click &apos;Create New Package&apos; to add one.</p>
+          <p className="text-center py-4 text-gray-500 dark:text-gray-400">No packages found. Click &apos;Create New Package&apos; to add one.</p>
         }
         
         {!isLoading && !error && packages.length > 0 && (
           <ul className="space-y-3">
             {packages.map(pkg => {
-              const parentCategory = categories.find(c => c.id === pkg.categoryId);
-              const parentSubcategory = subcategories.find(s => s.id === pkg.subcategoryId);
+              const categoryName = categories.find(c => c.id === pkg.categoryId)?.name || 'N/A';
+              const subcategoryName = subcategories.find(sc => sc.id === pkg.subcategoryId)?.name || 'N/A';
               return (
-                <li key={pkg.id} className="p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
-                  <div className="flex flex-col sm:flex-row justify-between">
-                    <div className="flex items-start mb-3 sm:mb-0">
-                      {pkg.image && (
-                        <div className="mr-4 flex-shrink-0">
-                          <Image src={pkg.image} alt={pkg.name} width={60} height={60} className="object-cover rounded-md" />
-                        </div>
-                      )}
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{pkg.name} {pkg.popular && <span className="text-xs bg-yellow-400 text-yellow-800 p-1 rounded-sm ml-2">Popular</span>}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-300">${pkg.price}</p>
-                        {pkg.description && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{pkg.description}</p>}
-                        {parentCategory && <p className="text-xs text-gray-500 dark:text-gray-400">Category: {parentCategory.name}</p>}
-                        {parentSubcategory && <p className="text-xs text-gray-500 dark:text-gray-400">Subcategory: {parentSubcategory.name}</p>}
-                        {pkg.bgColor && <p className="text-xs text-gray-500 dark:text-gray-400">BG Color: <span style={{ backgroundColor: pkg.bgColor }} className="inline-block w-3 h-3 rounded-full ml-1"></span> {pkg.bgColor}</p>}
+                <li key={pkg.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
+                  <div className="flex items-center space-x-4">
+                    {pkg.image ? (
+                      <Image
+                        src={pkg.image}
+                        alt={pkg.name}
+                        width={40}
+                        height={40}
+                        className="object-cover rounded-md"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                         </svg>
                       </div>
-                    </div>
-                    <div className="flex-shrink-0 flex sm:flex-col items-end sm:items-start space-x-2 sm:space-x-0 sm:space-y-2">
-                      <Button variant="outline" size="sm" onClick={() => openEditPackageModal(pkg)}>
-                        Edit
-                      </Button>
-                      <Button variant="destructive" size="sm" onClick={() => handleDeletePackage(pkg.id)}>
-                        Delete
-                      </Button>
+                    )}
+                    <div>
+                      <span className="font-medium text-gray-700 dark:text-gray-200">{pkg.name}</span>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {categoryName} &gt; {subcategoryName} - Price: ${typeof pkg.price === 'number' ? pkg.price.toFixed(2) : parseFloat(pkg.price as string).toFixed(2)}
+                      </p>
                     </div>
                   </div>
-                  {pkg.features && pkg.features.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Features:</h4>
-                      <ul className="list-disc list-inside pl-1 space-y-0.5">
-                        {pkg.features.map(feature => (
-                          <li key={feature.id} className={`text-xs ${feature.included ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400 line-through'}`}>
-                            {feature.name}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm" onClick={() => openEditPackageModal(pkg)}>
+                       <Pencil className="mr-1 h-3 w-3" /> Edit
+                    </Button>
+                    <Button variant="destructive" size="sm" onClick={() => handleDeletePackage(pkg.id)}>
+                       <Trash2 className="mr-1 h-3 w-3" /> Delete
+                    </Button>
+                  </div>
                 </li>
               );
             })}
@@ -1050,7 +1134,7 @@ export default function ProductsPage() {
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="icon" className="text-right">
+                <Label htmlFor="icon" className="text-left">
                   Icon (Optional)
                 </Label>
                 <Input 
@@ -1150,85 +1234,51 @@ export default function ProductsPage() {
               <DialogTitle>{editingAddon ? 'Edit Addon' : 'Create New Addon'}</DialogTitle>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              {/* Name */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonName" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="addonName"
-                  name="name"
-                  value={addonFormData.name}
-                  onChange={handleAddonFormChange}
-                  className="col-span-3"
-                  placeholder="e.g., Extra Cheese"
-                />
+                <Label htmlFor="addonName" className="text-right">Name</Label>
+                <Input id="addonName" name="name" value={addonFormData.name} onChange={handleAddonFormChange} className="col-span-3" placeholder="e.g., Extra Cheese" />
               </div>
+              {/* Description */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonDescription" className="text-right">
-                  Description
-                </Label>
-                <Input // Consider using Textarea for longer descriptions
-                  id="addonDescription"
-                  name="description"
-                  value={addonFormData.description || ''}
-                  onChange={handleAddonFormChange}
-                  className="col-span-3"
-                  placeholder="(Optional)"
-                />
+                <Label htmlFor="addonDescription" className="text-right">Description</Label>
+                <Input id="addonDescription" name="description" value={addonFormData.description || ''} onChange={handleAddonFormChange} className="col-span-3" placeholder="(Optional)" />
               </div>
+              {/* Price */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonPrice" className="text-right">
-                  Price
-                </Label>
-                <Input
-                  id="addonPrice"
-                  name="price"
-                  type="number"
-                  value={addonFormData.price}
-                  onChange={handleAddonFormChange}
-                  className="col-span-3"
-                  placeholder="e.g., 2.50"
-                />
+                <Label htmlFor="addonPrice" className="text-right">Price</Label>
+                <Input id="addonPrice" name="price" type="number" value={addonFormData.price} onChange={handleAddonFormChange} className="col-span-3" placeholder="e.g., 2.50" />
               </div>
+              {/* Category */}
               <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonCategoryId" className="text-right">
-                  Category
-                </Label>
-                <Select
-                  value={addonFormData.categoryId}
-                  onValueChange={handleAddonCategoryChange}
-                  disabled={categories.length === 0}
-                >
+                <Label htmlFor="addonCategoryId" className="text-right">Category</Label>
+                <Select value={addonFormData.categoryId} onValueChange={handleAddonCategoryChange} disabled={categories.length === 0}>
                   <SelectTrigger className="col-span-3">
                     <SelectValue placeholder={categories.length === 0 ? "No categories available" : "Select a category"} />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map(category => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
+                    {categories.map(category => (<SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>))}
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonImage" className="text-right">
-                  Image
-                </Label>
-                <Input
-                  id="addonImage"
-                  name="imageFile"
-                  type="file"
-                  onChange={handleImageFileChange}
-                  className="col-span-3"
-                  accept="image/jpeg, image/png, image/gif, image/webp"
-                />
-              </div>
-              {imagePreview && (
-                <div className="col-span-4 flex justify-center">
-                  <Image src={imagePreview} alt="Preview" width={100} height={100} className="object-cover rounded" />
+              {/* Image Input and Preview */}
+              <div className="grid grid-cols-4 items-start gap-4">
+                <Label htmlFor="addonImage" className="text-right pt-2">Image</Label>
+                <div className="col-span-3 space-y-2">
+                  <Input id="addonImage" name="imageFile" type="file" onChange={handleImageFileChange} className="w-full" accept="image/jpeg, image/png, image/gif, image/webp" />
+                  {imagePreview && (
+                    <div className="mt-2">
+                      <Image src={imagePreview} alt="Preview" width={100} height={100} className="object-cover rounded" />
+                    </div>
+                  )}
+                  {!imagePreview && editingAddon?.image && (
+                     <div className="mt-2">
+                        <Image src={editingAddon.image} alt="Current image" width={100} height={100} className="object-cover rounded" />
+                        <p className="text-xs text-gray-500 mt-1">Current image</p>
+                     </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
             {error && <p className="text-sm text-red-500 px-1 py-2">Error: {error}</p>}
             <DialogFooter>
@@ -1238,7 +1288,7 @@ export default function ProductsPage() {
               <Button 
                 type="button" 
                 onClick={handleSaveAddon} 
-                disabled={isLoading || !addonFormData.name.trim() || !addonFormData.categoryId || isNaN(parseFloat(addonFormData.price)) || parseFloat(addonFormData.price) < 0}
+                disabled={isLoading || !addonFormData.name.trim() || !addonFormData.categoryId || isNaN(parseFloat(addonFormData.price)) || parseFloat(addonFormData.price) <= 0}
               >
                 {isLoading ? (editingAddon ? 'Saving...' : 'Creating...') : (editingAddon ? 'Save Changes' : 'Create Addon')}
               </Button>
@@ -1300,10 +1350,18 @@ export default function ProductsPage() {
               
               <div className="grid grid-cols-4 items-start gap-4">
                 <Label htmlFor="pkg-image" className="text-right pt-2">Image</Label>
-                <div className="col-span-3">
-                  <Input id="pkg-image" type="file" accept="image/*" onChange={handleImageFileChange} className="mb-2" />
-                  {imagePreview && <Image src={imagePreview} alt="Preview" width={80} height={80} className="object-cover rounded" />}
-                  {!imagePreview && editingPackage?.image && <span className="text-xs text-gray-500">Current: {editingPackage.image.split('/').pop()}</span>}
+                <div className="col-span-3 space-y-2"> {/* Added space-y-2 for better vertical spacing */}
+                  <Input id="pkg-image" type="file" accept="image/*" onChange={handleImageFileChange} className="w-full mb-0" /> {/* Ensure input takes full width, remove mb-2 if space-y is used */}
+                  {imagePreview && (
+                    <div className="flex justify-start pt-1"> {/* Control alignment, added pt-1 for slight separation */}
+                      <Image src={imagePreview} alt="Preview" width={80} height={80} className="object-cover rounded" />
+                    </div>
+                  )}
+                  {!imagePreview && editingPackage?.image && (
+                    <div className="text-xs text-gray-500 pt-1"> {/* Wrap text for consistent spacing */}
+                      Current: {editingPackage.image.split('/').pop()}
+                    </div>
+                  )}
                 </div>
               </div>
 

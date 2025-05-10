@@ -53,7 +53,8 @@ export async function PUT(
   { params }: { params: { addonId: string } }
 ) {
   try {
-    const { addonId } = params;
+    const awaitedParams = await params; // Await params as suggested by the error
+    const { addonId } = awaitedParams;
     if (!addonId) {
       return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,

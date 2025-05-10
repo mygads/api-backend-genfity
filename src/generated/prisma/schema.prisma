@@ -103,9 +103,9 @@ model Category {
 model Addon {
   id          String   @id @default(cuid())
   name        String
-  description String   @db.Text
+  description String?  @db.Text // Made optional
   price       Decimal  @db.Decimal(10, 2)
-  image       String   @db.Text
+  image       String?  @db.Text // Made optional
   categoryId  String
   category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 

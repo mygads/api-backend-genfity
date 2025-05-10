@@ -8582,9 +8582,9 @@ export namespace Prisma {
   export type AddonGroupByOutputType = {
     id: string
     name: string
-    description: string
+    description: string | null
     price: Decimal
-    image: string
+    image: string | null
     categoryId: string
     _count: AddonCountAggregateOutputType | null
     _avg: AddonAvgAggregateOutputType | null
@@ -8641,9 +8641,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      description: string
+      description: string | null
       price: Prisma.Decimal
-      image: string
+      image: string | null
       categoryId: string
     }, ExtArgs["result"]["addon"]>
     composites: {}
@@ -11160,9 +11160,9 @@ export namespace Prisma {
     NOT?: AddonWhereInput | AddonWhereInput[]
     id?: StringFilter<"Addon"> | string
     name?: StringFilter<"Addon"> | string
-    description?: StringFilter<"Addon"> | string
+    description?: StringNullableFilter<"Addon"> | string | null
     price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
-    image?: StringFilter<"Addon"> | string
+    image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
@@ -11170,9 +11170,9 @@ export namespace Prisma {
   export type AddonOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     price?: SortOrder
-    image?: SortOrder
+    image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     category?: CategoryOrderByWithRelationInput
     _relevance?: AddonOrderByRelevanceInput
@@ -11185,9 +11185,9 @@ export namespace Prisma {
     OR?: AddonWhereInput[]
     NOT?: AddonWhereInput | AddonWhereInput[]
     name?: StringFilter<"Addon"> | string
-    description?: StringFilter<"Addon"> | string
+    description?: StringNullableFilter<"Addon"> | string | null
     price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
-    image?: StringFilter<"Addon"> | string
+    image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id" | "categoryId_name">
@@ -11195,9 +11195,9 @@ export namespace Prisma {
   export type AddonOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     price?: SortOrder
-    image?: SortOrder
+    image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     _count?: AddonCountOrderByAggregateInput
     _avg?: AddonAvgOrderByAggregateInput
@@ -11212,9 +11212,9 @@ export namespace Prisma {
     NOT?: AddonScalarWhereWithAggregatesInput | AddonScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Addon"> | string
     name?: StringWithAggregatesFilter<"Addon"> | string
-    description?: StringWithAggregatesFilter<"Addon"> | string
+    description?: StringNullableWithAggregatesFilter<"Addon"> | string | null
     price?: DecimalWithAggregatesFilter<"Addon"> | Decimal | DecimalJsLike | number | string
-    image?: StringWithAggregatesFilter<"Addon"> | string
+    image?: StringNullableWithAggregatesFilter<"Addon"> | string | null
     categoryId?: StringWithAggregatesFilter<"Addon"> | string
   }
 
@@ -11766,62 +11766,62 @@ export namespace Prisma {
   export type AddonCreateInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
     category: CategoryCreateNestedOneWithoutAddonsInput
   }
 
   export type AddonUncheckedCreateInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
     categoryId: string
   }
 
   export type AddonUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     category?: CategoryUpdateOneRequiredWithoutAddonsNestedInput
   }
 
   export type AddonUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddonCreateManyInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
     categoryId: string
   }
 
   export type AddonUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -13716,17 +13716,17 @@ export namespace Prisma {
   export type AddonCreateWithoutCategoryInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
   }
 
   export type AddonUncheckedCreateWithoutCategoryInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
   }
 
   export type AddonCreateOrConnectWithoutCategoryInput = {
@@ -13802,9 +13802,9 @@ export namespace Prisma {
     NOT?: AddonScalarWhereInput | AddonScalarWhereInput[]
     id?: StringFilter<"Addon"> | string
     name?: StringFilter<"Addon"> | string
-    description?: StringFilter<"Addon"> | string
+    description?: StringNullableFilter<"Addon"> | string | null
     price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
-    image?: StringFilter<"Addon"> | string
+    image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
   }
 
@@ -14137,9 +14137,9 @@ export namespace Prisma {
   export type AddonCreateManyCategoryInput = {
     id?: string
     name: string
-    description: string
+    description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    image: string
+    image?: string | null
   }
 
   export type SubcategoryUpdateWithoutCategoryInput = {
@@ -14197,25 +14197,25 @@ export namespace Prisma {
   export type AddonUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    image?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FeatureCreateManyPackageInput = {
