@@ -1,37 +1,88 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export function middleware(request: NextRequest) {
-    const apiKey = request.headers.get('BE-API-Key');
-    const expectedApiKey = process.env.INTERNAL_CLIENT_API_KEY;
+export async function middleware(req: NextRequest) {
+    const { pathname } = req.nextUrl;
+    const apiKey = req.headers.get('API-KEY');
+    const serverApiKey = process.env.INTERNAL_CLIENT_API_KEY;
 
-    // Ensure the API key is configured on the server
-    if (!expectedApiKey) {
-        console.error('INTERNAL_CLIENT_API_KEY is not set in environment variables.');
-        return new NextResponse(
-        JSON.stringify({ success: false, message: 'Server configuration error' }),
-        { status: 500, headers: { 'content-type': 'application/json' } }
-        );
+    // Define API routes that require API key authentication
+    const apiKeyProtectedApiRoutes = [
+        '/api/auth/signin',
+        // '/api/auth/signup',
+        // '/api/auth/send-otp',
+        // '/api/auth/verify-otp',
+        // '/api/auth/session'
+    ];
+
+    // Handle API key protection for specific API routes
+    if (apiKeyProtectedApiRoutes.includes(pathname)) {
+        if (!serverApiKey) {
+            console.error('CRITICAL: API_ACCESS_KEY environment variable is not set.');
+            return NextResponse.json({ message: 'Internal Server Error: API key not configured' }, { status: 500 });
+        }
+            if (apiKey !== serverApiKey) {
+            return NextResponse.json({ message: 'Unauthorized: Invalid or missing API Key' }, { status: 401 });
+        }
+        // If API key is valid, allow the request to proceed to the API route handler.
+        // No further NextAuth session token checks are performed for these specific API routes.
+        return NextResponse.next();
     }
 
-    if (!apiKey || apiKey !== expectedApiKey) {
-        return new NextResponse(
-        JSON.stringify({ success: false, message: 'Authentication required: Invalid or missing API Key' }),
-        { status: 401, headers: { 'content-type': 'application/json' } }
-        );
+    // Existing logic for UI pages and other non-API-key-protected routes
+    // This part will run if the route is not in apiKeyProtectedApiRoutes
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    // If trying to access UI auth pages (e.g., /auth/signin page, not the API)
+    if (pathname.startsWith('/auth/signin') || pathname.startsWith('/auth/signup')) {
+        if (token) {
+            // If authenticated, redirect from UI auth pages to dashboard
+            return NextResponse.redirect(new URL('/dashboard', req.url));
+        }
+        // If not authenticated, allow access to UI auth pages
+        return NextResponse.next();
     }
 
+    // Protect UI dashboard routes
+    if (pathname.startsWith('/dashboard')) {
+        if (!token) {
+            // If not authenticated, redirect to the UI signin page
+            const signInUrl = new URL('/auth/signin', req.url);
+            signInUrl.searchParams.set('callbackUrl', req.url); // Optionally, add callbackUrl
+            return NextResponse.redirect(signInUrl);
+        }
+        // If authenticated, allow access to UI dashboard routes
+        return NextResponse.next();
+    }
+
+    // Handle root path ("/") for UI
+    if (pathname === '/') {
+        if (token) {
+            // If authenticated, redirect from root to dashboard
+            return NextResponse.redirect(new URL('/dashboard', req.url));
+        } else {
+            // If not authenticated, redirect from root to UI signin page
+            return NextResponse.redirect(new URL('/auth/signin', req.url));
+        }
+    }
+
+    // For any other routes not covered above, allow them
     return NextResponse.next();
 }
 
+// Updated matcher to ensure the middleware runs on all relevant paths,
+// including pages and API routes, while excluding static assets.
 export const config = {
-    matcher: [
-        // '/api/auth/[...nextauth]/:path*',
-        // '/api/auth/signup/:path*',
-        // '/api/auth/send-otp/:path*',
-        // '/api/auth/verify-otp/:path*',
-        // '/api/auth/verify-email/:path*',
-        // '/api/auth/reset-password/:path*',
-        // '/api/auth/session/:path*',
-    ],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public assets (images, etc. ending with common extensions)
+     * This ensures the middleware runs for pages and API routes.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };

@@ -57,19 +57,15 @@ export default function VerifyEmailPage() {
       <div className="relative z-10 w-full max-w-md bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
         {/* Logo & Title */}
         <div className="flex flex-col items-center mb-8 gap-4">
-          <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-white/50 dark:border-black/50 shadow-lg flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+          
             <Image 
-              src="/genfity-light.png" 
+              src="/logo-dark.svg" 
               alt="Genfity Logo" 
               width={96} // Slightly smaller than container to ensure cover effect
               height={96} 
               className="object-cover w-full h-full" 
             />
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-[#2563eb] via-[#2563eb] to-[#ef4444] bg-clip-text text-transparent animate-in fade-in slide-in-from-top-8 duration-500 drop-shadow-[0_3px_10px_rgba(37,99,235,0.3)]">
-            Genfity
-          </h1>
-          <span className="text-lg font-semibold text-[#2563eb] dark:text-[#60a5fa] tracking-wide">Email Verification</span>
+          <span className="text-lg font-semibold text-black dark:text-white tracking-wide">Email Verification</span>
         </div>
         {/* Status Content */}
         {status === 'loading' && (
@@ -85,7 +81,6 @@ export default function VerifyEmailPage() {
             </div>
             <p className="text-lg font-semibold text-[#22c55e] dark:text-[#4ade80]">{message === 'Email berhasil diverifikasi!' ? 'Your email has been successfully verified!' : message}</p>
             <p className="text-gray-700 dark:text-gray-300">You will be redirected to the login page automatically.</p>
-            <p className="text-gray-700 dark:text-gray-300">You will be redirected to the login page automatically.</p>
             <p className="text-gray-700 dark:text-gray-300">
               If you are not redirected,&nbsp;
               <a
@@ -98,16 +93,16 @@ export default function VerifyEmailPage() {
           </div>
         )}
         {status === 'error' && (
-          <div className="flex flex-col items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-500">
+          <div className="flex flex-col items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-500 justify-center text-center">
             <Image src="/email-cancelled.png" alt="Email verification error" width={160} height={160} className="w-40 h-40 flex items-center justify-center mb-2 shadow-lg animate-bounce" />
-            <p className="text-lg font-semibold text-[#ef4444] dark:text-[#f87171]">
+            <p className="text-lg font-semibold text-[#ff0000] dark:text-[#ff0000]">
               {message}
             </p>
             <p className="text-gray-700 dark:text-gray-300">
               Please try again or&nbsp;
               <a
                 href="https://www.genfity.com/signup"
-                className="text-[#2563eb] hover:underline font-semibold transition-colors duration-200"
+                className="text-blue-400 hover:underline font-semibold transition-colors duration-200"
               >
                 sign up again
               </a>
@@ -117,7 +112,7 @@ export default function VerifyEmailPage() {
               You can also&nbsp;
               <a
                 href="https://www.genfity.com/signin"
-                className="text-[#2563eb] hover:underline font-semibold transition-colors duration-200"
+                className="text-blue-400 hover:underline font-semibold transition-colors duration-200"
               >
                 try logging in
               </a>
@@ -127,8 +122,8 @@ export default function VerifyEmailPage() {
         )}
       </div>
       {/* Footer */}
-      <footer className="mt-8 text-xs text-white/70 dark:text-white/40 z-10">
-        &copy; {new Date().getFullYear()} <span className="font-bold text-[#2563eb] dark:text-[#60a5fa]">Genfity</span>. All rights reserved.
+      <footer className="mt-8 text-xs text-white dark:text-white z-10">
+        &copy; {new Date().getFullYear()} Genfity. All rights reserved.
       </footer>
     </div>
   );
