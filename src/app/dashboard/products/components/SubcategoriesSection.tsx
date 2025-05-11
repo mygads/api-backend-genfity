@@ -10,7 +10,11 @@ const SubcategoriesSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubcategoryModalOpen, setIsSubcategoryModalOpen] = useState(false);
-  const [subcategoryFormData, setSubcategoryFormData] = useState<SubcategoryFormData>({ name: '', categoryId: '' });
+  const [subcategoryFormData, setSubcategoryFormData] = useState<SubcategoryFormData>({
+    name_en: '',
+    name_id: '',
+    categoryId: '',
+  });
   const [editingSubcategory, setEditingSubcategory] = useState<Subcategory | null>(null);
 
   // Fetch categories and subcategories together
@@ -49,14 +53,14 @@ const SubcategoriesSection: React.FC = () => {
 
   const openCreateSubcategoryModal = () => {
     setEditingSubcategory(null);
-    setSubcategoryFormData({ name: '', categoryId: categories[0]?.id || '' });
+    setSubcategoryFormData({ name_en: '', name_id: '', categoryId: categories[0]?.id || '' });
     setError(null);
     setIsSubcategoryModalOpen(true);
   };
 
   const openEditSubcategoryModal = (subcategory: Subcategory) => {
     setEditingSubcategory(subcategory);
-    setSubcategoryFormData({ name: subcategory.name, categoryId: subcategory.categoryId });
+    setSubcategoryFormData({ name_en: subcategory.name_en, name_id: subcategory.name_id, categoryId: subcategory.categoryId });
     setError(null);
     setIsSubcategoryModalOpen(true);
   };
@@ -73,8 +77,8 @@ const SubcategoriesSection: React.FC = () => {
   const handleSaveSubcategory = async () => {
     setIsLoading(true);
     setError(null);
-    if (!subcategoryFormData.categoryId) {
-      setError('Category is required for a subcategory.');
+    if (!subcategoryFormData.categoryId || !subcategoryFormData.name_en.trim() || !subcategoryFormData.name_id.trim()) {
+      setError('Both English and Indonesian names and category are required.');
       setIsLoading(false);
       return;
     }
@@ -147,12 +151,13 @@ const SubcategoriesSection: React.FC = () => {
             return (
               <li key={subcat.id} className="p-3 border rounded-md shadow-sm flex justify-between items-center">
                 <div>
-                  <span className="font-medium">{subcat.name}</span>
+                  <span className="font-medium">{subcat.name_id}</span>
                   {parentCategory ? (
-                    <span className="ml-2 text-sm text-gray-500">(Category: {parentCategory.name})</span>
+                    <span className="ml-2 text-sm text-gray-500">(Category: {parentCategory.name_id})</span>
                   ) : (
                     <span className="ml-2 text-sm text-red-500">(Category ID: {subcat.categoryId} - Not Found)</span>
                   )}
+                  <span className="ml-2 text-xs text-gray-400">(EN: {subcat.name_en})</span>
                 </div>
                 <div>
                   <Button variant="outline" size="sm" onClick={() => openEditSubcategoryModal(subcat)} className="mr-2">

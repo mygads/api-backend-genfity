@@ -13,9 +13,12 @@ const PackagesSection: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);
   const [packageFormData, setPackageFormData] = useState<PackageFormData>({
-    name: '',
-    description: '',
-    price: '0',
+    name_en: '',
+    name_id: '',
+    description_en: '',
+    description_id: '',
+    price_idr: '',
+    price_usd: '',
     categoryId: '',
     subcategoryId: '',
     popular: false,
@@ -61,9 +64,12 @@ const PackagesSection: React.FC = () => {
 
   const openCreatePackageModal = () => {
     setPackageFormData({
-      name: '',
-      description: '',
-      price: '0',
+      name_en: '',
+      name_id: '',
+      description_en: '',
+      description_id: '',
+      price_idr: '',
+      price_usd: '',
       categoryId: categories[0]?.id || '',
       subcategoryId: '',
       popular: false,
@@ -86,15 +92,18 @@ const PackagesSection: React.FC = () => {
   const openEditPackageModal = (pkg: Package) => {
     setEditingPackage(pkg);
     setPackageFormData({
-      name: pkg.name,
-      description: pkg.description || '',
-      price: pkg.price.toString(),
+      name_en: pkg.name_en,
+      name_id: pkg.name_id,
+      description_en: pkg.description_en,
+      description_id: pkg.description_id,
+      price_idr: pkg.price_idr.toString(),
+      price_usd: pkg.price_usd.toString(),
       categoryId: pkg.categoryId,
       subcategoryId: pkg.subcategoryId,
       image: pkg.image || undefined,
       popular: pkg.popular || false,
       bgColor: pkg.bgColor || '#FFFFFF',
-      features: pkg.features.map(f => ({ id: f.id, name: f.name, included: f.included })),
+      features: pkg.features.map(f => ({ id: f.id, name_en: f.name_en, name_id: f.name_id, included: f.included })),
       addonIds: pkg.addons ? pkg.addons.map(a => a.id) : [],
     });
     setSelectedImageFile(null);
@@ -142,7 +151,7 @@ const PackagesSection: React.FC = () => {
   const handleAddPackageFeature = () => {
     setPackageFormData(prev => ({
       ...prev,
-      features: [...prev.features, { name: '', included: true, id: `temp-${Date.now()}` }],
+      features: [...prev.features, { name_en: '', name_id: '', included: true, id: `temp-${Date.now()}` }],
     }));
   };
 
@@ -182,13 +191,16 @@ const PackagesSection: React.FC = () => {
       setIsLoading(false);
       return;
     }
-    if (isNaN(parseFloat(packageFormData.price)) || parseFloat(packageFormData.price) < 0) {
-      setError('Valid price is required for a package.');
+    if (
+      isNaN(parseFloat(packageFormData.price_idr)) || parseFloat(packageFormData.price_idr) < 0 ||
+      isNaN(parseFloat(packageFormData.price_usd)) || parseFloat(packageFormData.price_usd) < 0
+    ) {
+      setError('Valid price (IDR & USD) is required for a package.');
       setIsLoading(false);
       return;
     }
-    if (packageFormData.features.some(f => !f.name.trim())) {
-      setError('All features must have a name.');
+    if (packageFormData.features.some(f => !f.name_en.trim() || !f.name_id.trim())) {
+      setError('All features must have a name in both languages.');
       setIsLoading(false);
       return;
     }
@@ -206,7 +218,6 @@ const PackagesSection: React.FC = () => {
           throw new Error(errorData.message || 'Failed to upload image');
         }
         const uploadResult = await uploadResponse.json();
-        // Convert to absolute URL for backend validation
         const absoluteUrl = `${window.location.origin}${uploadResult.filePath}`;
         imageUrl = absoluteUrl;
       } catch (err: any) {
@@ -219,11 +230,13 @@ const PackagesSection: React.FC = () => {
     const url = editingPackage ? `/api/product/packages/${editingPackage.id}` : '/api/product/packages';
     const payload = {
       ...packageFormData,
-      price: parseFloat(packageFormData.price),
+      price_idr: parseFloat(packageFormData.price_idr),
+      price_usd: parseFloat(packageFormData.price_usd),
       image: imageUrl,
       features: packageFormData.features.map(f => ({
         id: f.id?.startsWith('temp-') ? undefined : f.id,
-        name: f.name,
+        name_en: f.name_en,
+        name_id: f.name_id,
         included: f.included,
       })),
     };
@@ -291,15 +304,16 @@ const PackagesSection: React.FC = () => {
       {!isLoading && !error && packages.length > 0 && (
         <ul className="space-y-3">
           {packages.map((pkg: Package) => {
-            const categoryName = categories.find((c: Category) => c.id === pkg.categoryId)?.name || 'N/A';
-            const subcategoryName = subcategories.find((sc: Subcategory) => sc.id === pkg.subcategoryId)?.name || 'N/A';
+            // Pilih bahasa dan harga, misal: pakai bahasa Indonesia dan harga IDR
+            const categoryName = categories.find((c: Category) => c.id === pkg.categoryId)?.name_id || 'N/A';
+            const subcategoryName = subcategories.find((sc: Subcategory) => sc.id === pkg.subcategoryId)?.name_id || 'N/A';
             return (
               <li key={pkg.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
                 <div className="flex items-center space-x-4">
                   {pkg.image ? (
                     <Image
                       src={pkg.image}
-                      alt={pkg.name}
+                      alt={pkg.name_id}
                       width={40}
                       height={40}
                       className="object-cover rounded-md"
@@ -312,14 +326,14 @@ const PackagesSection: React.FC = () => {
                     </div>
                   )}
                   <div>
-                    <div className="font-medium text-gray-700 dark:text-gray-200">{pkg.name}</div>
+                    <div className="font-medium text-gray-700 dark:text-gray-200">{pkg.name_id}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName} / {subcategoryName}</div>
-                    {pkg.description && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description}</div>}
+                    {pkg.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description_id}</div>}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-semibold text-green-700 dark:text-green-400">
-                    {typeof pkg.price === 'number' ? `$${pkg.price.toFixed(2)}` : `$${parseFloat(pkg.price).toFixed(2)}`}
+                    {typeof pkg.price_idr === 'number' ? `Rp${pkg.price_idr.toLocaleString('id-ID')}` : `Rp${parseFloat(pkg.price_idr as any).toLocaleString('id-ID')}`}
                   </span>
                   <Button variant="outline" size="sm" onClick={() => openEditPackageModal(pkg)}>
                     <Pencil className="mr-1 h-3 w-3" /> Edit

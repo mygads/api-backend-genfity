@@ -54,44 +54,61 @@ const PackageModal: React.FC<PackageModalProps> = ({
         <DialogTitle>{editingPackage ? 'Edit Package' : 'Create New Package'}</DialogTitle>
       </DialogHeader>
       <div className="flex flex-col gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
-        <div>
-          <Label htmlFor="pkg-name" className="block mb-1">Name</Label>
-          <Input id="pkg-name" name="name" value={formData.name} onChange={onFormChange} placeholder="e.g., Starter Pack" />
+        {/* Name (EN) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageNameEn" className="text-left">Name (EN)</Label>
+          <Input id="packageNameEn" name="name_en" value={formData.name_en} onChange={onFormChange} className="col-span-3" placeholder="e.g., Basic" />
         </div>
-        <div>
-          <Label htmlFor="pkg-description" className="block mb-1">Description</Label>
-          <textarea id="pkg-description" name="description" value={formData.description || ''} onChange={onFormChange} className="border rounded-md p-2 text-sm min-h-[60px] w-full" placeholder="Optional package description" />
+        {/* Name (ID) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageNameId" className="text-left">Name (ID)</Label>
+          <Input id="packageNameId" name="name_id" value={formData.name_id} onChange={onFormChange} className="col-span-3" placeholder="Contoh: Paket Dasar" />
         </div>
-        <div>
-          <Label htmlFor="pkg-price" className="block mb-1">Price ($)</Label>
-          <Input id="pkg-price" name="price" type="number" value={formData.price} onChange={onFormChange} placeholder="e.g., 49.99" />
+        {/* Description (EN) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageDescriptionEn" className="text-left">Description (EN)</Label>
+          <Input id="packageDescriptionEn" name="description_en" value={formData.description_en} onChange={onFormChange} className="col-span-3" placeholder="e.g., Basic package" />
         </div>
-        <div>
-          <Label htmlFor="pkg-category" className="block mb-1">Category</Label>
-          <Select value={formData.categoryId} onValueChange={onCategoryChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a category" />
+        {/* Description (ID) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageDescriptionId" className="text-left">Description (ID)</Label>
+          <Input id="packageDescriptionId" name="description_id" value={formData.description_id} onChange={onFormChange} className="col-span-3" placeholder="Contoh: Paket Dasar" />
+        </div>
+        {/* Price IDR */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packagePriceIdr" className="text-left">Price (IDR)</Label>
+          <Input id="packagePriceIdr" name="price_idr" type="number" value={formData.price_idr} onChange={onFormChange} className="col-span-3" placeholder="e.g., 100000" />
+        </div>
+        {/* Price USD */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packagePriceUsd" className="text-left">Price (USD)</Label>
+          <Input id="packagePriceUsd" name="price_usd" type="number" value={formData.price_usd} onChange={onFormChange} className="col-span-3" placeholder="e.g., 10" />
+        </div>
+        {/* Category */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageCategoryId" className="text-left">Category</Label>
+          <Select value={formData.categoryId} onValueChange={onCategoryChange} disabled={categories.length === 0}>
+            <SelectTrigger className="col-span-3">
+              <SelectValue placeholder={categories.length === 0 ? "No categories available" : "Select a category"} />
             </SelectTrigger>
             <SelectContent>
-              {categories.map(cat => (
-                <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-              ))}
+              {categories.map(category => (<SelectItem key={category.id} value={category.id}>{category.name_id}</SelectItem>))}
             </SelectContent>
           </Select>
         </div>
-        <div>
-          <Label htmlFor="pkg-subcategory" className="block mb-1">Subcategory</Label>
-          <Select value={formData.subcategoryId} onValueChange={onSubcategoryChange} disabled={!formData.categoryId || filteredSubcategories.length === 0}>
-            <SelectTrigger>
-              <SelectValue placeholder={!formData.categoryId ? "Select category first" : (filteredSubcategories.length === 0 ? "No subcategories available" : "Select a subcategory")} />
+        {/* Subcategory */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageSubcategoryId" className="text-right">Subcategory</Label>
+          <Select value={formData.subcategoryId} onValueChange={onSubcategoryChange} disabled={filteredSubcategories.length === 0}>
+            <SelectTrigger className="col-span-3">
+              <SelectValue placeholder={filteredSubcategories.length === 0 ? "No subcategories available" : "Select a subcategory"} />
             </SelectTrigger>
             <SelectContent>
-              {filteredSubcategories.map(subcat => (
-                <SelectItem key={subcat.id} value={subcat.id}>{subcat.name}</SelectItem>
-              ))}
+              {filteredSubcategories.map(subcat => (<SelectItem key={subcat.id} value={subcat.id}>{subcat.name_id}</SelectItem>))}
             </SelectContent>
           </Select>
         </div>
+        {/* Image */}
         <div>
           <Label htmlFor="pkg-image" className="block mb-1">Image</Label>
           <Input id="pkg-image" type="file" accept="image/*" onChange={onImageFileChange} className="w-full" />
@@ -116,31 +133,38 @@ const PackageModal: React.FC<PackageModalProps> = ({
           <Input id="pkg-bgColor-text" name="bgColor" type="text" value={formData.bgColor || '#FFFFFF'} onChange={onFormChange} className="w-24" placeholder="#FFFFFF" />
         </div>
         {/* Features Section */}
-        <div>
-          <Label className="text-base font-medium">Features</Label>
-          {formData.features.map((feature, index) => (
-            <div key={feature.id || index} className="flex gap-2 items-center mt-2 p-2 border rounded-md">
+        <div className="grid gap-2">
+          <Label>Features</Label>
+          {formData.features.map((feature, idx) => (
+            <div key={feature.id || idx} className="flex gap-2 items-center">
               <Input
-                type="text"
-                placeholder="Feature name"
-                value={feature.name}
-                onChange={(e) => onFeatureChange(index, 'name', e.target.value)}
-                className="text-sm flex-1"
+                name="name_en"
+                value={feature.name_en}
+                onChange={e => onFeatureChange(idx, 'name_en', e.target.value)}
+                className="w-1/4"
+                placeholder="Feature (EN)"
               />
               <Input
-                type="checkbox"
-                checked={feature.included}
-                onChange={(e) => onFeatureChange(index, 'included', e.target.checked)}
-                className="h-4 w-4 mr-2"
-                id={`feature-included-${index}`}
+                name="name_id"
+                value={feature.name_id}
+                onChange={e => onFeatureChange(idx, 'name_id', e.target.value)}
+                className="w-1/4"
+                placeholder="Feature (ID)"
               />
-              <Label htmlFor={`feature-included-${index}`} className="text-sm">Included</Label>
-              <Button type="button" variant="ghost" size="sm" onClick={() => onRemoveFeature(index)} className="text-red-500">✕</Button>
+              <label className="flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  checked={feature.included}
+                  onChange={e => onFeatureChange(idx, 'included', e.target.checked)}
+                />
+                Included
+              </label>
+              <Button type="button" variant="destructive" size="sm" onClick={() => onRemoveFeature(idx)}>
+                Remove
+              </Button>
             </div>
           ))}
-          <Button type="button" variant="outline" size="sm" onClick={onAddFeature} className="mt-3">
-            Add Feature
-          </Button>
+          <Button type="button" variant="outline" size="sm" onClick={onAddFeature} className="mt-2">Add Feature</Button>
         </div>
       </div>
       {error && <p className="text-red-500 text-sm px-4 pb-2">{error}</p>}
@@ -148,7 +172,11 @@ const PackageModal: React.FC<PackageModalProps> = ({
         <DialogClose asChild>
           <Button type="button" variant="outline" onClick={() => {}}>Cancel</Button>
         </DialogClose>
-        <Button type="button" onClick={onSave} disabled={isLoading || !formData.categoryId || !formData.subcategoryId}>
+        <Button
+          type="button"
+          onClick={onSave}
+          disabled={isLoading || !formData.name_en.trim() || !formData.name_id.trim() || !formData.categoryId || !formData.subcategoryId || isNaN(parseFloat(formData.price_idr)) || parseFloat(formData.price_idr) <= 0 || isNaN(parseFloat(formData.price_usd)) || parseFloat(formData.price_usd) <= 0}
+        >
           {isLoading ? (editingPackage ? 'Saving...' : 'Creating...') : (editingPackage ? 'Save Changes' : 'Create Package')}
         </Button>
       </DialogFooter>

@@ -3,7 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const subcategorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name_en: z.string().min(1, "English name is required"),
+  name_id: z.string().min(1, "Indonesian name is required"),
   categoryId: z.string().cuid("Invalid Category ID"),
 });
 
@@ -19,13 +20,12 @@ export async function POST(request: Request) {
       });
     }
 
-    const { name, categoryId } = validation.data;
+    const { name_en, name_id, categoryId } = validation.data;
 
     // Check if category exists
     const category = await prisma.category.findUnique({
       where: { id: categoryId },
     });
-
     if (!category) {
       return new NextResponse(JSON.stringify({ message: "Category not found" }), {
         status: 404,
@@ -36,11 +36,12 @@ export async function POST(request: Request) {
     // Check if subcategory with the same name already exists in this category
     const existingSubcategory = await prisma.subcategory.findFirst({
       where: {
-        name,
-        categoryId,
+        OR: [
+          { name_en, categoryId },
+          { name_id, categoryId },
+        ],
       },
     });
-
     if (existingSubcategory) {
       return new NextResponse(
         JSON.stringify({ message: "Subcategory with this name already exists in this category" }),
@@ -53,7 +54,8 @@ export async function POST(request: Request) {
 
     const subcategory = await prisma.subcategory.create({
       data: {
-        name,
+        name_en,
+        name_id,
         categoryId,
       },
     });

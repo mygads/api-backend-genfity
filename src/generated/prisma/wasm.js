@@ -166,37 +166,46 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
 
 exports.Prisma.FeatureScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   included: 'included',
   packageId: 'packageId'
 };
 
 exports.Prisma.SubcategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   categoryId: 'categoryId'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   icon: 'icon'
 };
 
 exports.Prisma.AddonScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
-  price: 'price',
+  name_en: 'name_en',
+  name_id: 'name_id',
+  description_en: 'description_en',
+  description_id: 'description_id',
+  price_idr: 'price_idr',
+  price_usd: 'price_usd',
   image: 'image',
   categoryId: 'categoryId'
 };
 
 exports.Prisma.PackageScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
-  price: 'price',
+  name_en: 'name_en',
+  name_id: 'name_id',
+  description_en: 'description_en',
+  description_id: 'description_id',
+  price_idr: 'price_idr',
+  price_usd: 'price_usd',
   image: 'image',
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',
@@ -252,34 +261,41 @@ exports.Prisma.VerificationTokenOrderByRelevanceFieldEnum = {
 
 exports.Prisma.FeatureOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   packageId: 'packageId'
 };
 
 exports.Prisma.SubcategoryOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   categoryId: 'categoryId'
 };
 
 exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
+  name_en: 'name_en',
+  name_id: 'name_id',
   icon: 'icon'
 };
 
 exports.Prisma.AddonOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
+  name_en: 'name_en',
+  name_id: 'name_id',
+  description_en: 'description_en',
+  description_id: 'description_id',
   image: 'image',
   categoryId: 'categoryId'
 };
 
 exports.Prisma.PackageOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
-  description: 'description',
+  name_en: 'name_en',
+  name_id: 'name_id',
+  description_en: 'description_en',
+  description_id: 'description_id',
   image: 'image',
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',

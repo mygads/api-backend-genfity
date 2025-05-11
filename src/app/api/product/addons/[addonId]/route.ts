@@ -6,9 +6,12 @@ import path from 'path';
 
 // Base schema for addon, all fields optional for PUT
 const addonSchemaBase = z.object({
-  name: z.string().min(1, "Name is required").optional(),
-  description: z.string().min(1, "Description is required").optional(),
-  price: z.number().positive("Price must be a positive number").optional(),
+  name_en: z.string().min(1, "Name (EN) is required").optional(),
+  name_id: z.string().min(1, "Name (ID) is required").optional(),
+  description_en: z.string().min(1, "Description (EN) is required").optional(),
+  description_id: z.string().min(1, "Description (ID) is required").optional(),
+  price_idr: z.number().positive("Price (IDR) must be a positive number").optional(),
+  price_usd: z.number().positive("Price (USD) must be a positive number").optional(),
   image: z.string().url("Image must be a valid URL").optional(),
   categoryId: z.string().cuid("Invalid Category ID").optional(),
 });
@@ -74,7 +77,10 @@ export async function PUT(
       });
     }
 
-    const { name, description, price, image, categoryId } = validation.data;
+    // Ambil semua field dari validation.data
+    const {
+      name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId
+    } = validation.data as any;
 
     if (Object.keys(validation.data).length === 0) {
         return new NextResponse(JSON.stringify({ message: "No fields to update" }), {
@@ -96,24 +102,27 @@ export async function PUT(
 
     const targetCategoryId = categoryId || currentAddon.categoryId;
 
-    if (name) {
-        const existingAddonWithName = await prisma.addon.findFirst({
-            where: {
-                name,
-                categoryId: targetCategoryId,
-                id: { not: addonId },
-            },
-        });
-
-        if (existingAddonWithName) {
-            return new NextResponse(
-                JSON.stringify({ message: "Another addon with this name already exists in this category" }),
-                {
-                status: 409,
-                headers: { "Content-Type": "application/json" },
-                }
-            );
-        }
+    // Cek duplikat nama (multi-bahasa)
+    if (name_en || name_id) {
+      const existingAddonWithName = await prisma.addon.findFirst({
+        where: {
+          categoryId: targetCategoryId,
+          id: { not: addonId },
+          OR: [
+            name_en ? { name_en } : undefined,
+            name_id ? { name_id } : undefined,
+          ].filter(Boolean) as any,
+        },
+      });
+      if (existingAddonWithName) {
+        return new NextResponse(
+          JSON.stringify({ message: "Another addon with this name already exists in this category" }),
+          {
+            status: 409,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
     }
 
     if (categoryId) {
@@ -142,9 +151,12 @@ export async function PUT(
       }
     }
 
+    // Update data
     const updatedAddon = await prisma.addon.update({
       where: { id: addonId },
-      data: validation.data, // Pass validated data directly
+      data: {
+        name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId
+      },
     });
 
     return NextResponse.json(updatedAddon);

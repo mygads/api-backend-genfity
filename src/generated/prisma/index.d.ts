@@ -5576,21 +5576,24 @@ export namespace Prisma {
 
   export type FeatureMinAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     included: boolean | null
     packageId: string | null
   }
 
   export type FeatureMaxAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     included: boolean | null
     packageId: string | null
   }
 
   export type FeatureCountAggregateOutputType = {
     id: number
-    name: number
+    name_en: number
+    name_id: number
     included: number
     packageId: number
     _all: number
@@ -5599,21 +5602,24 @@ export namespace Prisma {
 
   export type FeatureMinAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     included?: true
     packageId?: true
   }
 
   export type FeatureMaxAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     included?: true
     packageId?: true
   }
 
   export type FeatureCountAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     included?: true
     packageId?: true
     _all?: true
@@ -5693,7 +5699,8 @@ export namespace Prisma {
 
   export type FeatureGroupByOutputType = {
     id: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
     packageId: string
     _count: FeatureCountAggregateOutputType | null
@@ -5717,7 +5724,8 @@ export namespace Prisma {
 
   export type FeatureSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     included?: boolean
     packageId?: boolean
     package?: boolean | PackageDefaultArgs<ExtArgs>
@@ -5727,12 +5735,13 @@ export namespace Prisma {
 
   export type FeatureSelectScalar = {
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     included?: boolean
     packageId?: boolean
   }
 
-  export type FeatureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "included" | "packageId", ExtArgs["result"]["feature"]>
+  export type FeatureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "included" | "packageId", ExtArgs["result"]["feature"]>
   export type FeatureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     package?: boolean | PackageDefaultArgs<ExtArgs>
   }
@@ -5744,7 +5753,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
+      name_en: string
+      name_id: string
       included: boolean
       packageId: string
     }, ExtArgs["result"]["feature"]>
@@ -6118,7 +6128,8 @@ export namespace Prisma {
    */
   interface FeatureFieldRefs {
     readonly id: FieldRef<"Feature", 'String'>
-    readonly name: FieldRef<"Feature", 'String'>
+    readonly name_en: FieldRef<"Feature", 'String'>
+    readonly name_id: FieldRef<"Feature", 'String'>
     readonly included: FieldRef<"Feature", 'Boolean'>
     readonly packageId: FieldRef<"Feature", 'String'>
   }
@@ -6494,19 +6505,22 @@ export namespace Prisma {
 
   export type SubcategoryMinAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     categoryId: string | null
   }
 
   export type SubcategoryMaxAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     categoryId: string | null
   }
 
   export type SubcategoryCountAggregateOutputType = {
     id: number
-    name: number
+    name_en: number
+    name_id: number
     categoryId: number
     _all: number
   }
@@ -6514,19 +6528,22 @@ export namespace Prisma {
 
   export type SubcategoryMinAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     categoryId?: true
   }
 
   export type SubcategoryMaxAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     categoryId?: true
   }
 
   export type SubcategoryCountAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     categoryId?: true
     _all?: true
   }
@@ -6605,7 +6622,8 @@ export namespace Prisma {
 
   export type SubcategoryGroupByOutputType = {
     id: string
-    name: string
+    name_en: string
+    name_id: string
     categoryId: string
     _count: SubcategoryCountAggregateOutputType | null
     _min: SubcategoryMinAggregateOutputType | null
@@ -6628,7 +6646,8 @@ export namespace Prisma {
 
   export type SubcategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     categoryId?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     packages?: boolean | Subcategory$packagesArgs<ExtArgs>
@@ -6639,11 +6658,12 @@ export namespace Prisma {
 
   export type SubcategorySelectScalar = {
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     categoryId?: boolean
   }
 
-  export type SubcategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "categoryId", ExtArgs["result"]["subcategory"]>
+  export type SubcategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "categoryId", ExtArgs["result"]["subcategory"]>
   export type SubcategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     packages?: boolean | Subcategory$packagesArgs<ExtArgs>
@@ -6658,7 +6678,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
+      name_en: string
+      name_id: string
       categoryId: string
     }, ExtArgs["result"]["subcategory"]>
     composites: {}
@@ -7032,7 +7053,8 @@ export namespace Prisma {
    */
   interface SubcategoryFieldRefs {
     readonly id: FieldRef<"Subcategory", 'String'>
-    readonly name: FieldRef<"Subcategory", 'String'>
+    readonly name_en: FieldRef<"Subcategory", 'String'>
+    readonly name_id: FieldRef<"Subcategory", 'String'>
     readonly categoryId: FieldRef<"Subcategory", 'String'>
   }
     
@@ -7431,19 +7453,22 @@ export namespace Prisma {
 
   export type CategoryMinAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     icon: string | null
   }
 
   export type CategoryMaxAggregateOutputType = {
     id: string | null
-    name: string | null
+    name_en: string | null
+    name_id: string | null
     icon: string | null
   }
 
   export type CategoryCountAggregateOutputType = {
     id: number
-    name: number
+    name_en: number
+    name_id: number
     icon: number
     _all: number
   }
@@ -7451,19 +7476,22 @@ export namespace Prisma {
 
   export type CategoryMinAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     icon?: true
   }
 
   export type CategoryMaxAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     icon?: true
   }
 
   export type CategoryCountAggregateInputType = {
     id?: true
-    name?: true
+    name_en?: true
+    name_id?: true
     icon?: true
     _all?: true
   }
@@ -7542,7 +7570,8 @@ export namespace Prisma {
 
   export type CategoryGroupByOutputType = {
     id: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     _count: CategoryCountAggregateOutputType | null
     _min: CategoryMinAggregateOutputType | null
@@ -7565,7 +7594,8 @@ export namespace Prisma {
 
   export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     icon?: boolean
     subcategories?: boolean | Category$subcategoriesArgs<ExtArgs>
     packages?: boolean | Category$packagesArgs<ExtArgs>
@@ -7577,11 +7607,12 @@ export namespace Prisma {
 
   export type CategorySelectScalar = {
     id?: boolean
-    name?: boolean
+    name_en?: boolean
+    name_id?: boolean
     icon?: boolean
   }
 
-  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "icon", ExtArgs["result"]["category"]>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "icon", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subcategories?: boolean | Category$subcategoriesArgs<ExtArgs>
     packages?: boolean | Category$packagesArgs<ExtArgs>
@@ -7598,7 +7629,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
+      name_en: string
+      name_id: string
       icon: string
     }, ExtArgs["result"]["category"]>
     composites: {}
@@ -7973,7 +8005,8 @@ export namespace Prisma {
    */
   interface CategoryFieldRefs {
     readonly id: FieldRef<"Category", 'String'>
-    readonly name: FieldRef<"Category", 'String'>
+    readonly name_en: FieldRef<"Category", 'String'>
+    readonly name_id: FieldRef<"Category", 'String'>
     readonly icon: FieldRef<"Category", 'String'>
   }
     
@@ -8421,36 +8454,47 @@ export namespace Prisma {
   }
 
   export type AddonAvgAggregateOutputType = {
-    price: Decimal | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
   }
 
   export type AddonSumAggregateOutputType = {
-    price: Decimal | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
   }
 
   export type AddonMinAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
-    price: Decimal | null
+    name_en: string | null
+    name_id: string | null
+    description_en: string | null
+    description_id: string | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
     image: string | null
     categoryId: string | null
   }
 
   export type AddonMaxAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
-    price: Decimal | null
+    name_en: string | null
+    name_id: string | null
+    description_en: string | null
+    description_id: string | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
     image: string | null
     categoryId: string | null
   }
 
   export type AddonCountAggregateOutputType = {
     id: number
-    name: number
-    description: number
-    price: number
+    name_en: number
+    name_id: number
+    description_en: number
+    description_id: number
+    price_idr: number
+    price_usd: number
     image: number
     categoryId: number
     _all: number
@@ -8458,36 +8502,47 @@ export namespace Prisma {
 
 
   export type AddonAvgAggregateInputType = {
-    price?: true
+    price_idr?: true
+    price_usd?: true
   }
 
   export type AddonSumAggregateInputType = {
-    price?: true
+    price_idr?: true
+    price_usd?: true
   }
 
   export type AddonMinAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
   }
 
   export type AddonMaxAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
   }
 
   export type AddonCountAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
     _all?: true
@@ -8581,9 +8636,12 @@ export namespace Prisma {
 
   export type AddonGroupByOutputType = {
     id: string
-    name: string
-    description: string | null
-    price: Decimal
+    name_en: string
+    name_id: string
+    description_en: string | null
+    description_id: string | null
+    price_idr: Decimal
+    price_usd: Decimal
     image: string | null
     categoryId: string
     _count: AddonCountAggregateOutputType | null
@@ -8609,9 +8667,12 @@ export namespace Prisma {
 
   export type AddonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    description?: boolean
-    price?: boolean
+    name_en?: boolean
+    name_id?: boolean
+    description_en?: boolean
+    description_id?: boolean
+    price_idr?: boolean
+    price_usd?: boolean
     image?: boolean
     categoryId?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -8621,14 +8682,17 @@ export namespace Prisma {
 
   export type AddonSelectScalar = {
     id?: boolean
-    name?: boolean
-    description?: boolean
-    price?: boolean
+    name_en?: boolean
+    name_id?: boolean
+    description_en?: boolean
+    description_id?: boolean
+    price_idr?: boolean
+    price_usd?: boolean
     image?: boolean
     categoryId?: boolean
   }
 
-  export type AddonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "categoryId", ExtArgs["result"]["addon"]>
+  export type AddonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId", ExtArgs["result"]["addon"]>
   export type AddonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }
@@ -8640,9 +8704,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      description: string | null
-      price: Prisma.Decimal
+      name_en: string
+      name_id: string
+      description_en: string | null
+      description_id: string | null
+      price_idr: Prisma.Decimal
+      price_usd: Prisma.Decimal
       image: string | null
       categoryId: string
     }, ExtArgs["result"]["addon"]>
@@ -9016,9 +9083,12 @@ export namespace Prisma {
    */
   interface AddonFieldRefs {
     readonly id: FieldRef<"Addon", 'String'>
-    readonly name: FieldRef<"Addon", 'String'>
-    readonly description: FieldRef<"Addon", 'String'>
-    readonly price: FieldRef<"Addon", 'Decimal'>
+    readonly name_en: FieldRef<"Addon", 'String'>
+    readonly name_id: FieldRef<"Addon", 'String'>
+    readonly description_en: FieldRef<"Addon", 'String'>
+    readonly description_id: FieldRef<"Addon", 'String'>
+    readonly price_idr: FieldRef<"Addon", 'Decimal'>
+    readonly price_usd: FieldRef<"Addon", 'Decimal'>
     readonly image: FieldRef<"Addon", 'String'>
     readonly categoryId: FieldRef<"Addon", 'String'>
   }
@@ -9395,18 +9465,23 @@ export namespace Prisma {
   }
 
   export type PackageAvgAggregateOutputType = {
-    price: Decimal | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
   }
 
   export type PackageSumAggregateOutputType = {
-    price: Decimal | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
   }
 
   export type PackageMinAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
-    price: Decimal | null
+    name_en: string | null
+    name_id: string | null
+    description_en: string | null
+    description_id: string | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
     image: string | null
     categoryId: string | null
     subcategoryId: string | null
@@ -9416,9 +9491,12 @@ export namespace Prisma {
 
   export type PackageMaxAggregateOutputType = {
     id: string | null
-    name: string | null
-    description: string | null
-    price: Decimal | null
+    name_en: string | null
+    name_id: string | null
+    description_en: string | null
+    description_id: string | null
+    price_idr: Decimal | null
+    price_usd: Decimal | null
     image: string | null
     categoryId: string | null
     subcategoryId: string | null
@@ -9428,9 +9506,12 @@ export namespace Prisma {
 
   export type PackageCountAggregateOutputType = {
     id: number
-    name: number
-    description: number
-    price: number
+    name_en: number
+    name_id: number
+    description_en: number
+    description_id: number
+    price_idr: number
+    price_usd: number
     image: number
     categoryId: number
     subcategoryId: number
@@ -9441,18 +9522,23 @@ export namespace Prisma {
 
 
   export type PackageAvgAggregateInputType = {
-    price?: true
+    price_idr?: true
+    price_usd?: true
   }
 
   export type PackageSumAggregateInputType = {
-    price?: true
+    price_idr?: true
+    price_usd?: true
   }
 
   export type PackageMinAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
     subcategoryId?: true
@@ -9462,9 +9548,12 @@ export namespace Prisma {
 
   export type PackageMaxAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
     subcategoryId?: true
@@ -9474,9 +9563,12 @@ export namespace Prisma {
 
   export type PackageCountAggregateInputType = {
     id?: true
-    name?: true
-    description?: true
-    price?: true
+    name_en?: true
+    name_id?: true
+    description_en?: true
+    description_id?: true
+    price_idr?: true
+    price_usd?: true
     image?: true
     categoryId?: true
     subcategoryId?: true
@@ -9573,9 +9665,12 @@ export namespace Prisma {
 
   export type PackageGroupByOutputType = {
     id: string
-    name: string
-    description: string
-    price: Decimal
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal
+    price_usd: Decimal
     image: string
     categoryId: string
     subcategoryId: string
@@ -9604,9 +9699,12 @@ export namespace Prisma {
 
   export type PackageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
-    description?: boolean
-    price?: boolean
+    name_en?: boolean
+    name_id?: boolean
+    description_en?: boolean
+    description_id?: boolean
+    price_idr?: boolean
+    price_usd?: boolean
     image?: boolean
     categoryId?: boolean
     subcategoryId?: boolean
@@ -9622,9 +9720,12 @@ export namespace Prisma {
 
   export type PackageSelectScalar = {
     id?: boolean
-    name?: boolean
-    description?: boolean
-    price?: boolean
+    name_en?: boolean
+    name_id?: boolean
+    description_en?: boolean
+    description_id?: boolean
+    price_idr?: boolean
+    price_usd?: boolean
     image?: boolean
     categoryId?: boolean
     subcategoryId?: boolean
@@ -9632,7 +9733,7 @@ export namespace Prisma {
     bgColor?: boolean
   }
 
-  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "categoryId" | "subcategoryId" | "popular" | "bgColor", ExtArgs["result"]["package"]>
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId" | "subcategoryId" | "popular" | "bgColor", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     subcategory?: boolean | SubcategoryDefaultArgs<ExtArgs>
@@ -9649,9 +9750,12 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      description: string
-      price: Prisma.Decimal
+      name_en: string
+      name_id: string
+      description_en: string
+      description_id: string
+      price_idr: Prisma.Decimal
+      price_usd: Prisma.Decimal
       image: string
       categoryId: string
       subcategoryId: string
@@ -10030,9 +10134,12 @@ export namespace Prisma {
    */
   interface PackageFieldRefs {
     readonly id: FieldRef<"Package", 'String'>
-    readonly name: FieldRef<"Package", 'String'>
-    readonly description: FieldRef<"Package", 'String'>
-    readonly price: FieldRef<"Package", 'Decimal'>
+    readonly name_en: FieldRef<"Package", 'String'>
+    readonly name_id: FieldRef<"Package", 'String'>
+    readonly description_en: FieldRef<"Package", 'String'>
+    readonly description_id: FieldRef<"Package", 'String'>
+    readonly price_idr: FieldRef<"Package", 'Decimal'>
+    readonly price_usd: FieldRef<"Package", 'Decimal'>
     readonly image: FieldRef<"Package", 'String'>
     readonly categoryId: FieldRef<"Package", 'String'>
     readonly subcategoryId: FieldRef<"Package", 'String'>
@@ -10495,7 +10602,8 @@ export namespace Prisma {
 
   export const FeatureScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     included: 'included',
     packageId: 'packageId'
   };
@@ -10505,7 +10613,8 @@ export namespace Prisma {
 
   export const SubcategoryScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     categoryId: 'categoryId'
   };
 
@@ -10514,7 +10623,8 @@ export namespace Prisma {
 
   export const CategoryScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     icon: 'icon'
   };
 
@@ -10523,9 +10633,12 @@ export namespace Prisma {
 
   export const AddonScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    description: 'description',
-    price: 'price',
+    name_en: 'name_en',
+    name_id: 'name_id',
+    description_en: 'description_en',
+    description_id: 'description_id',
+    price_idr: 'price_idr',
+    price_usd: 'price_usd',
     image: 'image',
     categoryId: 'categoryId'
   };
@@ -10535,9 +10648,12 @@ export namespace Prisma {
 
   export const PackageScalarFieldEnum: {
     id: 'id',
-    name: 'name',
-    description: 'description',
-    price: 'price',
+    name_en: 'name_en',
+    name_id: 'name_id',
+    description_en: 'description_en',
+    description_id: 'description_id',
+    price_idr: 'price_idr',
+    price_usd: 'price_usd',
     image: 'image',
     categoryId: 'categoryId',
     subcategoryId: 'subcategoryId',
@@ -10614,7 +10730,8 @@ export namespace Prisma {
 
   export const FeatureOrderByRelevanceFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     packageId: 'packageId'
   };
 
@@ -10623,7 +10740,8 @@ export namespace Prisma {
 
   export const SubcategoryOrderByRelevanceFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     categoryId: 'categoryId'
   };
 
@@ -10632,7 +10750,8 @@ export namespace Prisma {
 
   export const CategoryOrderByRelevanceFieldEnum: {
     id: 'id',
-    name: 'name',
+    name_en: 'name_en',
+    name_id: 'name_id',
     icon: 'icon'
   };
 
@@ -10641,8 +10760,10 @@ export namespace Prisma {
 
   export const AddonOrderByRelevanceFieldEnum: {
     id: 'id',
-    name: 'name',
-    description: 'description',
+    name_en: 'name_en',
+    name_id: 'name_id',
+    description_en: 'description_en',
+    description_id: 'description_id',
     image: 'image',
     categoryId: 'categoryId'
   };
@@ -10652,8 +10773,10 @@ export namespace Prisma {
 
   export const PackageOrderByRelevanceFieldEnum: {
     id: 'id',
-    name: 'name',
-    description: 'description',
+    name_en: 'name_en',
+    name_id: 'name_id',
+    description_en: 'description_en',
+    description_id: 'description_id',
     image: 'image',
     categoryId: 'categoryId',
     subcategoryId: 'subcategoryId',
@@ -11006,7 +11129,8 @@ export namespace Prisma {
     OR?: FeatureWhereInput[]
     NOT?: FeatureWhereInput | FeatureWhereInput[]
     id?: StringFilter<"Feature"> | string
-    name?: StringFilter<"Feature"> | string
+    name_en?: StringFilter<"Feature"> | string
+    name_id?: StringFilter<"Feature"> | string
     included?: BoolFilter<"Feature"> | boolean
     packageId?: StringFilter<"Feature"> | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
@@ -11014,7 +11138,8 @@ export namespace Prisma {
 
   export type FeatureOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     included?: SortOrder
     packageId?: SortOrder
     package?: PackageOrderByWithRelationInput
@@ -11026,7 +11151,8 @@ export namespace Prisma {
     AND?: FeatureWhereInput | FeatureWhereInput[]
     OR?: FeatureWhereInput[]
     NOT?: FeatureWhereInput | FeatureWhereInput[]
-    name?: StringFilter<"Feature"> | string
+    name_en?: StringFilter<"Feature"> | string
+    name_id?: StringFilter<"Feature"> | string
     included?: BoolFilter<"Feature"> | boolean
     packageId?: StringFilter<"Feature"> | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
@@ -11034,7 +11160,8 @@ export namespace Prisma {
 
   export type FeatureOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     included?: SortOrder
     packageId?: SortOrder
     _count?: FeatureCountOrderByAggregateInput
@@ -11047,7 +11174,8 @@ export namespace Prisma {
     OR?: FeatureScalarWhereWithAggregatesInput[]
     NOT?: FeatureScalarWhereWithAggregatesInput | FeatureScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Feature"> | string
-    name?: StringWithAggregatesFilter<"Feature"> | string
+    name_en?: StringWithAggregatesFilter<"Feature"> | string
+    name_id?: StringWithAggregatesFilter<"Feature"> | string
     included?: BoolWithAggregatesFilter<"Feature"> | boolean
     packageId?: StringWithAggregatesFilter<"Feature"> | string
   }
@@ -11057,7 +11185,8 @@ export namespace Prisma {
     OR?: SubcategoryWhereInput[]
     NOT?: SubcategoryWhereInput | SubcategoryWhereInput[]
     id?: StringFilter<"Subcategory"> | string
-    name?: StringFilter<"Subcategory"> | string
+    name_en?: StringFilter<"Subcategory"> | string
+    name_id?: StringFilter<"Subcategory"> | string
     categoryId?: StringFilter<"Subcategory"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     packages?: PackageListRelationFilter
@@ -11065,7 +11194,8 @@ export namespace Prisma {
 
   export type SubcategoryOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     categoryId?: SortOrder
     category?: CategoryOrderByWithRelationInput
     packages?: PackageOrderByRelationAggregateInput
@@ -11074,19 +11204,22 @@ export namespace Prisma {
 
   export type SubcategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    categoryId_name?: SubcategoryCategoryIdNameCompoundUniqueInput
+    categoryId_name_en?: SubcategoryCategoryIdName_enCompoundUniqueInput
+    categoryId_name_id?: SubcategoryCategoryIdName_idCompoundUniqueInput
     AND?: SubcategoryWhereInput | SubcategoryWhereInput[]
     OR?: SubcategoryWhereInput[]
     NOT?: SubcategoryWhereInput | SubcategoryWhereInput[]
-    name?: StringFilter<"Subcategory"> | string
+    name_en?: StringFilter<"Subcategory"> | string
+    name_id?: StringFilter<"Subcategory"> | string
     categoryId?: StringFilter<"Subcategory"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     packages?: PackageListRelationFilter
-  }, "id" | "categoryId_name">
+  }, "id" | "categoryId_name_en" | "categoryId_name_id">
 
   export type SubcategoryOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     categoryId?: SortOrder
     _count?: SubcategoryCountOrderByAggregateInput
     _max?: SubcategoryMaxOrderByAggregateInput
@@ -11098,7 +11231,8 @@ export namespace Prisma {
     OR?: SubcategoryScalarWhereWithAggregatesInput[]
     NOT?: SubcategoryScalarWhereWithAggregatesInput | SubcategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Subcategory"> | string
-    name?: StringWithAggregatesFilter<"Subcategory"> | string
+    name_en?: StringWithAggregatesFilter<"Subcategory"> | string
+    name_id?: StringWithAggregatesFilter<"Subcategory"> | string
     categoryId?: StringWithAggregatesFilter<"Subcategory"> | string
   }
 
@@ -11107,7 +11241,8 @@ export namespace Prisma {
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     id?: StringFilter<"Category"> | string
-    name?: StringFilter<"Category"> | string
+    name_en?: StringFilter<"Category"> | string
+    name_id?: StringFilter<"Category"> | string
     icon?: StringFilter<"Category"> | string
     subcategories?: SubcategoryListRelationFilter
     packages?: PackageListRelationFilter
@@ -11116,7 +11251,8 @@ export namespace Prisma {
 
   export type CategoryOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     icon?: SortOrder
     subcategories?: SubcategoryOrderByRelationAggregateInput
     packages?: PackageOrderByRelationAggregateInput
@@ -11126,19 +11262,21 @@ export namespace Prisma {
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
     AND?: CategoryWhereInput | CategoryWhereInput[]
     OR?: CategoryWhereInput[]
     NOT?: CategoryWhereInput | CategoryWhereInput[]
+    name_en?: StringFilter<"Category"> | string
+    name_id?: StringFilter<"Category"> | string
     icon?: StringFilter<"Category"> | string
     subcategories?: SubcategoryListRelationFilter
     packages?: PackageListRelationFilter
     addons?: AddonListRelationFilter
-  }, "id" | "name">
+  }, "id">
 
   export type CategoryOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     icon?: SortOrder
     _count?: CategoryCountOrderByAggregateInput
     _max?: CategoryMaxOrderByAggregateInput
@@ -11150,7 +11288,8 @@ export namespace Prisma {
     OR?: CategoryScalarWhereWithAggregatesInput[]
     NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Category"> | string
-    name?: StringWithAggregatesFilter<"Category"> | string
+    name_en?: StringWithAggregatesFilter<"Category"> | string
+    name_id?: StringWithAggregatesFilter<"Category"> | string
     icon?: StringWithAggregatesFilter<"Category"> | string
   }
 
@@ -11159,9 +11298,12 @@ export namespace Prisma {
     OR?: AddonWhereInput[]
     NOT?: AddonWhereInput | AddonWhereInput[]
     id?: StringFilter<"Addon"> | string
-    name?: StringFilter<"Addon"> | string
-    description?: StringNullableFilter<"Addon"> | string | null
-    price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Addon"> | string
+    name_id?: StringFilter<"Addon"> | string
+    description_en?: StringNullableFilter<"Addon"> | string | null
+    description_id?: StringNullableFilter<"Addon"> | string | null
+    price_idr?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
@@ -11169,9 +11311,12 @@ export namespace Prisma {
 
   export type AddonOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrderInput | SortOrder
+    description_id?: SortOrderInput | SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     category?: CategoryOrderByWithRelationInput
@@ -11180,23 +11325,30 @@ export namespace Prisma {
 
   export type AddonWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    categoryId_name?: AddonCategoryIdNameCompoundUniqueInput
+    categoryId_name_en?: AddonCategoryIdName_enCompoundUniqueInput
+    categoryId_name_id?: AddonCategoryIdName_idCompoundUniqueInput
     AND?: AddonWhereInput | AddonWhereInput[]
     OR?: AddonWhereInput[]
     NOT?: AddonWhereInput | AddonWhereInput[]
-    name?: StringFilter<"Addon"> | string
-    description?: StringNullableFilter<"Addon"> | string | null
-    price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Addon"> | string
+    name_id?: StringFilter<"Addon"> | string
+    description_en?: StringNullableFilter<"Addon"> | string | null
+    description_id?: StringNullableFilter<"Addon"> | string | null
+    price_idr?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-  }, "id" | "categoryId_name">
+  }, "id" | "categoryId_name_en" | "categoryId_name_id">
 
   export type AddonOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrderInput | SortOrder
+    description_id?: SortOrderInput | SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
     _count?: AddonCountOrderByAggregateInput
@@ -11211,9 +11363,12 @@ export namespace Prisma {
     OR?: AddonScalarWhereWithAggregatesInput[]
     NOT?: AddonScalarWhereWithAggregatesInput | AddonScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Addon"> | string
-    name?: StringWithAggregatesFilter<"Addon"> | string
-    description?: StringNullableWithAggregatesFilter<"Addon"> | string | null
-    price?: DecimalWithAggregatesFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringWithAggregatesFilter<"Addon"> | string
+    name_id?: StringWithAggregatesFilter<"Addon"> | string
+    description_en?: StringNullableWithAggregatesFilter<"Addon"> | string | null
+    description_id?: StringNullableWithAggregatesFilter<"Addon"> | string | null
+    price_idr?: DecimalWithAggregatesFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalWithAggregatesFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableWithAggregatesFilter<"Addon"> | string | null
     categoryId?: StringWithAggregatesFilter<"Addon"> | string
   }
@@ -11223,9 +11378,12 @@ export namespace Prisma {
     OR?: PackageWhereInput[]
     NOT?: PackageWhereInput | PackageWhereInput[]
     id?: StringFilter<"Package"> | string
-    name?: StringFilter<"Package"> | string
-    description?: StringFilter<"Package"> | string
-    price?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Package"> | string
+    name_id?: StringFilter<"Package"> | string
+    description_en?: StringFilter<"Package"> | string
+    description_id?: StringFilter<"Package"> | string
+    price_idr?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     image?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
     subcategoryId?: StringFilter<"Package"> | string
@@ -11238,9 +11396,12 @@ export namespace Prisma {
 
   export type PackageOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
     subcategoryId?: SortOrder
@@ -11254,12 +11415,15 @@ export namespace Prisma {
 
   export type PackageWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
     AND?: PackageWhereInput | PackageWhereInput[]
     OR?: PackageWhereInput[]
     NOT?: PackageWhereInput | PackageWhereInput[]
-    description?: StringFilter<"Package"> | string
-    price?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Package"> | string
+    name_id?: StringFilter<"Package"> | string
+    description_en?: StringFilter<"Package"> | string
+    description_id?: StringFilter<"Package"> | string
+    price_idr?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     image?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
     subcategoryId?: StringFilter<"Package"> | string
@@ -11268,13 +11432,16 @@ export namespace Prisma {
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     subcategory?: XOR<SubcategoryScalarRelationFilter, SubcategoryWhereInput>
     features?: FeatureListRelationFilter
-  }, "id" | "name">
+  }, "id">
 
   export type PackageOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
     subcategoryId?: SortOrder
@@ -11292,9 +11459,12 @@ export namespace Prisma {
     OR?: PackageScalarWhereWithAggregatesInput[]
     NOT?: PackageScalarWhereWithAggregatesInput | PackageScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Package"> | string
-    name?: StringWithAggregatesFilter<"Package"> | string
-    description?: StringWithAggregatesFilter<"Package"> | string
-    price?: DecimalWithAggregatesFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringWithAggregatesFilter<"Package"> | string
+    name_id?: StringWithAggregatesFilter<"Package"> | string
+    description_en?: StringWithAggregatesFilter<"Package"> | string
+    description_id?: StringWithAggregatesFilter<"Package"> | string
+    price_idr?: DecimalWithAggregatesFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalWithAggregatesFilter<"Package"> | Decimal | DecimalJsLike | number | string
     image?: StringWithAggregatesFilter<"Package"> | string
     categoryId?: StringWithAggregatesFilter<"Package"> | string
     subcategoryId?: StringWithAggregatesFilter<"Package"> | string
@@ -11618,100 +11788,115 @@ export namespace Prisma {
 
   export type FeatureCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
     package: PackageCreateNestedOneWithoutFeaturesInput
   }
 
   export type FeatureUncheckedCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
     packageId: string
   }
 
   export type FeatureUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
     package?: PackageUpdateOneRequiredWithoutFeaturesNestedInput
   }
 
   export type FeatureUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
     packageId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FeatureCreateManyInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
     packageId: string
   }
 
   export type FeatureUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FeatureUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
     packageId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SubcategoryCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     category: CategoryCreateNestedOneWithoutSubcategoriesInput
     packages?: PackageCreateNestedManyWithoutSubcategoryInput
   }
 
   export type SubcategoryUncheckedCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     categoryId: string
     packages?: PackageUncheckedCreateNestedManyWithoutSubcategoryInput
   }
 
   export type SubcategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutSubcategoriesNestedInput
     packages?: PackageUpdateManyWithoutSubcategoryNestedInput
   }
 
   export type SubcategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     packages?: PackageUncheckedUpdateManyWithoutSubcategoryNestedInput
   }
 
   export type SubcategoryCreateManyInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     categoryId: string
   }
 
   export type SubcategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type SubcategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoryCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryCreateNestedManyWithoutCategoryInput
     packages?: PackageCreateNestedManyWithoutCategoryInput
@@ -11720,7 +11905,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedCreateInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryUncheckedCreateNestedManyWithoutCategoryInput
     packages?: PackageUncheckedCreateNestedManyWithoutCategoryInput
@@ -11729,7 +11915,8 @@ export namespace Prisma {
 
   export type CategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUpdateManyWithoutCategoryNestedInput
     packages?: PackageUpdateManyWithoutCategoryNestedInput
@@ -11738,7 +11925,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUncheckedUpdateManyWithoutCategoryNestedInput
     packages?: PackageUncheckedUpdateManyWithoutCategoryNestedInput
@@ -11747,89 +11935,116 @@ export namespace Prisma {
 
   export type CategoryCreateManyInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
   }
 
   export type CategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddonCreateInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
     category: CategoryCreateNestedOneWithoutAddonsInput
   }
 
   export type AddonUncheckedCreateInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
     categoryId: string
   }
 
   export type AddonUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     category?: CategoryUpdateOneRequiredWithoutAddonsNestedInput
   }
 
   export type AddonUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddonCreateManyInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
     categoryId: string
   }
 
   export type AddonUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PackageCreateInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     popular?: boolean | null
     bgColor?: string | null
@@ -11840,9 +12055,12 @@ export namespace Prisma {
 
   export type PackageUncheckedCreateInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     categoryId: string
     subcategoryId: string
@@ -11853,9 +12071,12 @@ export namespace Prisma {
 
   export type PackageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11866,9 +12087,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     subcategoryId?: StringFieldUpdateOperationsInput | string
@@ -11879,9 +12103,12 @@ export namespace Prisma {
 
   export type PackageCreateManyInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     categoryId: string
     subcategoryId: string
@@ -11891,9 +12118,12 @@ export namespace Prisma {
 
   export type PackageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11901,9 +12131,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     subcategoryId?: StringFieldUpdateOperationsInput | string
@@ -12276,21 +12509,24 @@ export namespace Prisma {
 
   export type FeatureCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     included?: SortOrder
     packageId?: SortOrder
   }
 
   export type FeatureMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     included?: SortOrder
     packageId?: SortOrder
   }
 
   export type FeatureMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     included?: SortOrder
     packageId?: SortOrder
   }
@@ -12324,26 +12560,34 @@ export namespace Prisma {
     search: string
   }
 
-  export type SubcategoryCategoryIdNameCompoundUniqueInput = {
+  export type SubcategoryCategoryIdName_enCompoundUniqueInput = {
     categoryId: string
-    name: string
+    name_en: string
+  }
+
+  export type SubcategoryCategoryIdName_idCompoundUniqueInput = {
+    categoryId: string
+    name_id: string
   }
 
   export type SubcategoryCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     categoryId?: SortOrder
   }
 
   export type SubcategoryMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     categoryId?: SortOrder
   }
 
   export type SubcategoryMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     categoryId?: SortOrder
   }
 
@@ -12375,19 +12619,22 @@ export namespace Prisma {
 
   export type CategoryCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     icon?: SortOrder
   }
 
   export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     icon?: SortOrder
   }
 
   export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
     icon?: SortOrder
   }
 
@@ -12408,44 +12655,60 @@ export namespace Prisma {
     search: string
   }
 
-  export type AddonCategoryIdNameCompoundUniqueInput = {
+  export type AddonCategoryIdName_enCompoundUniqueInput = {
     categoryId: string
-    name: string
+    name_en: string
+  }
+
+  export type AddonCategoryIdName_idCompoundUniqueInput = {
+    categoryId: string
+    name_id: string
   }
 
   export type AddonCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
   }
 
   export type AddonAvgOrderByAggregateInput = {
-    price?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
   }
 
   export type AddonMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
   }
 
   export type AddonMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
   }
 
   export type AddonSumOrderByAggregateInput = {
-    price?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -12492,9 +12755,12 @@ export namespace Prisma {
 
   export type PackageCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
     subcategoryId?: SortOrder
@@ -12503,14 +12769,18 @@ export namespace Prisma {
   }
 
   export type PackageAvgOrderByAggregateInput = {
-    price?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
   }
 
   export type PackageMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
     subcategoryId?: SortOrder
@@ -12520,9 +12790,12 @@ export namespace Prisma {
 
   export type PackageMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
+    name_en?: SortOrder
+    name_id?: SortOrder
+    description_en?: SortOrder
+    description_id?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
     subcategoryId?: SortOrder
@@ -12531,7 +12804,8 @@ export namespace Prisma {
   }
 
   export type PackageSumOrderByAggregateInput = {
-    price?: SortOrder
+    price_idr?: SortOrder
+    price_usd?: SortOrder
   }
 
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13482,9 +13756,12 @@ export namespace Prisma {
 
   export type PackageCreateWithoutFeaturesInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     popular?: boolean | null
     bgColor?: string | null
@@ -13494,9 +13771,12 @@ export namespace Prisma {
 
   export type PackageUncheckedCreateWithoutFeaturesInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     categoryId: string
     subcategoryId: string
@@ -13522,9 +13802,12 @@ export namespace Prisma {
 
   export type PackageUpdateWithoutFeaturesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13534,9 +13817,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateWithoutFeaturesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     subcategoryId?: StringFieldUpdateOperationsInput | string
@@ -13546,7 +13832,8 @@ export namespace Prisma {
 
   export type CategoryCreateWithoutSubcategoriesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     packages?: PackageCreateNestedManyWithoutCategoryInput
     addons?: AddonCreateNestedManyWithoutCategoryInput
@@ -13554,7 +13841,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedCreateWithoutSubcategoriesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     packages?: PackageUncheckedCreateNestedManyWithoutCategoryInput
     addons?: AddonUncheckedCreateNestedManyWithoutCategoryInput
@@ -13567,9 +13855,12 @@ export namespace Prisma {
 
   export type PackageCreateWithoutSubcategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     popular?: boolean | null
     bgColor?: string | null
@@ -13579,9 +13870,12 @@ export namespace Prisma {
 
   export type PackageUncheckedCreateWithoutSubcategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     categoryId: string
     popular?: boolean | null
@@ -13612,7 +13906,8 @@ export namespace Prisma {
 
   export type CategoryUpdateWithoutSubcategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     packages?: PackageUpdateManyWithoutCategoryNestedInput
     addons?: AddonUpdateManyWithoutCategoryNestedInput
@@ -13620,7 +13915,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedUpdateWithoutSubcategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     packages?: PackageUncheckedUpdateManyWithoutCategoryNestedInput
     addons?: AddonUncheckedUpdateManyWithoutCategoryNestedInput
@@ -13647,9 +13943,12 @@ export namespace Prisma {
     OR?: PackageScalarWhereInput[]
     NOT?: PackageScalarWhereInput | PackageScalarWhereInput[]
     id?: StringFilter<"Package"> | string
-    name?: StringFilter<"Package"> | string
-    description?: StringFilter<"Package"> | string
-    price?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Package"> | string
+    name_id?: StringFilter<"Package"> | string
+    description_en?: StringFilter<"Package"> | string
+    description_id?: StringFilter<"Package"> | string
+    price_idr?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Package"> | Decimal | DecimalJsLike | number | string
     image?: StringFilter<"Package"> | string
     categoryId?: StringFilter<"Package"> | string
     subcategoryId?: StringFilter<"Package"> | string
@@ -13659,13 +13958,15 @@ export namespace Prisma {
 
   export type SubcategoryCreateWithoutCategoryInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     packages?: PackageCreateNestedManyWithoutSubcategoryInput
   }
 
   export type SubcategoryUncheckedCreateWithoutCategoryInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     packages?: PackageUncheckedCreateNestedManyWithoutSubcategoryInput
   }
 
@@ -13681,9 +13982,12 @@ export namespace Prisma {
 
   export type PackageCreateWithoutCategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     popular?: boolean | null
     bgColor?: string | null
@@ -13693,9 +13997,12 @@ export namespace Prisma {
 
   export type PackageUncheckedCreateWithoutCategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     subcategoryId: string
     popular?: boolean | null
@@ -13715,17 +14022,23 @@ export namespace Prisma {
 
   export type AddonCreateWithoutCategoryInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
   }
 
   export type AddonUncheckedCreateWithoutCategoryInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
   }
 
@@ -13760,7 +14073,8 @@ export namespace Prisma {
     OR?: SubcategoryScalarWhereInput[]
     NOT?: SubcategoryScalarWhereInput | SubcategoryScalarWhereInput[]
     id?: StringFilter<"Subcategory"> | string
-    name?: StringFilter<"Subcategory"> | string
+    name_en?: StringFilter<"Subcategory"> | string
+    name_id?: StringFilter<"Subcategory"> | string
     categoryId?: StringFilter<"Subcategory"> | string
   }
 
@@ -13801,16 +14115,20 @@ export namespace Prisma {
     OR?: AddonScalarWhereInput[]
     NOT?: AddonScalarWhereInput | AddonScalarWhereInput[]
     id?: StringFilter<"Addon"> | string
-    name?: StringFilter<"Addon"> | string
-    description?: StringNullableFilter<"Addon"> | string | null
-    price?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    name_en?: StringFilter<"Addon"> | string
+    name_id?: StringFilter<"Addon"> | string
+    description_en?: StringNullableFilter<"Addon"> | string | null
+    description_id?: StringNullableFilter<"Addon"> | string | null
+    price_idr?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
   }
 
   export type CategoryCreateWithoutAddonsInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryCreateNestedManyWithoutCategoryInput
     packages?: PackageCreateNestedManyWithoutCategoryInput
@@ -13818,7 +14136,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedCreateWithoutAddonsInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryUncheckedCreateNestedManyWithoutCategoryInput
     packages?: PackageUncheckedCreateNestedManyWithoutCategoryInput
@@ -13842,7 +14161,8 @@ export namespace Prisma {
 
   export type CategoryUpdateWithoutAddonsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUpdateManyWithoutCategoryNestedInput
     packages?: PackageUpdateManyWithoutCategoryNestedInput
@@ -13850,7 +14170,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedUpdateWithoutAddonsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUncheckedUpdateManyWithoutCategoryNestedInput
     packages?: PackageUncheckedUpdateManyWithoutCategoryNestedInput
@@ -13858,7 +14179,8 @@ export namespace Prisma {
 
   export type CategoryCreateWithoutPackagesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryCreateNestedManyWithoutCategoryInput
     addons?: AddonCreateNestedManyWithoutCategoryInput
@@ -13866,7 +14188,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedCreateWithoutPackagesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     icon: string
     subcategories?: SubcategoryUncheckedCreateNestedManyWithoutCategoryInput
     addons?: AddonUncheckedCreateNestedManyWithoutCategoryInput
@@ -13879,13 +14202,15 @@ export namespace Prisma {
 
   export type SubcategoryCreateWithoutPackagesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     category: CategoryCreateNestedOneWithoutSubcategoriesInput
   }
 
   export type SubcategoryUncheckedCreateWithoutPackagesInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     categoryId: string
   }
 
@@ -13896,13 +14221,15 @@ export namespace Prisma {
 
   export type FeatureCreateWithoutPackageInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
   }
 
   export type FeatureUncheckedCreateWithoutPackageInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
   }
 
@@ -13929,7 +14256,8 @@ export namespace Prisma {
 
   export type CategoryUpdateWithoutPackagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUpdateManyWithoutCategoryNestedInput
     addons?: AddonUpdateManyWithoutCategoryNestedInput
@@ -13937,7 +14265,8 @@ export namespace Prisma {
 
   export type CategoryUncheckedUpdateWithoutPackagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUncheckedUpdateManyWithoutCategoryNestedInput
     addons?: AddonUncheckedUpdateManyWithoutCategoryNestedInput
@@ -13956,13 +14285,15 @@ export namespace Prisma {
 
   export type SubcategoryUpdateWithoutPackagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutSubcategoriesNestedInput
   }
 
   export type SubcategoryUncheckedUpdateWithoutPackagesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -13987,7 +14318,8 @@ export namespace Prisma {
     OR?: FeatureScalarWhereInput[]
     NOT?: FeatureScalarWhereInput | FeatureScalarWhereInput[]
     id?: StringFilter<"Feature"> | string
-    name?: StringFilter<"Feature"> | string
+    name_en?: StringFilter<"Feature"> | string
+    name_id?: StringFilter<"Feature"> | string
     included?: BoolFilter<"Feature"> | boolean
     packageId?: StringFilter<"Feature"> | string
   }
@@ -14074,9 +14406,12 @@ export namespace Prisma {
 
   export type PackageCreateManySubcategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     categoryId: string
     popular?: boolean | null
@@ -14085,9 +14420,12 @@ export namespace Prisma {
 
   export type PackageUpdateWithoutSubcategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14097,9 +14435,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateWithoutSubcategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14109,9 +14450,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateManyWithoutSubcategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14120,14 +14464,18 @@ export namespace Prisma {
 
   export type SubcategoryCreateManyCategoryInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
   }
 
   export type PackageCreateManyCategoryInput = {
     id?: string
-    name: string
-    description: string
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image: string
     subcategoryId: string
     popular?: boolean | null
@@ -14136,34 +14484,43 @@ export namespace Prisma {
 
   export type AddonCreateManyCategoryInput = {
     id?: string
-    name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
   }
 
   export type SubcategoryUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     packages?: PackageUpdateManyWithoutSubcategoryNestedInput
   }
 
   export type SubcategoryUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     packages?: PackageUncheckedUpdateManyWithoutSubcategoryNestedInput
   }
 
   export type SubcategoryUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type PackageUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14173,9 +14530,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14185,9 +14545,12 @@ export namespace Prisma {
 
   export type PackageUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: StringFieldUpdateOperationsInput | string
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -14196,49 +14559,62 @@ export namespace Prisma {
 
   export type AddonUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddonUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FeatureCreateManyPackageInput = {
     id?: string
-    name: string
+    name_en: string
+    name_id: string
     included: boolean
   }
 
   export type FeatureUpdateWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FeatureUncheckedUpdateWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type FeatureUncheckedUpdateManyWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
   }
 

@@ -5,22 +5,25 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const featureSchema = z.object({
-  id: z.string().cuid().optional(), // Optional for new features during update
-  name: z.string().min(1, "Feature name is required"),
+  id: z.string().cuid().optional(),
+  name_en: z.string().min(1, "Feature name (EN) is required").optional(),
+  name_id: z.string().min(1, "Feature name (ID) is required").optional(),
   included: z.boolean(),
 });
 
-// Schema for updating a package, all fields are optional
 const packageUpdateSchema = z.object({
-  name: z.string().min(1, "Name is required").optional(),
-  description: z.string().min(1, "Description is required").optional(),
-  price: z.number().positive("Price must be a positive number").optional(),
+  name_en: z.string().min(1, "Name (EN) is required").optional(),
+  name_id: z.string().min(1, "Name (ID) is required").optional(),
+  description_en: z.string().min(1, "Description (EN) is required").optional(),
+  description_id: z.string().min(1, "Description (ID) is required").optional(),
+  price_idr: z.number().positive("Price IDR must be a positive number").optional(),
+  price_usd: z.number().positive("Price USD must be a positive number").optional(),
   image: z.string().url("Image must be a valid URL").optional(),
   categoryId: z.string().cuid("Invalid Category ID").optional(),
   subcategoryId: z.string().cuid("Invalid Subcategory ID").optional(),
   popular: z.boolean().optional(),
-  bgColor: z.string().optional().nullable(), // Allow null to remove bgColor
-  features: z.array(featureSchema).optional(), // Features can be entirely replaced or omitted
+  bgColor: z.string().optional().nullable(),
+  features: z.array(featureSchema).optional(),
 });
 
 export async function GET(
@@ -125,22 +128,26 @@ export async function PUT(
         }
     }
 
-    if (packageUpdateData.name && packageUpdateData.name !== currentPackage.name) {
-        const existingPackageWithName = await prisma.package.findFirst({
-            where: {
-                name: packageUpdateData.name,
-                id: { not: packageId },
-            },
-        });
-        if (existingPackageWithName) {
-            return new NextResponse(
-                JSON.stringify({ message: "Another package with this name already exists" }),
-                {
-                status: 409,
-                headers: { "Content-Type": "application/json" },
-                }
-            );
-        }
+    // Cek duplikat nama (multi-bahasa)
+    if ((packageUpdateData.name_en && packageUpdateData.name_en !== currentPackage.name_en) || (packageUpdateData.name_id && packageUpdateData.name_id !== currentPackage.name_id)) {
+      const existingPackageWithName = await prisma.package.findFirst({
+        where: {
+          id: { not: packageId },
+          OR: [
+            packageUpdateData.name_en ? { name_en: packageUpdateData.name_en } : undefined,
+            packageUpdateData.name_id ? { name_id: packageUpdateData.name_id } : undefined,
+          ].filter(Boolean) as any,
+        },
+      });
+      if (existingPackageWithName) {
+        return new NextResponse(
+          JSON.stringify({ message: "Another package with this name already exists" }),
+          {
+            status: 409,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
     }
 
     // Hapus file gambar lama jika diganti dengan yang baru dan gambar lama adalah URL ke domain sendiri
@@ -173,9 +180,10 @@ export async function PUT(
         if (features.length > 0) {
             await tx.feature.createMany({
                 data: features.map((feature) => ({
-                    name: feature.name,
+                    name_en: feature.name_en ?? '',
+                    name_id: feature.name_id ?? '',
                     included: feature.included,
-                    packageId: packageId, // Ensure packageId is linked
+                    packageId: packageId,
                 })),
             });
         }

@@ -3,14 +3,18 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const featureSchema = z.object({
-  name: z.string().min(1, "Feature name is required"),
+  name_en: z.string().min(1, "Feature name (EN) is required"),
+  name_id: z.string().min(1, "Feature name (ID) is required"),
   included: z.boolean(),
 });
 
 const packageSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
-  price: z.number().positive("Price must be a positive number"),
+  name_en: z.string().min(1, "Name (EN) is required"),
+  name_id: z.string().min(1, "Name (ID) is required"),
+  description_en: z.string().min(1, "Description (EN) is required"),
+  description_id: z.string().min(1, "Description (ID) is required"),
+  price_idr: z.number().positive("Price IDR must be a positive number"),
+  price_usd: z.number().positive("Price USD must be a positive number"),
   image: z.string().url("Image must be a valid URL"),
   categoryId: z.string().cuid("Invalid Category ID"),
   subcategoryId: z.string().cuid("Invalid Subcategory ID"),
@@ -38,7 +42,6 @@ export async function POST(request: Request) {
       where: { id: packageData.subcategoryId },
       include: { category: true },
     });
-
     if (!subcategory) {
       return new NextResponse(JSON.stringify({ message: "Subcategory not found" }), {
         status: 404,
@@ -55,11 +58,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if package name is unique
-    const existingPackage = await prisma.package.findUnique({
-      where: { name: packageData.name },
+    // Check if package name is unique (EN/ID)
+    const existingPackage = await prisma.package.findFirst({
+      where: {
+        OR: [
+          { name_en: packageData.name_en },
+          { name_id: packageData.name_id },
+        ],
+      },
     });
-
     if (existingPackage) {
       return new NextResponse(
         JSON.stringify({ message: "Package with this name already exists" }),
@@ -74,7 +81,6 @@ export async function POST(request: Request) {
       const createdPackage = await tx.package.create({
         data: packageData,
       });
-
       if (features && features.length > 0) {
         await tx.feature.createMany({
           data: features.map((feature) => ({
@@ -88,10 +94,9 @@ export async function POST(request: Request) {
 
     // Refetch the package with its features to return in the response
     const result = await prisma.package.findUnique({
-        where: { id: newPackage.id },
-        include: { features: true, category: true, subcategory: true }
+      where: { id: newPackage.id },
+      include: { features: true, category: true, subcategory: true },
     });
-
     return NextResponse.json(result, { status: 201 });
   } catch (error) {
     console.error("[PACKAGES_POST]", error);
@@ -120,8 +125,8 @@ export async function GET(request: Request) {
         features: true,
       },
       orderBy: {
-        name: 'asc'
-      }
+        name_id: 'asc',
+      },
     });
     return NextResponse.json(packages);
   } catch (error) {

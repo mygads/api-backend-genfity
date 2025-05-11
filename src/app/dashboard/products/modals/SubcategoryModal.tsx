@@ -37,19 +37,25 @@ const SubcategoryModal: React.FC<SubcategoryModalProps> = ({
         <DialogTitle>{editingSubcategory ? 'Edit Subcategory' : 'Create New Subcategory'}</DialogTitle>
       </DialogHeader>
       <div className="grid gap-4 py-4">
+        {/* Name (EN) */}
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="subcategoryName" className="text-right">Name</Label>
-          <Input id="subcategoryName" name="name" value={formData.name} onChange={onFormChange} className="col-span-3" placeholder="e.g., Menswear, Electronics" />
+          <Label htmlFor="subcategoryNameEn" className="text-left">Name (EN)</Label>
+          <Input id="subcategoryNameEn" name="name_en" value={formData.name_en} onChange={onFormChange} className="col-span-3" placeholder="e.g., Pizza" />
+        </div>
+        {/* Name (ID) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="subcategoryNameId" className="text-left">Name (ID)</Label>
+          <Input id="subcategoryNameId" name="name_id" value={formData.name_id} onChange={onFormChange} className="col-span-3" placeholder="Contoh: Pizza" />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="categoryId" className="text-right">Category</Label>
+          <Label htmlFor="categoryId" className="text-left">Category</Label>
           <Select value={formData.categoryId} onValueChange={onCategoryChange}>
             <SelectTrigger className="col-span-3">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent>
               {categories.map(category => (
-                <SelectItem key={category.id} value={category.id}>{category.name}</SelectItem>
+                <SelectItem key={category.id} value={category.id}>{category.name_id}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -63,7 +69,7 @@ const SubcategoryModal: React.FC<SubcategoryModalProps> = ({
         <Button 
           type="button" 
           onClick={onSave} 
-          disabled={isLoading || !formData.name.trim() || !formData.categoryId}
+          disabled={isLoading || !formData.name_en.trim() || !formData.name_id.trim() || !formData.categoryId}
         >
           {isLoading ? (editingSubcategory ? 'Saving...' : 'Creating...') : (editingSubcategory ? 'Save Changes' : 'Create Subcategory')}
         </Button>

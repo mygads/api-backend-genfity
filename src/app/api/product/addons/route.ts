@@ -3,10 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const addonSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string().optional(), // Made description optional
-  price: z.number().positive("Price must be a positive number"), // Ensure price is positive, not just non-zero
-  image: z.string().url("Image must be a valid URL").optional().nullable(), // Image is optional, can be null
+  name_en: z.string().min(1, "English name is required"),
+  name_id: z.string().min(1, "Indonesian name is required"),
+  description_en: z.string().optional(),
+  description_id: z.string().optional(),
+  price_idr: z.number().positive("Price IDR must be a positive number"),
+  price_usd: z.number().positive("Price USD must be a positive number"),
+  image: z.string().url("Image must be a valid URL").optional().nullable(),
   categoryId: z.string().cuid("Invalid Category ID"),
 });
 
@@ -16,20 +19,15 @@ export async function POST(request: Request) {
     const validation = addonSchema.safeParse(body);
 
     if (!validation.success) {
-      // Return detailed validation errors
       return new NextResponse(JSON.stringify({ message: "Validation failed", errors: validation.error.flatten() }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    // Use validated data, which might have undefined for optional fields
-    const { name, description, price, image, categoryId } = validation.data;
+    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId } = validation.data;
 
-    const category = await prisma.category.findUnique({
-      where: { id: categoryId },
-    });
-
+    const category = await prisma.category.findUnique({ where: { id: categoryId } });
     if (!category) {
       return new NextResponse(JSON.stringify({ message: "Category not found" }), {
         status: 404,
@@ -39,11 +37,12 @@ export async function POST(request: Request) {
 
     const existingAddon = await prisma.addon.findFirst({
       where: {
-        name,
-        categoryId,
+        OR: [
+          { name_en, categoryId },
+          { name_id, categoryId },
+        ],
       },
     });
-
     if (existingAddon) {
       return new NextResponse(
         JSON.stringify({ message: "Addon with this name already exists in this category" }),
@@ -56,10 +55,13 @@ export async function POST(request: Request) {
 
     const addon = await prisma.addon.create({
       data: {
-        name,
-        description: description ?? "", // Pass empty string to Prisma if description is undefined
-        price, // Zod ensures price is a number
-        image: image ?? "",           // Pass empty string to Prisma if image is undefined or null
+        name_en,
+        name_id,
+        description_en: description_en ?? "",
+        description_id: description_id ?? "",
+        price_idr,
+        price_usd,
+        image: image ?? "",
         categoryId,
       },
     });
@@ -81,7 +83,7 @@ export async function GET(request: Request) {
     const addons = await prisma.addon.findMany({
       where: categoryId ? { categoryId } : {},
       include: {
-        category: true, // Include parent category information
+        category: true,
       },
     });
     return NextResponse.json(addons);

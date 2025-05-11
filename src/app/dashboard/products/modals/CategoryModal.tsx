@@ -32,13 +32,20 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
         <DialogTitle>{editingCategory ? 'Edit Category' : 'Create New Category'}</DialogTitle>
       </DialogHeader>
       <div className="grid gap-4 py-4">
+        {/* Name (EN) */}
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="name" className="text-right">Name</Label>
-          <Input id="name" name="name" value={formData.name} onChange={onFormChange} className="col-span-3" />
+          <Label htmlFor="categoryNameEn" className="text-left">Name (EN)</Label>
+          <Input id="categoryNameEn" name="name_en" value={formData.name_en} onChange={onFormChange} className="col-span-3" placeholder="e.g., Food" />
         </div>
+        {/* Name (ID) */}
         <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="icon" className="text-left">Icon (Optional)</Label>
-          <Input id="icon" name="icon" value={formData.icon || ''} onChange={onFormChange} className="col-span-3" placeholder="e.g., svg, font-awesome class, or URL" />
+          <Label htmlFor="categoryNameId" className="text-left">Name (ID)</Label>
+          <Input id="categoryNameId" name="name_id" value={formData.name_id} onChange={onFormChange} className="col-span-3" placeholder="Contoh: Makanan" />
+        </div>
+        {/* Icon URL */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="categoryIcon" className="text-left">Icon URL</Label>
+          <Input id="categoryIcon" name="icon" value={formData.icon || ''} onChange={onFormChange} className="col-span-3" placeholder="https://.../icon.png" />
         </div>
       </div>
       {error && <p className="text-sm text-red-500 px-4">Error: {error}</p>}
@@ -46,7 +53,11 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
         <DialogClose asChild>
           <Button type="button" variant="outline">Cancel</Button>
         </DialogClose>
-        <Button type="button" onClick={onSave} disabled={isLoading || !formData.name.trim()}>
+        <Button
+          type="button"
+          onClick={onSave}
+          disabled={isLoading || !formData.name_en.trim() || !formData.name_id.trim()}
+        >
           {isLoading ? (editingCategory ? 'Saving...' : 'Creating...') : (editingCategory ? 'Save Changes' : 'Create Category')}
         </Button>
       </DialogFooter>

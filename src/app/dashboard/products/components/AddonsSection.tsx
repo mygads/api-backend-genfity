@@ -11,7 +11,16 @@ const AddonsSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAddonModalOpen, setIsAddonModalOpen] = useState(false);
-  const [addonFormData, setAddonFormData] = useState<AddonFormData>({ name: '', description: '', price: '0', categoryId: '' });
+  const [addonFormData, setAddonFormData] = useState<AddonFormData>({
+    name_en: '',
+    name_id: '',
+    description_en: '',
+    description_id: '',
+    price_idr: '',
+    price_usd: '',
+    categoryId: categories[0]?.id || '',
+    image: undefined,
+  });
   const [editingAddon, setEditingAddon] = useState<Addon | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -52,7 +61,7 @@ const AddonsSection: React.FC = () => {
 
   const openCreateAddonModal = () => {
     setEditingAddon(null);
-    setAddonFormData({ name: '', description: '', price: '0', categoryId: categories[0]?.id || '' });
+    setAddonFormData({ name_en: '', name_id: '', description_en: '', description_id: '', price_idr: '', price_usd: '', categoryId: categories[0]?.id || '', image: undefined });
     setSelectedImageFile(null);
     setImagePreview(null);
     setError(null);
@@ -62,9 +71,12 @@ const AddonsSection: React.FC = () => {
   const openEditAddonModal = (addon: Addon) => {
     setEditingAddon(addon);
     setAddonFormData({
-      name: addon.name,
-      description: addon.description || '',
-      price: addon.price.toString(),
+      name_en: addon.name_en,
+      name_id: addon.name_id,
+      description_en: addon.description_en || '',
+      description_id: addon.description_id || '',
+      price_idr: addon.price_idr.toString(),
+      price_usd: addon.price_usd.toString(),
       categoryId: addon.categoryId,
       image: addon.image || undefined,
     });
@@ -97,6 +109,19 @@ const AddonsSection: React.FC = () => {
   const handleSaveAddon = async () => {
     setIsLoading(true);
     setError(null);
+    if (!addonFormData.categoryId) {
+      setError('Category is required for an addon.');
+      setIsLoading(false);
+      return;
+    }
+    if (
+      isNaN(parseFloat(addonFormData.price_idr)) || parseFloat(addonFormData.price_idr) < 0 ||
+      isNaN(parseFloat(addonFormData.price_usd)) || parseFloat(addonFormData.price_usd) < 0
+    ) {
+      setError('Valid price (IDR & USD) is required for an addon.');
+      setIsLoading(false);
+      return;
+    }
     let imageUrl = editingAddon?.image;
     if (selectedImageFile) {
       try {
@@ -111,7 +136,6 @@ const AddonsSection: React.FC = () => {
           throw new Error(errorData.message || 'Image upload failed');
         }
         const imageData = await res.json();
-        // Convert to absolute URL for backend validation
         const absoluteUrl = `${window.location.origin}${imageData.filePath}`;
         imageUrl = absoluteUrl;
       } catch (uploadError: any) {
@@ -121,9 +145,12 @@ const AddonsSection: React.FC = () => {
       }
     }
     const dataToSave: any = {
-      name: addonFormData.name,
-      description: addonFormData.description || '',
-      price: parseFloat(addonFormData.price),
+      name_en: addonFormData.name_en,
+      name_id: addonFormData.name_id,
+      description_en: addonFormData.description_en,
+      description_id: addonFormData.description_id,
+      price_idr: parseFloat(addonFormData.price_idr),
+      price_usd: parseFloat(addonFormData.price_usd),
       categoryId: addonFormData.categoryId,
     };
     if (imageUrl) dataToSave.image = imageUrl;
@@ -142,7 +169,7 @@ const AddonsSection: React.FC = () => {
       fetchCategoriesAndAddons();
       setIsAddonModalOpen(false);
       setEditingAddon(null);
-      setAddonFormData({ name: '', description: '', price: '0', categoryId: categories[0]?.id || '', image: undefined });
+      setAddonFormData({ name_en: '', name_id: '', description_en: '', description_id: '', price_idr: '', price_usd: '', categoryId: categories[0]?.id || '', image: undefined });
       setSelectedImageFile(null);
       setImagePreview(null);
     } catch (err: any) {
@@ -194,7 +221,7 @@ const AddonsSection: React.FC = () => {
       {!isLoading && !error && addons.length > 0 && (
         <ul className="space-y-3">
           {addons.map(addon => {
-            const categoryName = categories.find((c: Category) => c.id === addon.categoryId)?.name || 'N/A';
+            const categoryName = categories.find((c: Category) => c.id === addon.categoryId)?.name_id || 'N/A';
             let imageSrc = addon.image || '';
             if (
               imageSrc &&
@@ -215,7 +242,7 @@ const AddonsSection: React.FC = () => {
                   {isValidImage ? (
                     <Image
                       src={imageSrc as string}
-                      alt={addon.name}
+                      alt={addon.name_id}
                       width={40}
                       height={40}
                       className="object-cover rounded bg-gray-100 dark:bg-gray-700"
@@ -232,14 +259,14 @@ const AddonsSection: React.FC = () => {
                     </div>
                   )}
                   <div>
-                    <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name}</div>
+                    <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name_id}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>
-                    {addon.description && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description}</div>}
+                    {addon.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description_id}</div>}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-semibold text-green-700 dark:text-green-400">
-                    {typeof addon.price === 'number' ? `$${addon.price.toFixed(2)}` : `$${parseFloat(addon.price).toFixed(2)}`}
+                    {typeof addon.price_idr === 'number' ? `Rp${addon.price_idr.toLocaleString('id-ID')}` : `Rp${parseFloat(addon.price_idr as any).toLocaleString('id-ID')}`}
                   </span>
                   <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
                     <Pencil className="mr-1 h-3 w-3" /> Edit

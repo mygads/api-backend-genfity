@@ -1,89 +1,102 @@
 export interface Feature {
   id: string;
-  name: string;
+  name_en: string;
+  name_id: string;
   included: boolean;
   packageId: string;
 }
 
 export interface Subcategory {
   id: string;
-  name: string;
+  name_en: string;
+  name_id: string;
   categoryId: string;
-  // packages?: Package[]; 
 }
 
 export interface Addon {
   id: string;
-  name: string;
-  description?: string | null;
-  price: number; // Keep as number for data consistency
+  name_en: string;
+  name_id: string;
+  description_en?: string | null;
+  description_id?: string | null;
+  price_idr: number;
+  price_usd: number;
   image?: string | null;
   categoryId: string;
-  // category?: Category; 
 }
 
 export interface Package {
   id: string;
-  name: string;
-  description?: string | null;
-  price: number; // Keep as number
+  name_en: string;
+  name_id: string;
+  description_en: string;
+  description_id: string;
+  price_idr: number;
+  price_usd: number;
   image?: string | null;
   popular?: boolean | null;
   bgColor?: string | null;
   categoryId: string;
   subcategoryId: string;
   features: Feature[];
-  addons?: Addon[]; // Optional field for associated addons
-  // category?: Category; 
-  // subcategory?: Subcategory; 
+  addons?: Addon[];
 }
 
 export interface Category {
   id: string;
-  name: string;
+  name_en: string;
+  name_id: string;
   icon?: string | null;
-  subcategories: Subcategory[]; // Assuming API returns this or it's managed client-side
-  addons: Addon[]; // Assuming API returns this or it's managed client-side
-  packages: Package[]; // Assuming API returns this or it's managed client-side
+  subcategories: Subcategory[];
+  addons: Addon[];
+  packages: Package[];
 }
 
 // --- Form Data Interfaces ---
-
 export interface CategoryFormData {
-  name: string;
+  name_en: string;
+  name_id: string;
   icon?: string;
 }
 
 export interface SubcategoryFormData {
-  name: string;
+  name_en: string;
+  name_id: string;
   categoryId: string;
 }
 
 export interface AddonFormData {
-  name: string;
-  description?: string;
-  price: string; // Input as string, convert to number on save
+  name_en: string;
+  name_id: string;
+  description_en?: string;
+  description_id?: string;
+  price_idr: string;
+  price_usd: string;
   categoryId: string;
-  image?: string; // For existing image URL or new path after upload
+  image?: string;
 }
 
 export interface PackageFeatureFormData {
-  id?: string; // For existing features during edit, or temp client-side ID
-  name: string;
+  id?: string;
+  name_en: string;
+  name_id: string;
   included: boolean;
 }
 
 export interface PackageFormData {
-  name: string;
-  description?: string;
-  price: string; // Input as string, convert to number on save
+  name_en: string;
+  name_id: string;
+  description_en: string;
+  description_id: string;
+  price_idr: string;
+  price_usd: string;
   categoryId: string;
   subcategoryId: string;
-  image?: string; // Existing image URL or new path
+  image?: string;
   popular: boolean;
   bgColor?: string;
   features: PackageFeatureFormData[];
-  addonIds: string[]; // Added for managing selected addons in the form
+  addonIds: string[];
 }
 
 export type ProductEntityType = 'categories' | 'subcategories' | 'addons' | 'packages';
