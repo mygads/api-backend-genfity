@@ -206,7 +206,9 @@ const PackagesSection: React.FC = () => {
           throw new Error(errorData.message || 'Failed to upload image');
         }
         const uploadResult = await uploadResponse.json();
-        imageUrl = uploadResult.filePath;
+        // Convert to absolute URL for backend validation
+        const absoluteUrl = `${window.location.origin}${uploadResult.filePath}`;
+        imageUrl = absoluteUrl;
       } catch (err: any) {
         setError(`Image upload failed: ${err.message}`);
         setIsLoading(false);

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import fs from 'fs/promises';
+import path from 'path';
 
 const featureSchema = z.object({
   id: z.string().cuid().optional(), // Optional for new features during update
@@ -65,7 +67,7 @@ export async function PUT(
   { params }: { params: { packageId: string } }
 ) {
   try {
-    const { packageId } = params;
+    const { packageId } = await params;
     if (!packageId) {
       return new NextResponse(JSON.stringify({ message: "Package ID is required" }), {
         status: 400,
@@ -141,6 +143,22 @@ export async function PUT(
         }
     }
 
+    // Hapus file gambar lama jika diganti dengan yang baru dan gambar lama adalah URL ke domain sendiri
+    if (packageUpdateData.image && currentPackage.image && packageUpdateData.image !== currentPackage.image) {
+      try {
+        const url = new URL(currentPackage.image);
+        if (url.hostname === 'localhost' || url.hostname === process.env.NEXT_PUBLIC_DOMAIN) {
+          const imagePath = url.pathname;
+          const absolutePath = path.join(process.cwd(), 'public', imagePath);
+          await fs.unlink(absolutePath);
+        }
+      } catch (err) {
+        if ((err as any).code !== 'ENOENT') {
+          console.error('Gagal menghapus file gambar lama saat edit:', err);
+        }
+      }
+    }
+
     const updatedPackage = await prisma.$transaction(async (tx) => {
       const result = await tx.package.update({
         where: { id: packageId },
@@ -191,12 +209,29 @@ export async function DELETE(
   { params }: { params: { packageId: string } }
 ) {
   try {
-    const { packageId } = params;
+    const { packageId } = await params;
     if (!packageId) {
       return new NextResponse(JSON.stringify({ message: "Package ID is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
+    }
+
+    // Cari data package sebelum dihapus
+    const pkg = await prisma.package.findUnique({ where: { id: packageId } });
+    if (pkg && pkg.image && (pkg.image.startsWith('http://') || pkg.image.startsWith('https://'))) {
+      try {
+        const url = new URL(pkg.image);
+        if (url.hostname === 'localhost' || url.hostname === process.env.NEXT_PUBLIC_DOMAIN) {
+          const imagePath = url.pathname;
+          const absolutePath = path.join(process.cwd(), 'public', imagePath);
+          await fs.unlink(absolutePath);
+        }
+      } catch (err) {
+        if ((err as any).code !== 'ENOENT') {
+          console.error('Gagal menghapus file gambar package saat delete:', err);
+        }
+      }
     }
 
     // Features are deleted by cascade due to schema definition (onDelete: Cascade)
