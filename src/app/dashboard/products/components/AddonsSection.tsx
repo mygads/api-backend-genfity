@@ -1,70 +1,281 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, Pencil, Trash2 } from 'lucide-react';
 import Image from 'next/image';
-import { Addon, Category } from '@/types/product-dashboard';
+import { Addon, Category, AddonFormData } from '@/types/product-dashboard';
+import AddonModal from '../modals/AddonModal';
 
-interface AddonsSectionProps {
-  addons: any[];
-  categories: any[];
-  isLoading: boolean;
-  error: string | null;
-  openCreateAddonModal: () => void;
-  openEditAddonModal: (addon: any) => void;
-  handleDeleteAddon: (addonId: string) => void;
-}
+const AddonsSection: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [addons, setAddons] = useState<Addon[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isAddonModalOpen, setIsAddonModalOpen] = useState(false);
+  const [addonFormData, setAddonFormData] = useState<AddonFormData>({ name: '', description: '', price: '0', categoryId: '' });
+  const [editingAddon, setEditingAddon] = useState<Addon | null>(null);
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-const AddonsSection: React.FC<AddonsSectionProps> = ({ addons, categories, isLoading, error, openCreateAddonModal, openEditAddonModal, handleDeleteAddon }) => {
-    return (
-        <div>
-        <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Addons</h2>
-            <Button onClick={openCreateAddonModal} disabled={categories.length === 0}>
-            <PlusCircle className="mr-2 h-4 w-4" /> Create New Addon
-            </Button>
-        </div>
-        {isLoading && <p className="text-center py-4">Loading addons...</p>}
-        {error && <p className="text-red-500 text-center py-4">Error: {error}</p>}
-        {!isLoading && categories.length === 0 && (
-            <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please create a category first before adding addons.</p>
-        )}
-        {!isLoading && addons.length === 0 && categories.length > 0 && !error && (
-            <p className="text-center py-4 text-gray-500 dark:text-gray-400">No addons found. Click &apos;Create New Addon&apos; to add one.</p>
-        )}
-        {!isLoading && !error && addons.length > 0 && (
-            <ul className="space-y-3">
-            {addons.map(addon => {
-                const categoryName = categories.find((c: any) => c.id === addon.categoryId)?.name || 'N/A';
-                return (
-                <li key={addon.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
-                    <div className="flex items-center space-x-4">
-                    {addon.image && (
-                        <Image src={addon.image} alt={addon.name} width={40} height={40} className="object-cover rounded bg-gray-100 dark:bg-gray-700" />
-                    )}
-                    <div>
-                        <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>
-                        {addon.description && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description}</div>}
+  // Fetch categories and addons together
+  const fetchCategoriesAndAddons = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const [catRes, addonRes] = await Promise.all([
+        fetch('/api/product/categories'),
+        fetch('/api/product/addons'),
+      ]);
+      if (!catRes.ok) {
+        const errorData = await catRes.json();
+        throw new Error(errorData.message || 'Failed to fetch categories');
+      }
+      if (!addonRes.ok) {
+        const errorData = await addonRes.json();
+        throw new Error(errorData.message || 'Failed to fetch addons');
+      }
+      const catData: Category[] = await catRes.json();
+      const addonData: Addon[] = await addonRes.json();
+      setCategories(catData);
+      setAddons(addonData);
+    } catch (err: any) {
+      setError(err.message);
+      setCategories([]);
+      setAddons([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategoriesAndAddons();
+  }, []);
+
+  const openCreateAddonModal = () => {
+    setEditingAddon(null);
+    setAddonFormData({ name: '', description: '', price: '0', categoryId: categories[0]?.id || '' });
+    setSelectedImageFile(null);
+    setImagePreview(null);
+    setError(null);
+    setIsAddonModalOpen(true);
+  };
+
+  const openEditAddonModal = (addon: Addon) => {
+    setEditingAddon(addon);
+    setAddonFormData({
+      name: addon.name,
+      description: addon.description || '',
+      price: addon.price.toString(),
+      categoryId: addon.categoryId,
+      image: addon.image || undefined,
+    });
+    setSelectedImageFile(null);
+    setImagePreview(addon.image || null);
+    setError(null);
+    setIsAddonModalOpen(true);
+  };
+
+  const handleAddonFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setAddonFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddonCategoryChange = (categoryId: string) => {
+    setAddonFormData(prev => ({ ...prev, categoryId }));
+  };
+
+  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    } else {
+      setSelectedImageFile(null);
+      setImagePreview(editingAddon?.image || null);
+    }
+  };
+
+  const handleSaveAddon = async () => {
+    setIsLoading(true);
+    setError(null);
+    let imageUrl = editingAddon?.image;
+    if (selectedImageFile) {
+      try {
+        const formData = new FormData();
+        formData.append('file', selectedImageFile);
+        const res = await fetch('/api/product/images/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || 'Image upload failed');
+        }
+        const imageData = await res.json();
+        // Convert to absolute URL for backend validation
+        const absoluteUrl = `${window.location.origin}${imageData.filePath}`;
+        imageUrl = absoluteUrl;
+      } catch (uploadError: any) {
+        setError(`Image upload failed: ${uploadError.message}`);
+        setIsLoading(false);
+        return;
+      }
+    }
+    const dataToSave: any = {
+      name: addonFormData.name,
+      description: addonFormData.description || '',
+      price: parseFloat(addonFormData.price),
+      categoryId: addonFormData.categoryId,
+    };
+    if (imageUrl) dataToSave.image = imageUrl;
+    const apiUrl = editingAddon ? `/api/product/addons/${editingAddon.id}` : '/api/product/addons';
+    try {
+      const response = await fetch(apiUrl, {
+        method: editingAddon ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dataToSave),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message || 'Failed to save addon');
+        return;
+      }
+      fetchCategoriesAndAddons();
+      setIsAddonModalOpen(false);
+      setEditingAddon(null);
+      setAddonFormData({ name: '', description: '', price: '0', categoryId: categories[0]?.id || '', image: undefined });
+      setSelectedImageFile(null);
+      setImagePreview(null);
+    } catch (err: any) {
+      setError(err.message || 'An unexpected error occurred.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteAddon = async (addonId: string) => {
+    if (!confirm('Are you sure you want to delete this addon?')) return;
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`/api/product/addons/${addonId}`, { method: 'DELETE' });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete addon');
+      }
+      if (response.status === 204 || response.status === 200) {
+        await fetchCategoriesAndAddons();
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete addon');
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Manage Addons</h2>
+        <Button onClick={openCreateAddonModal} disabled={categories.length === 0}>
+          <PlusCircle className="mr-2 h-4 w-4" /> Create New Addon
+        </Button>
+      </div>
+      {isLoading && <p className="text-center py-4">Loading addons...</p>}
+      {error && <p className="text-red-500 text-center py-4">Error: {error}</p>}
+      {!isLoading && categories.length === 0 && (
+        <p className="text-center py-4 text-gray-500 dark:text-gray-400">Please create a category first before adding addons.</p>
+      )}
+      {!isLoading && addons.length === 0 && categories.length > 0 && !error && (
+        <p className="text-center py-4 text-gray-500 dark:text-gray-400">No addons found. Click &apos;Create New Addon&apos; to add one.</p>
+      )}
+      {!isLoading && !error && addons.length > 0 && (
+        <ul className="space-y-3">
+          {addons.map(addon => {
+            const categoryName = categories.find((c: Category) => c.id === addon.categoryId)?.name || 'N/A';
+            let imageSrc = addon.image || '';
+            if (
+              imageSrc &&
+              !imageSrc.startsWith('http') &&
+              !imageSrc.startsWith('/') &&
+              !imageSrc.startsWith('data:image')
+            ) {
+              imageSrc = `/api/product/images/${imageSrc}`;
+            }
+            const isValidImage =
+              imageSrc &&
+              (imageSrc.startsWith('http') ||
+                imageSrc.startsWith('/') ||
+                imageSrc.startsWith('data:image'));
+            return (
+              <li key={addon.id} className="flex items-center justify-between p-3 bg-white dark:bg-gray-800/80 rounded-lg shadow hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4">
+                  {isValidImage ? (
+                    <Image
+                      src={imageSrc as string}
+                      alt={addon.name}
+                      width={40}
+                      height={40}
+                      className="object-cover rounded bg-gray-100 dark:bg-gray-700"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  ) : (
+                    <div className="w-[40px] h-[40px] bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center text-gray-400 dark:text-gray-500" title="No image">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
                     </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                    <span className="text-sm font-semibold text-green-700 dark:text-green-400">
-                        {typeof addon.price === 'number' ? `$${addon.price.toFixed(2)}` : `$${parseFloat(addon.price).toFixed(2)}`}
-                    </span>
-                    <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
-                        <Pencil className="mr-1 h-3 w-3" /> Edit
-                    </Button>
-                    <Button variant="destructive" size="sm" onClick={() => handleDeleteAddon(addon.id)}>
-                        <Trash2 className="mr-1 h-3 w-3" /> Delete
-                    </Button>
-                    </div>
-                </li>
-                );
-            })}
-            </ul>
-        )}
-        </div>
-    );
+                  )}
+                  <div>
+                    <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>
+                    {addon.description && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description}</div>}
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-semibold text-green-700 dark:text-green-400">
+                    {typeof addon.price === 'number' ? `$${addon.price.toFixed(2)}` : `$${parseFloat(addon.price).toFixed(2)}`}
+                  </span>
+                  <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
+                    <Pencil className="mr-1 h-3 w-3" /> Edit
+                  </Button>
+                  <Button variant="destructive" size="sm" onClick={() => handleDeleteAddon(addon.id)}>
+                    <Trash2 className="mr-1 h-3 w-3" /> Delete
+                  </Button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <AddonModal
+        open={isAddonModalOpen}
+        onOpenChange={(isOpen) => {
+          setIsAddonModalOpen(isOpen);
+          if (!isOpen) {
+            setError(null);
+            setSelectedImageFile(null);
+            setImagePreview(null);
+          }
+        }}
+        formData={addonFormData}
+        onFormChange={handleAddonFormChange}
+        onCategoryChange={handleAddonCategoryChange}
+        categories={categories}
+        imagePreview={imagePreview}
+        editingAddon={editingAddon}
+        onImageFileChange={handleImageFileChange}
+        onSave={handleSaveAddon}
+        isLoading={isLoading}
+        error={error}
+      />
+    </div>
+  );
 };
 
 export default AddonsSection;

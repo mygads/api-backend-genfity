@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import fs from 'fs/promises';
+import path from 'path';
 
 // Base schema for addon, all fields optional for PUT
 const addonSchemaBase = z.object({
@@ -147,10 +149,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { addonId: string } }
+  context: { params: { addonId: string } }
 ) {
   try {
-    const { addonId } = params;
+    const { addonId } = await context.params;
     if (!addonId) {
       return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
@@ -158,9 +160,33 @@ export async function DELETE(
       });
     }
 
-    // Note: Addons currently don't have direct relations that would prevent deletion 
-    // other than their own existence. If they were linked to, e.g., orders, 
-    // a similar check to categories/subcategories would be needed here.
+    // Cari data addon sebelum dihapus
+    const addon = await prisma.addon.findUnique({ where: { id: addonId } });
+    if (!addon) {
+      return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Hapus file gambar jika ada dan path-nya lokal (bukan http/https/data:image)
+    if (addon.image && !addon.image.startsWith('http') && !addon.image.startsWith('data:image')) {
+      // Pastikan path sudah benar (misal: /product-images/namafile.png atau hanya namafile.png)
+      let imagePath = addon.image;
+      if (!imagePath.startsWith('/')) {
+        imagePath = `/product-images/${imagePath}`;
+      }
+      // Path absolut ke file di public
+      const absolutePath = path.join(process.cwd(), 'public', imagePath);
+      try {
+        await fs.unlink(absolutePath);
+      } catch (err) {
+        // Jika file tidak ada, abaikan error
+        if ((err as any).code !== 'ENOENT') {
+          console.error('Gagal menghapus file gambar:', err);
+        }
+      }
+    }
 
     await prisma.addon.delete({
       where: { id: addonId },

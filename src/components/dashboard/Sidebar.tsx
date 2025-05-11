@@ -70,7 +70,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-900 shadow-lg lg:static lg:z-auto", // Changed background
+          "fixed inset-y-0 left-0 z-50 w-56 bg-white dark:bg-gray-900 shadow-lg lg:static lg:z-auto", // Changed background
           open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
           "transition-transform duration-300 ease-in-out lg:transition-none",
         )}
@@ -88,9 +88,9 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
         <div className="flex h-20 items-center justify-center mt-6 mb-2 px-6">
           <Link href="/dashboard" className="flex items-center">
             {resolvedTheme === "dark" ? (
-              <Image src="/logo-dark.svg" alt="Genfity Logo Dark" width={200} height={80} />
+              <Image src="/logo-dark.svg" alt="Genfity Logo Dark" width={150} height={80} />
             ) : (
-              <Image src="/logo-light.svg" alt="Genfity Logo Light" width={200} height={80} />
+              <Image src="/logo-light.svg" alt="Genfity Logo Light" width={150} height={80} />
             )}
           </Link>
         </div>

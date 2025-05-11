@@ -17,11 +17,18 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'media.istockphoto.com',
+        hostname: 'cdn-icons-png.flaticon.com',
         port: '',
         pathname: '/**',
       },
+
       // Add other trusted hostnames here as needed
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/product-images/**',
+      },
     ],
   },
   /* other config options here */
