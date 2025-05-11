@@ -29,6 +29,7 @@ model User {
   image                         String?
   emailVerificationToken        String?   @unique
   emailVerificationTokenExpires DateTime?
+  role                          String    @default("customer")
   accounts                      Account[]
   sessions                      Session[]
 }
@@ -72,7 +73,8 @@ model VerificationToken {
 
 model Feature {
   id        String  @id @default(cuid())
-  name      String
+  name_en   String
+  name_id   String
   included  Boolean
   packageId String
   package   Package @relation(fields: [packageId], references: [id], onDelete: Cascade)
@@ -82,50 +84,60 @@ model Feature {
 
 model Subcategory {
   id         String    @id @default(cuid())
-  name       String
+  name_en    String
+  name_id    String
   categoryId String
   category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   packages   Package[]
 
-  @@unique([categoryId, name])
+  @@unique([categoryId, name_en])
+  @@unique([categoryId, name_id])
   @@index([categoryId])
 }
 
 model Category {
   id            String        @id @default(cuid())
-  name          String        @unique
+  name_en       String
+  name_id       String
   icon          String
   subcategories Subcategory[]
-  packages      Package[]     @relation("CategoryToPackage") // Added relation name here
+  packages      Package[]     @relation("CategoryToPackage")
   addons        Addon[]
 }
 
 model Addon {
-  id          String   @id @default(cuid())
-  name        String
-  description String?  @db.Text // Made optional
-  price       Decimal  @db.Decimal(10, 2)
-  image       String?  @db.Text // Made optional
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  id             String   @id @default(cuid())
+  name_en        String
+  name_id        String
+  description_en String?  @db.Text
+  description_id String?  @db.Text
+  price_idr      Decimal  @db.Decimal(10, 2)
+  price_usd      Decimal  @db.Decimal(10, 2)
+  image          String?  @db.Text
+  categoryId     String
+  category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-  @@unique([categoryId, name])
+  @@unique([categoryId, name_en])
+  @@unique([categoryId, name_id])
   @@index([categoryId])
 }
 
 model Package {
-  id            String      @id @default(cuid())
-  name          String      @unique // Assuming package names are globally unique
-  description   String      @db.Text
-  price         Decimal     @db.Decimal(10, 2)
-  image         String      @db.Text
-  categoryId    String
-  category      Category    @relation("CategoryToPackage", fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  subcategoryId String
-  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  popular       Boolean?
-  bgColor       String?
-  features      Feature[]
+  id             String      @id @default(cuid())
+  name_en        String
+  name_id        String
+  description_en String      @db.Text
+  description_id String      @db.Text
+  price_idr      Decimal     @db.Decimal(10, 2)
+  price_usd      Decimal     @db.Decimal(10, 2)
+  image          String      @db.Text
+  categoryId     String
+  category       Category    @relation("CategoryToPackage", fields: [categoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  subcategoryId  String
+  subcategory    Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  popular        Boolean?
+  bgColor        String?
+  features       Feature[]
 
   @@index([categoryId])
   @@index([subcategoryId])

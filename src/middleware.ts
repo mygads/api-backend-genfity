@@ -30,9 +30,37 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    // Existing logic for UI pages and other non-API-key-protected routes
-    // This part will run if the route is not in apiKeyProtectedApiRoutes
+    // Ambil token hanya sekali di awal
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    // Proteksi admin untuk semua API produk (selain GET/public)
+    if (pathname.startsWith('/api/product') || pathname.startsWith('/api/products')) {
+        // Hanya batasi method selain GET (POST, PUT, PATCH, DELETE, dsb)
+        if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
+            if (!token || token.role !== 'admin') {
+                return NextResponse.json({ message: 'Forbidden: Admin only' }, { status: 403 });
+            }
+        }
+    }
+
+    // Protect UI dashboard routes (admin only)
+    if (pathname.startsWith('/dashboard')) {
+        if (!token) {
+            // Belum login, redirect ke signin dengan callbackUrl
+            const signInUrl = new URL('/auth/signin', req.url);
+            signInUrl.searchParams.set('callbackUrl', req.url);
+            return NextResponse.redirect(signInUrl);
+        } else if (token.role !== 'admin') {
+            // Sudah login tapi bukan admin, hapus session dan redirect ke signin tanpa callbackUrl (agar tidak loop)
+            const signInUrl = new URL('/auth/signin', req.url);
+            const response = NextResponse.redirect(signInUrl);
+            response.cookies.set('next-auth.session-token', '', { path: '/', maxAge: 0 });
+            response.cookies.set('__Secure-next-auth.session-token', '', { path: '/', maxAge: 0 });
+            return response;
+        }
+        // If authenticated and admin, allow access to UI dashboard routes
+        return NextResponse.next();
+    }
 
     // If trying to access UI auth pages (e.g., /auth/signin page, not the API)
     if (pathname.startsWith('/auth/signin') || pathname.startsWith('/auth/signup')) {
@@ -41,18 +69,6 @@ export async function middleware(req: NextRequest) {
             return NextResponse.redirect(new URL('/dashboard', req.url));
         }
         // If not authenticated, allow access to UI auth pages
-        return NextResponse.next();
-    }
-
-    // Protect UI dashboard routes
-    if (pathname.startsWith('/dashboard')) {
-        if (!token) {
-            // If not authenticated, redirect to the UI signin page
-            const signInUrl = new URL('/auth/signin', req.url);
-            signInUrl.searchParams.set('callbackUrl', req.url); // Optionally, add callbackUrl
-            return NextResponse.redirect(signInUrl);
-        }
-        // If authenticated, allow access to UI dashboard routes
         return NextResponse.next();
     }
 

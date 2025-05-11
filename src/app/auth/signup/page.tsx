@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image'; // Added for logo
@@ -19,6 +19,17 @@ export default function SignUpPage() {
   const [showOtpForm, setShowOtpForm] = useState(false);
   const [otp, setOtp] = useState('');
   const [identifierForOtp, setIdentifierForOtp] = useState('');
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const resendTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      resendTimerRef.current = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000);
+    }
+    return () => {
+      if (resendTimerRef.current) clearTimeout(resendTimerRef.current);
+    };
+  }, [resendCooldown]);
 
   const handleSignUpSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -31,6 +42,7 @@ export default function SignUpPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'API-KEY': process.env.INTERNAL_CLIENT_API_KEY || '',
         },
         body: JSON.stringify({ name, email, phone, password }),
       });
@@ -42,7 +54,7 @@ export default function SignUpPage() {
       } else {
         setSuccess(data.message || 'Pendaftaran berhasil! Silakan cek OTP.');
         if (data.nextStep === 'VERIFY_OTP') {
-          setIdentifierForOtp(email || phone); // Prefer email if both are somehow filled, or phone if email is empty
+          setIdentifierForOtp(phone);
           setShowOtpForm(true);
         } else if (email && !phone) {
           // Auto-login if only email is provided and OTP is not the next step (e.g., email verification link sent)
@@ -125,6 +137,29 @@ export default function SignUpPage() {
     }
   };
 
+  const handleResendOtp = async () => {
+    setError(null);
+    setSuccess(null);
+    setResendCooldown(60);
+    try {
+      const res = await fetch('/api/auth/resend-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: identifierForOtp }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.message || 'Gagal mengirim ulang OTP.');
+        setResendCooldown(0);
+      } else {
+        setSuccess('OTP berhasil dikirim ulang.');
+      }
+    } catch (err) {
+      setError('Terjadi kesalahan saat mengirim ulang OTP.');
+      setResendCooldown(0);
+    }
+  };
+
   if (showOtpForm) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#2563eb] to-[#ef4444] px-4 py-8 relative overflow-hidden">
@@ -155,8 +190,8 @@ export default function SignUpPage() {
                 onChange={(e) => setOtp(e.target.value)}
                 required
                 className="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2563eb] focus:border-[#2563eb] sm:text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 tracking-[0.5em] text-center"
-                placeholder="_ _ _ _ _ _"
-                maxLength={6}
+                placeholder="_ _ _ _ _"
+                maxLength={4}
               />
             </div>
             {error && (
@@ -189,13 +224,12 @@ export default function SignUpPage() {
           </form>
            <p className="mt-8 text-sm text-center text-gray-600 dark:text-gray-400">
             Belum menerima kode?{' '}
-            <button 
-              onClick={() => { /* Implement resend OTP logic here if needed */ 
-                setError(null); setSuccess('Fungsi kirim ulang OTP belum diimplementasikan.');
-              }} 
-              className="font-medium text-[#2563eb] hover:text-[#1d4ed8] dark:hover:text-blue-400 focus:outline-none"
+            <button
+              onClick={handleResendOtp}
+              className="font-medium text-[#2563eb] hover:text-[#1d4ed8] dark:hover:text-blue-400 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={resendCooldown > 0}
             >
-              Kirim Ulang OTP
+              {resendCooldown > 0 ? `Kirim Ulang OTP (${resendCooldown}s)` : 'Kirim Ulang OTP'}
             </button>
           </p>
         </div>

@@ -133,7 +133,8 @@ exports.Prisma.UserScalarFieldEnum = {
   phoneVerified: 'phoneVerified',
   image: 'image',
   emailVerificationToken: 'emailVerificationToken',
-  emailVerificationTokenExpires: 'emailVerificationTokenExpires'
+  emailVerificationTokenExpires: 'emailVerificationTokenExpires',
+  role: 'role'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -231,7 +232,8 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   password: 'password',
   otp: 'otp',
   image: 'image',
-  emailVerificationToken: 'emailVerificationToken'
+  emailVerificationToken: 'emailVerificationToken',
+  role: 'role'
 };
 
 exports.Prisma.AccountOrderByRelevanceFieldEnum = {

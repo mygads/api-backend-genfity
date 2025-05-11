@@ -1699,6 +1699,7 @@ export namespace Prisma {
     image: string | null
     emailVerificationToken: string | null
     emailVerificationTokenExpires: Date | null
+    role: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1715,6 +1716,7 @@ export namespace Prisma {
     image: string | null
     emailVerificationToken: string | null
     emailVerificationTokenExpires: Date | null
+    role: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1731,6 +1733,7 @@ export namespace Prisma {
     image: number
     emailVerificationToken: number
     emailVerificationTokenExpires: number
+    role: number
     _all: number
   }
 
@@ -1749,6 +1752,7 @@ export namespace Prisma {
     image?: true
     emailVerificationToken?: true
     emailVerificationTokenExpires?: true
+    role?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1765,6 +1769,7 @@ export namespace Prisma {
     image?: true
     emailVerificationToken?: true
     emailVerificationTokenExpires?: true
+    role?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1781,6 +1786,7 @@ export namespace Prisma {
     image?: true
     emailVerificationToken?: true
     emailVerificationTokenExpires?: true
+    role?: true
     _all?: true
   }
 
@@ -1870,6 +1876,7 @@ export namespace Prisma {
     image: string | null
     emailVerificationToken: string | null
     emailVerificationTokenExpires: Date | null
+    role: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1903,6 +1910,7 @@ export namespace Prisma {
     image?: boolean
     emailVerificationToken?: boolean
     emailVerificationTokenExpires?: boolean
+    role?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1924,9 +1932,10 @@ export namespace Prisma {
     image?: boolean
     emailVerificationToken?: boolean
     emailVerificationTokenExpires?: boolean
+    role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "otp" | "otpExpires" | "otpVerificationDeadline" | "emailVerified" | "phoneVerified" | "image" | "emailVerificationToken" | "emailVerificationTokenExpires", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "password" | "otp" | "otpExpires" | "otpVerificationDeadline" | "emailVerified" | "phoneVerified" | "image" | "emailVerificationToken" | "emailVerificationTokenExpires" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1953,6 +1962,7 @@ export namespace Prisma {
       image: string | null
       emailVerificationToken: string | null
       emailVerificationTokenExpires: Date | null
+      role: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2337,6 +2347,7 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly emailVerificationToken: FieldRef<"User", 'String'>
     readonly emailVerificationTokenExpires: FieldRef<"User", 'DateTime'>
+    readonly role: FieldRef<"User", 'String'>
   }
     
 
@@ -10557,7 +10568,8 @@ export namespace Prisma {
     phoneVerified: 'phoneVerified',
     image: 'image',
     emailVerificationToken: 'emailVerificationToken',
-    emailVerificationTokenExpires: 'emailVerificationTokenExpires'
+    emailVerificationTokenExpires: 'emailVerificationTokenExpires',
+    role: 'role'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -10688,7 +10700,8 @@ export namespace Prisma {
     password: 'password',
     otp: 'otp',
     image: 'image',
-    emailVerificationToken: 'emailVerificationToken'
+    emailVerificationToken: 'emailVerificationToken',
+    role: 'role'
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -10853,6 +10866,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     emailVerificationToken?: StringNullableFilter<"User"> | string | null
     emailVerificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    role?: StringFilter<"User"> | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
   }
@@ -10871,6 +10885,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     emailVerificationToken?: SortOrderInput | SortOrder
     emailVerificationTokenExpires?: SortOrderInput | SortOrder
+    role?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
@@ -10893,6 +10908,7 @@ export namespace Prisma {
     phoneVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     image?: StringNullableFilter<"User"> | string | null
     emailVerificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    role?: StringFilter<"User"> | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
   }, "id" | "email" | "phone" | "emailVerificationToken">
@@ -10911,6 +10927,7 @@ export namespace Prisma {
     image?: SortOrderInput | SortOrder
     emailVerificationToken?: SortOrderInput | SortOrder
     emailVerificationTokenExpires?: SortOrderInput | SortOrder
+    role?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -10933,6 +10950,7 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerificationTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    role?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type AccountWhereInput = {
@@ -11486,6 +11504,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -11504,6 +11523,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -11522,6 +11542,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -11540,6 +11561,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -11558,6 +11580,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -11574,6 +11597,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -11590,6 +11614,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountCreateInput = {
@@ -12230,6 +12255,7 @@ export namespace Prisma {
     image?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationTokenExpires?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -12246,6 +12272,7 @@ export namespace Prisma {
     image?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationTokenExpires?: SortOrder
+    role?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -12262,6 +12289,7 @@ export namespace Prisma {
     image?: SortOrder
     emailVerificationToken?: SortOrder
     emailVerificationTokenExpires?: SortOrder
+    role?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13600,6 +13628,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -13617,6 +13646,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -13650,6 +13680,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -13667,6 +13698,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -13684,6 +13716,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
 
@@ -13701,6 +13734,7 @@ export namespace Prisma {
     image?: string | null
     emailVerificationToken?: string | null
     emailVerificationTokenExpires?: Date | string | null
+    role?: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -13734,6 +13768,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
 
@@ -13751,6 +13786,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 

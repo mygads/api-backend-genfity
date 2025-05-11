@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
     if (isEmail) {
       // Verifikasi OTP via email tidak diimplementasikan di sini, fokus pada WhatsApp
-      return NextResponse.json({ message: 'Verifikasi OTP via email belum didukung untuk alur ini' }, { status: 400 });
+      // return NextResponse.json({ message: 'Verifikasi OTP via email belum didukung untuk alur ini' }, { status: 400 });
     } else {
       normalizedPhone = normalizePhoneNumber(identifier);
       user = await prisma.user.findUnique({

@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
 import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
 import { sendVerificationEmail } from '@/lib/mailer';
+import { normalizePhoneNumber } from '@/lib/auth';
 
 // Fungsi untuk menghasilkan OTP 6 digit
 function generateOTP() {
@@ -31,15 +32,7 @@ export async function POST(request: Request) {
 
     let normalizedPhone: string | undefined = undefined;
     if (phone) {
-        if (phone.startsWith('0')) {
-            normalizedPhone = '62' + phone.substring(1);
-        } else if (phone.startsWith('+62')) {
-            normalizedPhone = phone.substring(1); // Simpan sebagai 62...
-        } else if (phone.startsWith('62')) {
-            normalizedPhone = phone;
-        } else {
-            normalizedPhone = '62' + phone.replace(/\\D/g, '');
-        }
+        normalizedPhone = normalizePhoneNumber(phone);
     }
 
     // Cek existing user
@@ -110,6 +103,7 @@ export async function POST(request: Request) {
         otpVerificationDeadline, // Simpan deadline
         emailVerificationToken,
         emailVerificationTokenExpires,
+        role: 'customer', // Set default role
       },
     });
 

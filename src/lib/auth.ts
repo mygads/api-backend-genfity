@@ -13,6 +13,7 @@ declare module 'next-auth' {
       email?: string | null;
       image?: string | null;
       phone?: string | null; // Added phone
+      role?: string | null; // Tambah role
     }
   }
   interface User {
@@ -24,13 +25,14 @@ declare module 'next-auth' {
     phone?: string | null; // Added phone
     phoneVerified?: Date | null; // Added phoneVerified
     emailVerified?: Date | null; // Ensure emailVerified is here if used
+    role?: string | null; // Tambah role
   }
 }
 
 const prisma = new PrismaClient();
 
 // Fungsi untuk normalisasi nomor telepon
-function normalizePhoneNumber(phone: string): string {
+export function normalizePhoneNumber(phone: string): string {
   if (!phone) return '';
   if (phone.startsWith('0')) {
     return '62' + phone.substring(1);
@@ -62,12 +64,14 @@ export const authOptions: NextAuthOptions = {
 
         if (isEmail) {
           user = await prisma.user.findUnique({
-            where: { email: identifier }
+            where: { email: identifier },
+            select: { id: true, name: true, email: true, image: true, password: true, phone: true, phoneVerified: true, emailVerified: true, role: true },
           });
         } else {
           const normalizedPhone = normalizePhoneNumber(identifier);
           user = await prisma.user.findUnique({
-            where: { phone: normalizedPhone }
+            where: { phone: normalizedPhone },
+            select: { id: true, name: true, email: true, image: true, password: true, phone: true, phoneVerified: true, emailVerified: true, role: true },
           });
         }
 
@@ -80,6 +84,10 @@ export const authOptions: NextAuthOptions = {
         }
         if (!isEmail && !user.phoneVerified) {
           throw new Error('Nomor WhatsApp belum diverifikasi. Silakan selesaikan proses OTP.');
+        }
+
+        if (user.role !== 'admin') {
+          throw new Error('Akses hanya untuk admin.');
         }
 
         if (!user.password) {
@@ -98,6 +106,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           image: user.image,
           phone: user.phone, // Make sure to return phone
+          role: user.role, // Penting untuk middleware admin
         };
       }
     })
@@ -114,9 +123,12 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         // Cast user to include phone if it exists
-        const userWithPhone = user as { phone?: string | null };
+        const userWithPhone = user as { phone?: string | null; role?: string | null };
         if (userWithPhone.phone) {
             (token as { [key: string]: unknown }).phone = userWithPhone.phone;
+        }
+        if (userWithPhone.role) {
+            (token as any).role = userWithPhone.role;
         }
       }
       return token;
@@ -133,6 +145,9 @@ export const authOptions: NextAuthOptions = {
         const customToken = token as CustomToken;
         if (customToken.phone) {
             session.user.phone = customToken.phone;
+        }
+        if ((token as any).role) {
+          session.user.role = (token as any).role as string;
         }
       }
       return session;

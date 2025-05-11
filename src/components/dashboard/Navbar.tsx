@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Bell, LogOut, Menu, Settings, User, ChevronDown } from "lucide-react"
+import { signOut } from 'next-auth/react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -79,7 +80,7 @@ export default function Navbar({ onMenuButtonClick }: NavbarProps) {
                                 <span>Settings</span>
                             </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-white/10" />
-                        <DropdownMenuItem className="hover:bg-brand-red/10 focus:bg-brand-red/10 text-brand-red">
+                        <DropdownMenuItem className="hover:bg-brand-red/10 focus:bg-brand-red/10 text-brand-red" onClick={() => signOut({ callbackUrl: '/auth/signin' })}>
                             <LogOut className="mr-2 h-4 w-4" />
                             <span>Log out</span>
                         </DropdownMenuItem>

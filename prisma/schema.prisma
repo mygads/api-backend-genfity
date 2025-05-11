@@ -29,6 +29,7 @@ model User {
   image                         String?
   emailVerificationToken        String?   @unique
   emailVerificationTokenExpires DateTime?
+  role                          String    @default("customer")
   accounts                      Account[]
   sessions                      Session[]
 }
