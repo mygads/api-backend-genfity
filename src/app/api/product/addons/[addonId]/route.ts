@@ -126,6 +126,22 @@ export async function PUT(
         }
     }
 
+    // Hapus file gambar lama jika diganti dengan yang baru dan gambar lama adalah URL ke domain sendiri
+    if (image && currentAddon.image && image !== currentAddon.image) {
+      try {
+        const url = new URL(currentAddon.image);
+        if (url.hostname === 'localhost' || url.hostname === process.env.NEXT_PUBLIC_DOMAIN) {
+          const imagePath = url.pathname;
+          const absolutePath = path.join(process.cwd(), 'public', imagePath);
+          await fs.unlink(absolutePath);
+        }
+      } catch (err) {
+        if ((err as any).code !== 'ENOENT') {
+          console.error('Gagal menghapus file gambar lama saat edit:', err);
+        }
+      }
+    }
+
     const updatedAddon = await prisma.addon.update({
       where: { id: addonId },
       data: validation.data, // Pass validated data directly
@@ -180,6 +196,25 @@ export async function DELETE(
       const absolutePath = path.join(process.cwd(), 'public', imagePath);
       try {
         await fs.unlink(absolutePath);
+      } catch (err) {
+        // Jika file tidak ada, abaikan error
+        if ((err as any).code !== 'ENOENT') {
+          console.error('Gagal menghapus file gambar:', err);
+        }
+      }
+    }
+
+    // Hapus file gambar jika ada dan path-nya http(s) ke domain sendiri
+    if (addon.image && (addon.image.startsWith('http://') || addon.image.startsWith('https://'))) {
+      try {
+        const url = new URL(addon.image);
+        // Hanya hapus jika domain sama dengan server (localhost/production)
+        if (url.hostname === 'localhost' || url.hostname === process.env.NEXT_PUBLIC_DOMAIN) {
+          // Ambil path setelah domain, misal: /product-images/namafile.png
+          const imagePath = url.pathname;
+          const absolutePath = path.join(process.cwd(), 'public', imagePath);
+          await fs.unlink(absolutePath);
+        }
       } catch (err) {
         // Jika file tidak ada, abaikan error
         if ((err as any).code !== 'ENOENT') {
