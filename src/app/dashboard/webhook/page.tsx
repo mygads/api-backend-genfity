@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
+import { Button } from '@/components/ui/button';
 
 export default function WebhookPage() {
   const [webhookUrl, setWebhookUrl] = useState('');

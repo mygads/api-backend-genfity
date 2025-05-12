@@ -79,6 +79,7 @@ const AddonsSection: React.FC = () => {
       price_usd: addon.price_usd.toString(),
       categoryId: addon.categoryId,
       image: addon.image || undefined,
+      duration: (addon.duration !== undefined && addon.duration !== null) ? addon.duration.toString() : '',
     });
     setSelectedImageFile(null);
     setImagePreview(addon.image || null);
@@ -152,6 +153,8 @@ const AddonsSection: React.FC = () => {
       price_idr: parseFloat(addonFormData.price_idr),
       price_usd: parseFloat(addonFormData.price_usd),
       categoryId: addonFormData.categoryId,
+      duration: addonFormData.duration ? parseInt(addonFormData.duration) : "",
+      durationUnit: 'day',
     };
     if (imageUrl) dataToSave.image = imageUrl;
     const apiUrl = editingAddon ? `/api/product/addons/${editingAddon.id}` : '/api/product/addons';
@@ -259,14 +262,24 @@ const AddonsSection: React.FC = () => {
                     </div>
                   )}
                   <div>
-                    <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name_id}</div>
+                    <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name_en}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>
-                    {addon.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description_id}</div>}
+                    {addon.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description_en}</div>}
+                  </div>
+                  <div>
+                    {addon.duration && (
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        Duration: {addon.duration} {addon.durationUnit}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-semibold text-green-700 dark:text-green-400">
                     {typeof addon.price_idr === 'number' ? `Rp${addon.price_idr.toLocaleString('id-ID')}` : `Rp${parseFloat(addon.price_idr as any).toLocaleString('id-ID')}`}
+                  </span>
+                  <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">
+                    {typeof addon.price_usd === 'number' ? `$${addon.price_usd.toLocaleString('en-US')}` : `$${parseFloat(addon.price_usd as any).toLocaleString('en-US')}`}
                   </span>
                   <Button variant="outline" size="sm" onClick={() => openEditAddonModal(addon)}>
                     <Pencil className="mr-1 h-3 w-3" /> Edit

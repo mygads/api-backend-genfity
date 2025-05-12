@@ -58,6 +58,21 @@ export type Addon = $Result.DefaultSelection<Prisma.$AddonPayload>
  * 
  */
 export type Package = $Result.DefaultSelection<Prisma.$PackagePayload>
+/**
+ * Model WhatsAppSession
+ * 
+ */
+export type WhatsAppSession = $Result.DefaultSelection<Prisma.$WhatsAppSessionPayload>
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -273,6 +288,36 @@ export class PrismaClient<
     * ```
     */
   get package(): Prisma.PackageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsAppSession`: Exposes CRUD operations for the **WhatsAppSession** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsAppSessions
+    * const whatsAppSessions = await prisma.whatsAppSession.findMany()
+    * ```
+    */
+  get whatsAppSession(): Prisma.WhatsAppSessionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.transaction`: Exposes CRUD operations for the **Transaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transaction.findMany()
+    * ```
+    */
+  get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Payments
+    * const payments = await prisma.payment.findMany()
+    * ```
+    */
+  get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -721,7 +766,10 @@ export namespace Prisma {
     Subcategory: 'Subcategory',
     Category: 'Category',
     Addon: 'Addon',
-    Package: 'Package'
+    Package: 'Package',
+    WhatsAppSession: 'WhatsAppSession',
+    Transaction: 'Transaction',
+    Payment: 'Payment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -740,7 +788,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "feature" | "subcategory" | "category" | "addon" | "package"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "feature" | "subcategory" | "category" | "addon" | "package" | "whatsAppSession" | "transaction" | "payment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1338,6 +1386,204 @@ export namespace Prisma {
           }
         }
       }
+      WhatsAppSession: {
+        payload: Prisma.$WhatsAppSessionPayload<ExtArgs>
+        fields: Prisma.WhatsAppSessionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsAppSessionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsAppSessionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsAppSessionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsAppSessionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          findMany: {
+            args: Prisma.WhatsAppSessionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>[]
+          }
+          create: {
+            args: Prisma.WhatsAppSessionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          createMany: {
+            args: Prisma.WhatsAppSessionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WhatsAppSessionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          update: {
+            args: Prisma.WhatsAppSessionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsAppSessionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsAppSessionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WhatsAppSessionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsAppSessionPayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsAppSessionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsAppSession>
+          }
+          groupBy: {
+            args: Prisma.WhatsAppSessionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppSessionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsAppSessionCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsAppSessionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Transaction: {
+        payload: Prisma.$TransactionPayload<ExtArgs>
+        fields: Prisma.TransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.TransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          findMany: {
+            args: Prisma.TransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>[]
+          }
+          create: {
+            args: Prisma.TransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          createMany: {
+            args: Prisma.TransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.TransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          update: {
+            args: Prisma.TransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.TransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransaction>
+          }
+          groupBy: {
+            args: Prisma.TransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Payment: {
+        payload: Prisma.$PaymentPayload<ExtArgs>
+        fields: Prisma.PaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.PaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          findMany: {
+            args: Prisma.PaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>[]
+          }
+          create: {
+            args: Prisma.PaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          createMany: {
+            args: Prisma.PaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          update: {
+            args: Prisma.PaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.PaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.PaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePayment>
+          }
+          groupBy: {
+            args: Prisma.PaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<PaymentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1431,6 +1677,9 @@ export namespace Prisma {
     category?: CategoryOmit
     addon?: AddonOmit
     package?: PackageOmit
+    whatsAppSession?: WhatsAppSessionOmit
+    transaction?: TransactionOmit
+    payment?: PaymentOmit
   }
 
   /* Types for Logging */
@@ -1527,11 +1776,15 @@ export namespace Prisma {
   export type UserCountOutputType = {
     accounts: number
     sessions: number
+    whatsAppSessions: number
+    transactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    whatsAppSessions?: boolean | UserCountOutputTypeCountWhatsAppSessionsArgs
+    transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1557,6 +1810,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWhatsAppSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppSessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -1641,15 +1908,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AddonCountOutputType
+   */
+
+  export type AddonCountOutputType = {
+    transactions: number
+  }
+
+  export type AddonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | AddonCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AddonCountOutputType without action
+   */
+  export type AddonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AddonCountOutputType
+     */
+    select?: AddonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AddonCountOutputType without action
+   */
+  export type AddonCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+  }
+
+
+  /**
    * Count Type PackageCountOutputType
    */
 
   export type PackageCountOutputType = {
     features: number
+    transactions: number
   }
 
   export type PackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     features?: boolean | PackageCountOutputTypeCountFeaturesArgs
+    transactions?: boolean | PackageCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1668,6 +1968,13 @@ export namespace Prisma {
    */
   export type PackageCountOutputTypeCountFeaturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FeatureWhereInput
+  }
+
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
   }
 
 
@@ -1913,6 +2220,8 @@ export namespace Prisma {
     role?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1939,6 +2248,8 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
+    transactions?: boolean | User$transactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -1947,6 +2258,8 @@ export namespace Prisma {
     objects: {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      whatsAppSessions: Prisma.$WhatsAppSessionPayload<ExtArgs>[]
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2305,6 +2618,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    whatsAppSessions<T extends User$whatsAppSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsAppSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2736,6 +3051,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.whatsAppSessions
+   */
+  export type User$whatsAppSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    where?: WhatsAppSessionWhereInput
+    orderBy?: WhatsAppSessionOrderByWithRelationInput | WhatsAppSessionOrderByWithRelationInput[]
+    cursor?: WhatsAppSessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsAppSessionScalarFieldEnum | WhatsAppSessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.transactions
+   */
+  export type User$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
   }
 
   /**
@@ -8467,11 +8830,13 @@ export namespace Prisma {
   export type AddonAvgAggregateOutputType = {
     price_idr: Decimal | null
     price_usd: Decimal | null
+    duration: number | null
   }
 
   export type AddonSumAggregateOutputType = {
     price_idr: Decimal | null
     price_usd: Decimal | null
+    duration: number | null
   }
 
   export type AddonMinAggregateOutputType = {
@@ -8484,6 +8849,8 @@ export namespace Prisma {
     price_usd: Decimal | null
     image: string | null
     categoryId: string | null
+    duration: number | null
+    durationUnit: string | null
   }
 
   export type AddonMaxAggregateOutputType = {
@@ -8496,6 +8863,8 @@ export namespace Prisma {
     price_usd: Decimal | null
     image: string | null
     categoryId: string | null
+    duration: number | null
+    durationUnit: string | null
   }
 
   export type AddonCountAggregateOutputType = {
@@ -8508,6 +8877,8 @@ export namespace Prisma {
     price_usd: number
     image: number
     categoryId: number
+    duration: number
+    durationUnit: number
     _all: number
   }
 
@@ -8515,11 +8886,13 @@ export namespace Prisma {
   export type AddonAvgAggregateInputType = {
     price_idr?: true
     price_usd?: true
+    duration?: true
   }
 
   export type AddonSumAggregateInputType = {
     price_idr?: true
     price_usd?: true
+    duration?: true
   }
 
   export type AddonMinAggregateInputType = {
@@ -8532,6 +8905,8 @@ export namespace Prisma {
     price_usd?: true
     image?: true
     categoryId?: true
+    duration?: true
+    durationUnit?: true
   }
 
   export type AddonMaxAggregateInputType = {
@@ -8544,6 +8919,8 @@ export namespace Prisma {
     price_usd?: true
     image?: true
     categoryId?: true
+    duration?: true
+    durationUnit?: true
   }
 
   export type AddonCountAggregateInputType = {
@@ -8556,6 +8933,8 @@ export namespace Prisma {
     price_usd?: true
     image?: true
     categoryId?: true
+    duration?: true
+    durationUnit?: true
     _all?: true
   }
 
@@ -8655,6 +9034,8 @@ export namespace Prisma {
     price_usd: Decimal
     image: string | null
     categoryId: string
+    duration: number
+    durationUnit: string
     _count: AddonCountAggregateOutputType | null
     _avg: AddonAvgAggregateOutputType | null
     _sum: AddonSumAggregateOutputType | null
@@ -8686,7 +9067,11 @@ export namespace Prisma {
     price_usd?: boolean
     image?: boolean
     categoryId?: boolean
+    duration?: boolean
+    durationUnit?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
+    transactions?: boolean | Addon$transactionsArgs<ExtArgs>
+    _count?: boolean | AddonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["addon"]>
 
 
@@ -8701,17 +9086,22 @@ export namespace Prisma {
     price_usd?: boolean
     image?: boolean
     categoryId?: boolean
+    duration?: boolean
+    durationUnit?: boolean
   }
 
-  export type AddonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId", ExtArgs["result"]["addon"]>
+  export type AddonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId" | "duration" | "durationUnit", ExtArgs["result"]["addon"]>
   export type AddonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
+    transactions?: boolean | Addon$transactionsArgs<ExtArgs>
+    _count?: boolean | AddonCountOutputTypeDefaultArgs<ExtArgs>
   }
 
   export type $AddonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Addon"
     objects: {
       category: Prisma.$CategoryPayload<ExtArgs>
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8723,6 +9113,8 @@ export namespace Prisma {
       price_usd: Prisma.Decimal
       image: string | null
       categoryId: string
+      duration: number
+      durationUnit: string
     }, ExtArgs["result"]["addon"]>
     composites: {}
   }
@@ -9064,6 +9456,7 @@ export namespace Prisma {
   export interface Prisma__AddonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    transactions<T extends Addon$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Addon$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9102,6 +9495,8 @@ export namespace Prisma {
     readonly price_usd: FieldRef<"Addon", 'Decimal'>
     readonly image: FieldRef<"Addon", 'String'>
     readonly categoryId: FieldRef<"Addon", 'String'>
+    readonly duration: FieldRef<"Addon", 'Int'>
+    readonly durationUnit: FieldRef<"Addon", 'String'>
   }
     
 
@@ -9445,6 +9840,30 @@ export namespace Prisma {
   }
 
   /**
+   * Addon.transactions
+   */
+  export type Addon$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
    * Addon without action
    */
   export type AddonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9478,11 +9897,13 @@ export namespace Prisma {
   export type PackageAvgAggregateOutputType = {
     price_idr: Decimal | null
     price_usd: Decimal | null
+    duration: number | null
   }
 
   export type PackageSumAggregateOutputType = {
     price_idr: Decimal | null
     price_usd: Decimal | null
+    duration: number | null
   }
 
   export type PackageMinAggregateOutputType = {
@@ -9498,6 +9919,8 @@ export namespace Prisma {
     subcategoryId: string | null
     popular: boolean | null
     bgColor: string | null
+    duration: number | null
+    durationUnit: string | null
   }
 
   export type PackageMaxAggregateOutputType = {
@@ -9513,6 +9936,8 @@ export namespace Prisma {
     subcategoryId: string | null
     popular: boolean | null
     bgColor: string | null
+    duration: number | null
+    durationUnit: string | null
   }
 
   export type PackageCountAggregateOutputType = {
@@ -9528,6 +9953,8 @@ export namespace Prisma {
     subcategoryId: number
     popular: number
     bgColor: number
+    duration: number
+    durationUnit: number
     _all: number
   }
 
@@ -9535,11 +9962,13 @@ export namespace Prisma {
   export type PackageAvgAggregateInputType = {
     price_idr?: true
     price_usd?: true
+    duration?: true
   }
 
   export type PackageSumAggregateInputType = {
     price_idr?: true
     price_usd?: true
+    duration?: true
   }
 
   export type PackageMinAggregateInputType = {
@@ -9555,6 +9984,8 @@ export namespace Prisma {
     subcategoryId?: true
     popular?: true
     bgColor?: true
+    duration?: true
+    durationUnit?: true
   }
 
   export type PackageMaxAggregateInputType = {
@@ -9570,6 +10001,8 @@ export namespace Prisma {
     subcategoryId?: true
     popular?: true
     bgColor?: true
+    duration?: true
+    durationUnit?: true
   }
 
   export type PackageCountAggregateInputType = {
@@ -9585,6 +10018,8 @@ export namespace Prisma {
     subcategoryId?: true
     popular?: true
     bgColor?: true
+    duration?: true
+    durationUnit?: true
     _all?: true
   }
 
@@ -9687,6 +10122,8 @@ export namespace Prisma {
     subcategoryId: string
     popular: boolean | null
     bgColor: string | null
+    duration: number
+    durationUnit: string
     _count: PackageCountAggregateOutputType | null
     _avg: PackageAvgAggregateOutputType | null
     _sum: PackageSumAggregateOutputType | null
@@ -9721,9 +10158,12 @@ export namespace Prisma {
     subcategoryId?: boolean
     popular?: boolean
     bgColor?: boolean
+    duration?: boolean
+    durationUnit?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     subcategory?: boolean | SubcategoryDefaultArgs<ExtArgs>
     features?: boolean | Package$featuresArgs<ExtArgs>
+    transactions?: boolean | Package$transactionsArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["package"]>
 
@@ -9742,13 +10182,16 @@ export namespace Prisma {
     subcategoryId?: boolean
     popular?: boolean
     bgColor?: boolean
+    duration?: boolean
+    durationUnit?: boolean
   }
 
-  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId" | "subcategoryId" | "popular" | "bgColor", ExtArgs["result"]["package"]>
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name_en" | "name_id" | "description_en" | "description_id" | "price_idr" | "price_usd" | "image" | "categoryId" | "subcategoryId" | "popular" | "bgColor" | "duration" | "durationUnit", ExtArgs["result"]["package"]>
   export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     subcategory?: boolean | SubcategoryDefaultArgs<ExtArgs>
     features?: boolean | Package$featuresArgs<ExtArgs>
+    transactions?: boolean | Package$transactionsArgs<ExtArgs>
     _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -9758,6 +10201,7 @@ export namespace Prisma {
       category: Prisma.$CategoryPayload<ExtArgs>
       subcategory: Prisma.$SubcategoryPayload<ExtArgs>
       features: Prisma.$FeaturePayload<ExtArgs>[]
+      transactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9772,6 +10216,8 @@ export namespace Prisma {
       subcategoryId: string
       popular: boolean | null
       bgColor: string | null
+      duration: number
+      durationUnit: string
     }, ExtArgs["result"]["package"]>
     composites: {}
   }
@@ -10115,6 +10561,7 @@ export namespace Prisma {
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     subcategory<T extends SubcategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubcategoryDefaultArgs<ExtArgs>>): Prisma__SubcategoryClient<$Result.GetResult<Prisma.$SubcategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     features<T extends Package$featuresArgs<ExtArgs> = {}>(args?: Subset<T, Package$featuresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends Package$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Package$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10156,6 +10603,8 @@ export namespace Prisma {
     readonly subcategoryId: FieldRef<"Package", 'String'>
     readonly popular: FieldRef<"Package", 'Boolean'>
     readonly bgColor: FieldRef<"Package", 'String'>
+    readonly duration: FieldRef<"Package", 'Int'>
+    readonly durationUnit: FieldRef<"Package", 'String'>
   }
     
 
@@ -10523,6 +10972,30 @@ export namespace Prisma {
   }
 
   /**
+   * Package.transactions
+   */
+  export type Package$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    cursor?: TransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
    * Package without action
    */
   export type PackageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10538,6 +11011,3021 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PackageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsAppSession
+   */
+
+  export type AggregateWhatsAppSession = {
+    _count: WhatsAppSessionCountAggregateOutputType | null
+    _min: WhatsAppSessionMinAggregateOutputType | null
+    _max: WhatsAppSessionMaxAggregateOutputType | null
+  }
+
+  export type WhatsAppSessionMinAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    userId: string | null
+    status: string | null
+    qr: string | null
+    isNotification: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppSessionMaxAggregateOutputType = {
+    id: string | null
+    sessionId: string | null
+    userId: string | null
+    status: string | null
+    qr: string | null
+    isNotification: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsAppSessionCountAggregateOutputType = {
+    id: number
+    sessionId: number
+    userId: number
+    status: number
+    qr: number
+    isNotification: number
+    createdAt: number
+    updatedAt: number
+    aiConfig: number
+    _all: number
+  }
+
+
+  export type WhatsAppSessionMinAggregateInputType = {
+    id?: true
+    sessionId?: true
+    userId?: true
+    status?: true
+    qr?: true
+    isNotification?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppSessionMaxAggregateInputType = {
+    id?: true
+    sessionId?: true
+    userId?: true
+    status?: true
+    qr?: true
+    isNotification?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsAppSessionCountAggregateInputType = {
+    id?: true
+    sessionId?: true
+    userId?: true
+    status?: true
+    qr?: true
+    isNotification?: true
+    createdAt?: true
+    updatedAt?: true
+    aiConfig?: true
+    _all?: true
+  }
+
+  export type WhatsAppSessionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppSession to aggregate.
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppSessions to fetch.
+     */
+    orderBy?: WhatsAppSessionOrderByWithRelationInput | WhatsAppSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsAppSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsAppSessions
+    **/
+    _count?: true | WhatsAppSessionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsAppSessionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsAppSessionMaxAggregateInputType
+  }
+
+  export type GetWhatsAppSessionAggregateType<T extends WhatsAppSessionAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsAppSession]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsAppSession[P]>
+      : GetScalarType<T[P], AggregateWhatsAppSession[P]>
+  }
+
+
+
+
+  export type WhatsAppSessionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsAppSessionWhereInput
+    orderBy?: WhatsAppSessionOrderByWithAggregationInput | WhatsAppSessionOrderByWithAggregationInput[]
+    by: WhatsAppSessionScalarFieldEnum[] | WhatsAppSessionScalarFieldEnum
+    having?: WhatsAppSessionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsAppSessionCountAggregateInputType | true
+    _min?: WhatsAppSessionMinAggregateInputType
+    _max?: WhatsAppSessionMaxAggregateInputType
+  }
+
+  export type WhatsAppSessionGroupByOutputType = {
+    id: string
+    sessionId: string
+    userId: string
+    status: string
+    qr: string | null
+    isNotification: boolean
+    createdAt: Date
+    updatedAt: Date
+    aiConfig: JsonValue | null
+    _count: WhatsAppSessionCountAggregateOutputType | null
+    _min: WhatsAppSessionMinAggregateOutputType | null
+    _max: WhatsAppSessionMaxAggregateOutputType | null
+  }
+
+  type GetWhatsAppSessionGroupByPayload<T extends WhatsAppSessionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsAppSessionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsAppSessionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsAppSessionGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsAppSessionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsAppSessionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    sessionId?: boolean
+    userId?: boolean
+    status?: boolean
+    qr?: boolean
+    isNotification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    aiConfig?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsAppSession"]>
+
+
+
+  export type WhatsAppSessionSelectScalar = {
+    id?: boolean
+    sessionId?: boolean
+    userId?: boolean
+    status?: boolean
+    qr?: boolean
+    isNotification?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    aiConfig?: boolean
+  }
+
+  export type WhatsAppSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "userId" | "status" | "qr" | "isNotification" | "createdAt" | "updatedAt" | "aiConfig", ExtArgs["result"]["whatsAppSession"]>
+  export type WhatsAppSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsAppSessionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsAppSession"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      sessionId: string
+      userId: string
+      status: string
+      qr: string | null
+      isNotification: boolean
+      createdAt: Date
+      updatedAt: Date
+      aiConfig: Prisma.JsonValue | null
+    }, ExtArgs["result"]["whatsAppSession"]>
+    composites: {}
+  }
+
+  type WhatsAppSessionGetPayload<S extends boolean | null | undefined | WhatsAppSessionDefaultArgs> = $Result.GetResult<Prisma.$WhatsAppSessionPayload, S>
+
+  type WhatsAppSessionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsAppSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsAppSessionCountAggregateInputType | true
+    }
+
+  export interface WhatsAppSessionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsAppSession'], meta: { name: 'WhatsAppSession' } }
+    /**
+     * Find zero or one WhatsAppSession that matches the filter.
+     * @param {WhatsAppSessionFindUniqueArgs} args - Arguments to find a WhatsAppSession
+     * @example
+     * // Get one WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsAppSessionFindUniqueArgs>(args: SelectSubset<T, WhatsAppSessionFindUniqueArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsAppSession that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsAppSessionFindUniqueOrThrowArgs} args - Arguments to find a WhatsAppSession
+     * @example
+     * // Get one WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsAppSessionFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsAppSessionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppSession that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionFindFirstArgs} args - Arguments to find a WhatsAppSession
+     * @example
+     * // Get one WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsAppSessionFindFirstArgs>(args?: SelectSubset<T, WhatsAppSessionFindFirstArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsAppSession that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionFindFirstOrThrowArgs} args - Arguments to find a WhatsAppSession
+     * @example
+     * // Get one WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsAppSessionFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsAppSessionFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsAppSessions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsAppSessions
+     * const whatsAppSessions = await prisma.whatsAppSession.findMany()
+     * 
+     * // Get first 10 WhatsAppSessions
+     * const whatsAppSessions = await prisma.whatsAppSession.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsAppSessionWithIdOnly = await prisma.whatsAppSession.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsAppSessionFindManyArgs>(args?: SelectSubset<T, WhatsAppSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsAppSession.
+     * @param {WhatsAppSessionCreateArgs} args - Arguments to create a WhatsAppSession.
+     * @example
+     * // Create one WhatsAppSession
+     * const WhatsAppSession = await prisma.whatsAppSession.create({
+     *   data: {
+     *     // ... data to create a WhatsAppSession
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsAppSessionCreateArgs>(args: SelectSubset<T, WhatsAppSessionCreateArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsAppSessions.
+     * @param {WhatsAppSessionCreateManyArgs} args - Arguments to create many WhatsAppSessions.
+     * @example
+     * // Create many WhatsAppSessions
+     * const whatsAppSession = await prisma.whatsAppSession.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsAppSessionCreateManyArgs>(args?: SelectSubset<T, WhatsAppSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WhatsAppSession.
+     * @param {WhatsAppSessionDeleteArgs} args - Arguments to delete one WhatsAppSession.
+     * @example
+     * // Delete one WhatsAppSession
+     * const WhatsAppSession = await prisma.whatsAppSession.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsAppSession
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsAppSessionDeleteArgs>(args: SelectSubset<T, WhatsAppSessionDeleteArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsAppSession.
+     * @param {WhatsAppSessionUpdateArgs} args - Arguments to update one WhatsAppSession.
+     * @example
+     * // Update one WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsAppSessionUpdateArgs>(args: SelectSubset<T, WhatsAppSessionUpdateArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsAppSessions.
+     * @param {WhatsAppSessionDeleteManyArgs} args - Arguments to filter WhatsAppSessions to delete.
+     * @example
+     * // Delete a few WhatsAppSessions
+     * const { count } = await prisma.whatsAppSession.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsAppSessionDeleteManyArgs>(args?: SelectSubset<T, WhatsAppSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsAppSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsAppSessions
+     * const whatsAppSession = await prisma.whatsAppSession.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsAppSessionUpdateManyArgs>(args: SelectSubset<T, WhatsAppSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WhatsAppSession.
+     * @param {WhatsAppSessionUpsertArgs} args - Arguments to update or create a WhatsAppSession.
+     * @example
+     * // Update or create a WhatsAppSession
+     * const whatsAppSession = await prisma.whatsAppSession.upsert({
+     *   create: {
+     *     // ... data to create a WhatsAppSession
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsAppSession we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsAppSessionUpsertArgs>(args: SelectSubset<T, WhatsAppSessionUpsertArgs<ExtArgs>>): Prisma__WhatsAppSessionClient<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsAppSessions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionCountArgs} args - Arguments to filter WhatsAppSessions to count.
+     * @example
+     * // Count the number of WhatsAppSessions
+     * const count = await prisma.whatsAppSession.count({
+     *   where: {
+     *     // ... the filter for the WhatsAppSessions we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsAppSessionCountArgs>(
+      args?: Subset<T, WhatsAppSessionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsAppSessionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsAppSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsAppSessionAggregateArgs>(args: Subset<T, WhatsAppSessionAggregateArgs>): Prisma.PrismaPromise<GetWhatsAppSessionAggregateType<T>>
+
+    /**
+     * Group by WhatsAppSession.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsAppSessionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsAppSessionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsAppSessionGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsAppSessionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsAppSessionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsAppSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsAppSession model
+   */
+  readonly fields: WhatsAppSessionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsAppSession.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsAppSessionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsAppSession model
+   */
+  interface WhatsAppSessionFieldRefs {
+    readonly id: FieldRef<"WhatsAppSession", 'String'>
+    readonly sessionId: FieldRef<"WhatsAppSession", 'String'>
+    readonly userId: FieldRef<"WhatsAppSession", 'String'>
+    readonly status: FieldRef<"WhatsAppSession", 'String'>
+    readonly qr: FieldRef<"WhatsAppSession", 'String'>
+    readonly isNotification: FieldRef<"WhatsAppSession", 'Boolean'>
+    readonly createdAt: FieldRef<"WhatsAppSession", 'DateTime'>
+    readonly updatedAt: FieldRef<"WhatsAppSession", 'DateTime'>
+    readonly aiConfig: FieldRef<"WhatsAppSession", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsAppSession findUnique
+   */
+  export type WhatsAppSessionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppSession to fetch.
+     */
+    where: WhatsAppSessionWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppSession findUniqueOrThrow
+   */
+  export type WhatsAppSessionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppSession to fetch.
+     */
+    where: WhatsAppSessionWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppSession findFirst
+   */
+  export type WhatsAppSessionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppSession to fetch.
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppSessions to fetch.
+     */
+    orderBy?: WhatsAppSessionOrderByWithRelationInput | WhatsAppSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppSessions.
+     */
+    cursor?: WhatsAppSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppSessions.
+     */
+    distinct?: WhatsAppSessionScalarFieldEnum | WhatsAppSessionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppSession findFirstOrThrow
+   */
+  export type WhatsAppSessionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppSession to fetch.
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppSessions to fetch.
+     */
+    orderBy?: WhatsAppSessionOrderByWithRelationInput | WhatsAppSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsAppSessions.
+     */
+    cursor?: WhatsAppSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppSessions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsAppSessions.
+     */
+    distinct?: WhatsAppSessionScalarFieldEnum | WhatsAppSessionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppSession findMany
+   */
+  export type WhatsAppSessionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsAppSessions to fetch.
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsAppSessions to fetch.
+     */
+    orderBy?: WhatsAppSessionOrderByWithRelationInput | WhatsAppSessionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsAppSessions.
+     */
+    cursor?: WhatsAppSessionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsAppSessions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsAppSessions.
+     */
+    skip?: number
+    distinct?: WhatsAppSessionScalarFieldEnum | WhatsAppSessionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsAppSession create
+   */
+  export type WhatsAppSessionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsAppSession.
+     */
+    data: XOR<WhatsAppSessionCreateInput, WhatsAppSessionUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsAppSession createMany
+   */
+  export type WhatsAppSessionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsAppSessions.
+     */
+    data: WhatsAppSessionCreateManyInput | WhatsAppSessionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsAppSession update
+   */
+  export type WhatsAppSessionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsAppSession.
+     */
+    data: XOR<WhatsAppSessionUpdateInput, WhatsAppSessionUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsAppSession to update.
+     */
+    where: WhatsAppSessionWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppSession updateMany
+   */
+  export type WhatsAppSessionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsAppSessions.
+     */
+    data: XOR<WhatsAppSessionUpdateManyMutationInput, WhatsAppSessionUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsAppSessions to update
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * Limit how many WhatsAppSessions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppSession upsert
+   */
+  export type WhatsAppSessionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsAppSession to update in case it exists.
+     */
+    where: WhatsAppSessionWhereUniqueInput
+    /**
+     * In case the WhatsAppSession found by the `where` argument doesn't exist, create a new WhatsAppSession with this data.
+     */
+    create: XOR<WhatsAppSessionCreateInput, WhatsAppSessionUncheckedCreateInput>
+    /**
+     * In case the WhatsAppSession was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsAppSessionUpdateInput, WhatsAppSessionUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsAppSession delete
+   */
+  export type WhatsAppSessionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsAppSession to delete.
+     */
+    where: WhatsAppSessionWhereUniqueInput
+  }
+
+  /**
+   * WhatsAppSession deleteMany
+   */
+  export type WhatsAppSessionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsAppSessions to delete
+     */
+    where?: WhatsAppSessionWhereInput
+    /**
+     * Limit how many WhatsAppSessions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsAppSession without action
+   */
+  export type WhatsAppSessionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsAppSession
+     */
+    select?: WhatsAppSessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsAppSession
+     */
+    omit?: WhatsAppSessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsAppSessionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Transaction
+   */
+
+  export type AggregateTransaction = {
+    _count: TransactionCountAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
+  }
+
+  export type TransactionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    addonId: string | null
+    paymentId: string | null
+    transactionDate: Date | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    referenceLink: string | null
+  }
+
+  export type TransactionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    addonId: string | null
+    paymentId: string | null
+    transactionDate: Date | null
+    startDate: Date | null
+    endDate: Date | null
+    status: string | null
+    referenceLink: string | null
+  }
+
+  export type TransactionCountAggregateOutputType = {
+    id: number
+    userId: number
+    packageId: number
+    addonId: number
+    paymentId: number
+    transactionDate: number
+    startDate: number
+    endDate: number
+    status: number
+    referenceLink: number
+    _all: number
+  }
+
+
+  export type TransactionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    addonId?: true
+    paymentId?: true
+    transactionDate?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    referenceLink?: true
+  }
+
+  export type TransactionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    addonId?: true
+    paymentId?: true
+    transactionDate?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    referenceLink?: true
+  }
+
+  export type TransactionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    addonId?: true
+    paymentId?: true
+    transactionDate?: true
+    startDate?: true
+    endDate?: true
+    status?: true
+    referenceLink?: true
+    _all?: true
+  }
+
+  export type TransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transaction to aggregate.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Transactions
+    **/
+    _count?: true | TransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransactionMaxAggregateInputType
+  }
+
+  export type GetTransactionAggregateType<T extends TransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransaction[P]>
+      : GetScalarType<T[P], AggregateTransaction[P]>
+  }
+
+
+
+
+  export type TransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionWhereInput
+    orderBy?: TransactionOrderByWithAggregationInput | TransactionOrderByWithAggregationInput[]
+    by: TransactionScalarFieldEnum[] | TransactionScalarFieldEnum
+    having?: TransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransactionCountAggregateInputType | true
+    _min?: TransactionMinAggregateInputType
+    _max?: TransactionMaxAggregateInputType
+  }
+
+  export type TransactionGroupByOutputType = {
+    id: string
+    userId: string
+    packageId: string | null
+    addonId: string | null
+    paymentId: string | null
+    transactionDate: Date
+    startDate: Date
+    endDate: Date
+    status: string
+    referenceLink: string | null
+    _count: TransactionCountAggregateOutputType | null
+    _min: TransactionMinAggregateOutputType | null
+    _max: TransactionMaxAggregateOutputType | null
+  }
+
+  type GetTransactionGroupByPayload<T extends TransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    addonId?: boolean
+    paymentId?: boolean
+    transactionDate?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    referenceLink?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | Transaction$packageArgs<ExtArgs>
+    addon?: boolean | Transaction$addonArgs<ExtArgs>
+    payment?: boolean | Transaction$paymentArgs<ExtArgs>
+  }, ExtArgs["result"]["transaction"]>
+
+
+
+  export type TransactionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    addonId?: boolean
+    paymentId?: boolean
+    transactionDate?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    status?: boolean
+    referenceLink?: boolean
+  }
+
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "packageId" | "addonId" | "paymentId" | "transactionDate" | "startDate" | "endDate" | "status" | "referenceLink", ExtArgs["result"]["transaction"]>
+  export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | Transaction$packageArgs<ExtArgs>
+    addon?: boolean | Transaction$addonArgs<ExtArgs>
+    payment?: boolean | Transaction$paymentArgs<ExtArgs>
+  }
+
+  export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transaction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      package: Prisma.$PackagePayload<ExtArgs> | null
+      addon: Prisma.$AddonPayload<ExtArgs> | null
+      payment: Prisma.$PaymentPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      packageId: string | null
+      addonId: string | null
+      paymentId: string | null
+      transactionDate: Date
+      startDate: Date
+      endDate: Date
+      status: string
+      referenceLink: string | null
+    }, ExtArgs["result"]["transaction"]>
+    composites: {}
+  }
+
+  type TransactionGetPayload<S extends boolean | null | undefined | TransactionDefaultArgs> = $Result.GetResult<Prisma.$TransactionPayload, S>
+
+  type TransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TransactionCountAggregateInputType | true
+    }
+
+  export interface TransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transaction'], meta: { name: 'Transaction' } }
+    /**
+     * Find zero or one Transaction that matches the filter.
+     * @param {TransactionFindUniqueArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransactionFindUniqueArgs>(args: SelectSubset<T, TransactionFindUniqueArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Transaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TransactionFindUniqueOrThrowArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Transaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindFirstArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransactionFindFirstArgs>(args?: SelectSubset<T, TransactionFindFirstArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Transaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindFirstOrThrowArgs} args - Arguments to find a Transaction
+     * @example
+     * // Get one Transaction
+     * const transaction = await prisma.transaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Transactions
+     * const transactions = await prisma.transaction.findMany()
+     * 
+     * // Get first 10 Transactions
+     * const transactions = await prisma.transaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const transactionWithIdOnly = await prisma.transaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TransactionFindManyArgs>(args?: SelectSubset<T, TransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Transaction.
+     * @param {TransactionCreateArgs} args - Arguments to create a Transaction.
+     * @example
+     * // Create one Transaction
+     * const Transaction = await prisma.transaction.create({
+     *   data: {
+     *     // ... data to create a Transaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransactionCreateArgs>(args: SelectSubset<T, TransactionCreateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Transactions.
+     * @param {TransactionCreateManyArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transaction = await prisma.transaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransactionCreateManyArgs>(args?: SelectSubset<T, TransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Transaction.
+     * @param {TransactionDeleteArgs} args - Arguments to delete one Transaction.
+     * @example
+     * // Delete one Transaction
+     * const Transaction = await prisma.transaction.delete({
+     *   where: {
+     *     // ... filter to delete one Transaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransactionDeleteArgs>(args: SelectSubset<T, TransactionDeleteArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Transaction.
+     * @param {TransactionUpdateArgs} args - Arguments to update one Transaction.
+     * @example
+     * // Update one Transaction
+     * const transaction = await prisma.transaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransactionUpdateArgs>(args: SelectSubset<T, TransactionUpdateArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Transactions.
+     * @param {TransactionDeleteManyArgs} args - Arguments to filter Transactions to delete.
+     * @example
+     * // Delete a few Transactions
+     * const { count } = await prisma.transaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransactionDeleteManyArgs>(args?: SelectSubset<T, TransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Transactions
+     * const transaction = await prisma.transaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransactionUpdateManyArgs>(args: SelectSubset<T, TransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Transaction.
+     * @param {TransactionUpsertArgs} args - Arguments to update or create a Transaction.
+     * @example
+     * // Update or create a Transaction
+     * const transaction = await prisma.transaction.upsert({
+     *   create: {
+     *     // ... data to create a Transaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Transaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransactionUpsertArgs>(args: SelectSubset<T, TransactionUpsertArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionCountArgs} args - Arguments to filter Transactions to count.
+     * @example
+     * // Count the number of Transactions
+     * const count = await prisma.transaction.count({
+     *   where: {
+     *     // ... the filter for the Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransactionCountArgs>(
+      args?: Subset<T, TransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransactionAggregateArgs>(args: Subset<T, TransactionAggregateArgs>): Prisma.PrismaPromise<GetTransactionAggregateType<T>>
+
+    /**
+     * Group by Transaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransactionGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Transaction model
+   */
+  readonly fields: TransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Transaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    package<T extends Transaction$packageArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$packageArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    addon<T extends Transaction$addonArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$addonArgs<ExtArgs>>): Prisma__AddonClient<$Result.GetResult<Prisma.$AddonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    payment<T extends Transaction$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Transaction model
+   */
+  interface TransactionFieldRefs {
+    readonly id: FieldRef<"Transaction", 'String'>
+    readonly userId: FieldRef<"Transaction", 'String'>
+    readonly packageId: FieldRef<"Transaction", 'String'>
+    readonly addonId: FieldRef<"Transaction", 'String'>
+    readonly paymentId: FieldRef<"Transaction", 'String'>
+    readonly transactionDate: FieldRef<"Transaction", 'DateTime'>
+    readonly startDate: FieldRef<"Transaction", 'DateTime'>
+    readonly endDate: FieldRef<"Transaction", 'DateTime'>
+    readonly status: FieldRef<"Transaction", 'String'>
+    readonly referenceLink: FieldRef<"Transaction", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Transaction findUnique
+   */
+  export type TransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+  /**
+   * Transaction findUniqueOrThrow
+   */
+  export type TransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+  /**
+   * Transaction findFirst
+   */
+  export type TransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Transaction findFirstOrThrow
+   */
+  export type TransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaction to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Transaction findMany
+   */
+  export type TransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionOrderByWithRelationInput | TransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Transactions.
+     */
+    cursor?: TransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * Transaction create
+   */
+  export type TransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Transaction.
+     */
+    data: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+  }
+
+  /**
+   * Transaction createMany
+   */
+  export type TransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionCreateManyInput | TransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Transaction update
+   */
+  export type TransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Transaction.
+     */
+    data: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+    /**
+     * Choose, which Transaction to update.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+  /**
+   * Transaction updateMany
+   */
+  export type TransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Transactions.
+     */
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which Transactions to update
+     */
+    where?: TransactionWhereInput
+    /**
+     * Limit how many Transactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Transaction upsert
+   */
+  export type TransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Transaction to update in case it exists.
+     */
+    where: TransactionWhereUniqueInput
+    /**
+     * In case the Transaction found by the `where` argument doesn't exist, create a new Transaction with this data.
+     */
+    create: XOR<TransactionCreateInput, TransactionUncheckedCreateInput>
+    /**
+     * In case the Transaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransactionUpdateInput, TransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * Transaction delete
+   */
+  export type TransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    /**
+     * Filter which Transaction to delete.
+     */
+    where: TransactionWhereUniqueInput
+  }
+
+  /**
+   * Transaction deleteMany
+   */
+  export type TransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to delete
+     */
+    where?: TransactionWhereInput
+    /**
+     * Limit how many Transactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Transaction.package
+   */
+  export type Transaction$packageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    where?: PackageWhereInput
+  }
+
+  /**
+   * Transaction.addon
+   */
+  export type Transaction$addonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Addon
+     */
+    select?: AddonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Addon
+     */
+    omit?: AddonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddonInclude<ExtArgs> | null
+    where?: AddonWhereInput
+  }
+
+  /**
+   * Transaction.payment
+   */
+  export type Transaction$paymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    where?: PaymentWhereInput
+  }
+
+  /**
+   * Transaction without action
+   */
+  export type TransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Payment
+   */
+
+  export type AggregatePayment = {
+    _count: PaymentCountAggregateOutputType | null
+    _avg: PaymentAvgAggregateOutputType | null
+    _sum: PaymentSumAggregateOutputType | null
+    _min: PaymentMinAggregateOutputType | null
+    _max: PaymentMaxAggregateOutputType | null
+  }
+
+  export type PaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PaymentSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type PaymentMinAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    amount: Decimal | null
+    method: string | null
+    status: string | null
+    paymentDate: Date | null
+  }
+
+  export type PaymentMaxAggregateOutputType = {
+    id: string | null
+    transactionId: string | null
+    amount: Decimal | null
+    method: string | null
+    status: string | null
+    paymentDate: Date | null
+  }
+
+  export type PaymentCountAggregateOutputType = {
+    id: number
+    transactionId: number
+    amount: number
+    method: number
+    status: number
+    paymentDate: number
+    _all: number
+  }
+
+
+  export type PaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type PaymentSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type PaymentMinAggregateInputType = {
+    id?: true
+    transactionId?: true
+    amount?: true
+    method?: true
+    status?: true
+    paymentDate?: true
+  }
+
+  export type PaymentMaxAggregateInputType = {
+    id?: true
+    transactionId?: true
+    amount?: true
+    method?: true
+    status?: true
+    paymentDate?: true
+  }
+
+  export type PaymentCountAggregateInputType = {
+    id?: true
+    transactionId?: true
+    amount?: true
+    method?: true
+    status?: true
+    paymentDate?: true
+    _all?: true
+  }
+
+  export type PaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Payment to aggregate.
+     */
+    where?: PaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Payments to fetch.
+     */
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Payments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Payments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Payments
+    **/
+    _count?: true | PaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PaymentMaxAggregateInputType
+  }
+
+  export type GetPaymentAggregateType<T extends PaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregatePayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePayment[P]>
+      : GetScalarType<T[P], AggregatePayment[P]>
+  }
+
+
+
+
+  export type PaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PaymentWhereInput
+    orderBy?: PaymentOrderByWithAggregationInput | PaymentOrderByWithAggregationInput[]
+    by: PaymentScalarFieldEnum[] | PaymentScalarFieldEnum
+    having?: PaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PaymentCountAggregateInputType | true
+    _avg?: PaymentAvgAggregateInputType
+    _sum?: PaymentSumAggregateInputType
+    _min?: PaymentMinAggregateInputType
+    _max?: PaymentMaxAggregateInputType
+  }
+
+  export type PaymentGroupByOutputType = {
+    id: string
+    transactionId: string | null
+    amount: Decimal
+    method: string
+    status: string
+    paymentDate: Date | null
+    _count: PaymentCountAggregateOutputType | null
+    _avg: PaymentAvgAggregateOutputType | null
+    _sum: PaymentSumAggregateOutputType | null
+    _min: PaymentMinAggregateOutputType | null
+    _max: PaymentMaxAggregateOutputType | null
+  }
+
+  type GetPaymentGroupByPayload<T extends PaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], PaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    transactionId?: boolean
+    amount?: boolean
+    method?: boolean
+    status?: boolean
+    paymentDate?: boolean
+    transaction?: boolean | Payment$transactionArgs<ExtArgs>
+  }, ExtArgs["result"]["payment"]>
+
+
+
+  export type PaymentSelectScalar = {
+    id?: boolean
+    transactionId?: boolean
+    amount?: boolean
+    method?: boolean
+    status?: boolean
+    paymentDate?: boolean
+  }
+
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "transactionId" | "amount" | "method" | "status" | "paymentDate", ExtArgs["result"]["payment"]>
+  export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaction?: boolean | Payment$transactionArgs<ExtArgs>
+  }
+
+  export type $PaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Payment"
+    objects: {
+      transaction: Prisma.$TransactionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      transactionId: string | null
+      amount: Prisma.Decimal
+      method: string
+      status: string
+      paymentDate: Date | null
+    }, ExtArgs["result"]["payment"]>
+    composites: {}
+  }
+
+  type PaymentGetPayload<S extends boolean | null | undefined | PaymentDefaultArgs> = $Result.GetResult<Prisma.$PaymentPayload, S>
+
+  type PaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PaymentCountAggregateInputType | true
+    }
+
+  export interface PaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Payment'], meta: { name: 'Payment' } }
+    /**
+     * Find zero or one Payment that matches the filter.
+     * @param {PaymentFindUniqueArgs} args - Arguments to find a Payment
+     * @example
+     * // Get one Payment
+     * const payment = await prisma.payment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PaymentFindUniqueArgs>(args: SelectSubset<T, PaymentFindUniqueArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Payment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PaymentFindUniqueOrThrowArgs} args - Arguments to find a Payment
+     * @example
+     * // Get one Payment
+     * const payment = await prisma.payment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, PaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Payment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentFindFirstArgs} args - Arguments to find a Payment
+     * @example
+     * // Get one Payment
+     * const payment = await prisma.payment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PaymentFindFirstArgs>(args?: SelectSubset<T, PaymentFindFirstArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Payment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentFindFirstOrThrowArgs} args - Arguments to find a Payment
+     * @example
+     * // Get one Payment
+     * const payment = await prisma.payment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, PaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Payments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Payments
+     * const payments = await prisma.payment.findMany()
+     * 
+     * // Get first 10 Payments
+     * const payments = await prisma.payment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const paymentWithIdOnly = await prisma.payment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PaymentFindManyArgs>(args?: SelectSubset<T, PaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Payment.
+     * @param {PaymentCreateArgs} args - Arguments to create a Payment.
+     * @example
+     * // Create one Payment
+     * const Payment = await prisma.payment.create({
+     *   data: {
+     *     // ... data to create a Payment
+     *   }
+     * })
+     * 
+     */
+    create<T extends PaymentCreateArgs>(args: SelectSubset<T, PaymentCreateArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Payments.
+     * @param {PaymentCreateManyArgs} args - Arguments to create many Payments.
+     * @example
+     * // Create many Payments
+     * const payment = await prisma.payment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PaymentCreateManyArgs>(args?: SelectSubset<T, PaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Payment.
+     * @param {PaymentDeleteArgs} args - Arguments to delete one Payment.
+     * @example
+     * // Delete one Payment
+     * const Payment = await prisma.payment.delete({
+     *   where: {
+     *     // ... filter to delete one Payment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PaymentDeleteArgs>(args: SelectSubset<T, PaymentDeleteArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Payment.
+     * @param {PaymentUpdateArgs} args - Arguments to update one Payment.
+     * @example
+     * // Update one Payment
+     * const payment = await prisma.payment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PaymentUpdateArgs>(args: SelectSubset<T, PaymentUpdateArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Payments.
+     * @param {PaymentDeleteManyArgs} args - Arguments to filter Payments to delete.
+     * @example
+     * // Delete a few Payments
+     * const { count } = await prisma.payment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PaymentDeleteManyArgs>(args?: SelectSubset<T, PaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Payments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Payments
+     * const payment = await prisma.payment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PaymentUpdateManyArgs>(args: SelectSubset<T, PaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Payment.
+     * @param {PaymentUpsertArgs} args - Arguments to update or create a Payment.
+     * @example
+     * // Update or create a Payment
+     * const payment = await prisma.payment.upsert({
+     *   create: {
+     *     // ... data to create a Payment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Payment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PaymentUpsertArgs>(args: SelectSubset<T, PaymentUpsertArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Payments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentCountArgs} args - Arguments to filter Payments to count.
+     * @example
+     * // Count the number of Payments
+     * const count = await prisma.payment.count({
+     *   where: {
+     *     // ... the filter for the Payments we want to count
+     *   }
+     * })
+    **/
+    count<T extends PaymentCountArgs>(
+      args?: Subset<T, PaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Payment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PaymentAggregateArgs>(args: Subset<T, PaymentAggregateArgs>): Prisma.PrismaPromise<GetPaymentAggregateType<T>>
+
+    /**
+     * Group by Payment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PaymentGroupByArgs['orderBy'] }
+        : { orderBy?: PaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Payment model
+   */
+  readonly fields: PaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Payment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    transaction<T extends Payment$transactionArgs<ExtArgs> = {}>(args?: Subset<T, Payment$transactionArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Payment model
+   */
+  interface PaymentFieldRefs {
+    readonly id: FieldRef<"Payment", 'String'>
+    readonly transactionId: FieldRef<"Payment", 'String'>
+    readonly amount: FieldRef<"Payment", 'Decimal'>
+    readonly method: FieldRef<"Payment", 'String'>
+    readonly status: FieldRef<"Payment", 'String'>
+    readonly paymentDate: FieldRef<"Payment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Payment findUnique
+   */
+  export type PaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which Payment to fetch.
+     */
+    where: PaymentWhereUniqueInput
+  }
+
+  /**
+   * Payment findUniqueOrThrow
+   */
+  export type PaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which Payment to fetch.
+     */
+    where: PaymentWhereUniqueInput
+  }
+
+  /**
+   * Payment findFirst
+   */
+  export type PaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which Payment to fetch.
+     */
+    where?: PaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Payments to fetch.
+     */
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Payments.
+     */
+    cursor?: PaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Payments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Payments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Payments.
+     */
+    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Payment findFirstOrThrow
+   */
+  export type PaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which Payment to fetch.
+     */
+    where?: PaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Payments to fetch.
+     */
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Payments.
+     */
+    cursor?: PaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Payments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Payments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Payments.
+     */
+    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Payment findMany
+   */
+  export type PaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which Payments to fetch.
+     */
+    where?: PaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Payments to fetch.
+     */
+    orderBy?: PaymentOrderByWithRelationInput | PaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Payments.
+     */
+    cursor?: PaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Payments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Payments.
+     */
+    skip?: number
+    distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Payment create
+   */
+  export type PaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Payment.
+     */
+    data: XOR<PaymentCreateInput, PaymentUncheckedCreateInput>
+  }
+
+  /**
+   * Payment createMany
+   */
+  export type PaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Payments.
+     */
+    data: PaymentCreateManyInput | PaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Payment update
+   */
+  export type PaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Payment.
+     */
+    data: XOR<PaymentUpdateInput, PaymentUncheckedUpdateInput>
+    /**
+     * Choose, which Payment to update.
+     */
+    where: PaymentWhereUniqueInput
+  }
+
+  /**
+   * Payment updateMany
+   */
+  export type PaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Payments.
+     */
+    data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which Payments to update
+     */
+    where?: PaymentWhereInput
+    /**
+     * Limit how many Payments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Payment upsert
+   */
+  export type PaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Payment to update in case it exists.
+     */
+    where: PaymentWhereUniqueInput
+    /**
+     * In case the Payment found by the `where` argument doesn't exist, create a new Payment with this data.
+     */
+    create: XOR<PaymentCreateInput, PaymentUncheckedCreateInput>
+    /**
+     * In case the Payment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PaymentUpdateInput, PaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * Payment delete
+   */
+  export type PaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
+    /**
+     * Filter which Payment to delete.
+     */
+    where: PaymentWhereUniqueInput
+  }
+
+  /**
+   * Payment deleteMany
+   */
+  export type PaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Payments to delete
+     */
+    where?: PaymentWhereInput
+    /**
+     * Limit how many Payments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Payment.transaction
+   */
+  export type Payment$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+  }
+
+  /**
+   * Payment without action
+   */
+  export type PaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Payment
+     */
+    select?: PaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Payment
+     */
+    omit?: PaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PaymentInclude<ExtArgs> | null
   }
 
 
@@ -10652,7 +14140,9 @@ export namespace Prisma {
     price_idr: 'price_idr',
     price_usd: 'price_usd',
     image: 'image',
-    categoryId: 'categoryId'
+    categoryId: 'categoryId',
+    duration: 'duration',
+    durationUnit: 'durationUnit'
   };
 
   export type AddonScalarFieldEnum = (typeof AddonScalarFieldEnum)[keyof typeof AddonScalarFieldEnum]
@@ -10670,10 +14160,55 @@ export namespace Prisma {
     categoryId: 'categoryId',
     subcategoryId: 'subcategoryId',
     popular: 'popular',
-    bgColor: 'bgColor'
+    bgColor: 'bgColor',
+    duration: 'duration',
+    durationUnit: 'durationUnit'
   };
 
   export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
+
+
+  export const WhatsAppSessionScalarFieldEnum: {
+    id: 'id',
+    sessionId: 'sessionId',
+    userId: 'userId',
+    status: 'status',
+    qr: 'qr',
+    isNotification: 'isNotification',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    aiConfig: 'aiConfig'
+  };
+
+  export type WhatsAppSessionScalarFieldEnum = (typeof WhatsAppSessionScalarFieldEnum)[keyof typeof WhatsAppSessionScalarFieldEnum]
+
+
+  export const TransactionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId',
+    addonId: 'addonId',
+    paymentId: 'paymentId',
+    transactionDate: 'transactionDate',
+    startDate: 'startDate',
+    endDate: 'endDate',
+    status: 'status',
+    referenceLink: 'referenceLink'
+  };
+
+  export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+  export const PaymentScalarFieldEnum: {
+    id: 'id',
+    transactionId: 'transactionId',
+    amount: 'amount',
+    method: 'method',
+    status: 'status',
+    paymentDate: 'paymentDate'
+  };
+
+  export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10682,6 +14217,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const NullsOrder: {
@@ -10778,7 +14321,8 @@ export namespace Prisma {
     description_en: 'description_en',
     description_id: 'description_id',
     image: 'image',
-    categoryId: 'categoryId'
+    categoryId: 'categoryId',
+    durationUnit: 'durationUnit'
   };
 
   export type AddonOrderByRelevanceFieldEnum = (typeof AddonOrderByRelevanceFieldEnum)[keyof typeof AddonOrderByRelevanceFieldEnum]
@@ -10793,10 +14337,62 @@ export namespace Prisma {
     image: 'image',
     categoryId: 'categoryId',
     subcategoryId: 'subcategoryId',
-    bgColor: 'bgColor'
+    bgColor: 'bgColor',
+    durationUnit: 'durationUnit'
   };
 
   export type PackageOrderByRelevanceFieldEnum = (typeof PackageOrderByRelevanceFieldEnum)[keyof typeof PackageOrderByRelevanceFieldEnum]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const WhatsAppSessionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    sessionId: 'sessionId',
+    userId: 'userId',
+    status: 'status',
+    qr: 'qr'
+  };
+
+  export type WhatsAppSessionOrderByRelevanceFieldEnum = (typeof WhatsAppSessionOrderByRelevanceFieldEnum)[keyof typeof WhatsAppSessionOrderByRelevanceFieldEnum]
+
+
+  export const TransactionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId',
+    addonId: 'addonId',
+    paymentId: 'paymentId',
+    status: 'status',
+    referenceLink: 'referenceLink'
+  };
+
+  export type TransactionOrderByRelevanceFieldEnum = (typeof TransactionOrderByRelevanceFieldEnum)[keyof typeof TransactionOrderByRelevanceFieldEnum]
+
+
+  export const PaymentOrderByRelevanceFieldEnum: {
+    id: 'id',
+    transactionId: 'transactionId',
+    method: 'method',
+    status: 'status'
+  };
+
+  export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFieldEnum)[keyof typeof PaymentOrderByRelevanceFieldEnum]
 
 
   /**
@@ -10840,6 +14436,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -10869,6 +14479,8 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    whatsAppSessions?: WhatsAppSessionListRelationFilter
+    transactions?: TransactionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10888,6 +14500,8 @@ export namespace Prisma {
     role?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    whatsAppSessions?: WhatsAppSessionOrderByRelationAggregateInput
+    transactions?: TransactionOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -10911,6 +14525,8 @@ export namespace Prisma {
     role?: StringFilter<"User"> | string
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
+    whatsAppSessions?: WhatsAppSessionListRelationFilter
+    transactions?: TransactionListRelationFilter
   }, "id" | "email" | "phone" | "emailVerificationToken">
 
   export type UserOrderByWithAggregationInput = {
@@ -11324,7 +14940,10 @@ export namespace Prisma {
     price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
+    duration?: IntFilter<"Addon"> | number
+    durationUnit?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    transactions?: TransactionListRelationFilter
   }
 
   export type AddonOrderByWithRelationInput = {
@@ -11337,7 +14956,10 @@ export namespace Prisma {
     price_usd?: SortOrder
     image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
     category?: CategoryOrderByWithRelationInput
+    transactions?: TransactionOrderByRelationAggregateInput
     _relevance?: AddonOrderByRelevanceInput
   }
 
@@ -11356,7 +14978,10 @@ export namespace Prisma {
     price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
+    duration?: IntFilter<"Addon"> | number
+    durationUnit?: StringFilter<"Addon"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    transactions?: TransactionListRelationFilter
   }, "id" | "categoryId_name_en" | "categoryId_name_id">
 
   export type AddonOrderByWithAggregationInput = {
@@ -11369,6 +14994,8 @@ export namespace Prisma {
     price_usd?: SortOrder
     image?: SortOrderInput | SortOrder
     categoryId?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
     _count?: AddonCountOrderByAggregateInput
     _avg?: AddonAvgOrderByAggregateInput
     _max?: AddonMaxOrderByAggregateInput
@@ -11389,6 +15016,8 @@ export namespace Prisma {
     price_usd?: DecimalWithAggregatesFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableWithAggregatesFilter<"Addon"> | string | null
     categoryId?: StringWithAggregatesFilter<"Addon"> | string
+    duration?: IntWithAggregatesFilter<"Addon"> | number
+    durationUnit?: StringWithAggregatesFilter<"Addon"> | string
   }
 
   export type PackageWhereInput = {
@@ -11407,9 +15036,12 @@ export namespace Prisma {
     subcategoryId?: StringFilter<"Package"> | string
     popular?: BoolNullableFilter<"Package"> | boolean | null
     bgColor?: StringNullableFilter<"Package"> | string | null
+    duration?: IntFilter<"Package"> | number
+    durationUnit?: StringFilter<"Package"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     subcategory?: XOR<SubcategoryScalarRelationFilter, SubcategoryWhereInput>
     features?: FeatureListRelationFilter
+    transactions?: TransactionListRelationFilter
   }
 
   export type PackageOrderByWithRelationInput = {
@@ -11425,9 +15057,12 @@ export namespace Prisma {
     subcategoryId?: SortOrder
     popular?: SortOrderInput | SortOrder
     bgColor?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
     category?: CategoryOrderByWithRelationInput
     subcategory?: SubcategoryOrderByWithRelationInput
     features?: FeatureOrderByRelationAggregateInput
+    transactions?: TransactionOrderByRelationAggregateInput
     _relevance?: PackageOrderByRelevanceInput
   }
 
@@ -11447,9 +15082,12 @@ export namespace Prisma {
     subcategoryId?: StringFilter<"Package"> | string
     popular?: BoolNullableFilter<"Package"> | boolean | null
     bgColor?: StringNullableFilter<"Package"> | string | null
+    duration?: IntFilter<"Package"> | number
+    durationUnit?: StringFilter<"Package"> | string
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     subcategory?: XOR<SubcategoryScalarRelationFilter, SubcategoryWhereInput>
     features?: FeatureListRelationFilter
+    transactions?: TransactionListRelationFilter
   }, "id">
 
   export type PackageOrderByWithAggregationInput = {
@@ -11465,6 +15103,8 @@ export namespace Prisma {
     subcategoryId?: SortOrder
     popular?: SortOrderInput | SortOrder
     bgColor?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
     _count?: PackageCountOrderByAggregateInput
     _avg?: PackageAvgOrderByAggregateInput
     _max?: PackageMaxOrderByAggregateInput
@@ -11488,6 +15128,237 @@ export namespace Prisma {
     subcategoryId?: StringWithAggregatesFilter<"Package"> | string
     popular?: BoolNullableWithAggregatesFilter<"Package"> | boolean | null
     bgColor?: StringNullableWithAggregatesFilter<"Package"> | string | null
+    duration?: IntWithAggregatesFilter<"Package"> | number
+    durationUnit?: StringWithAggregatesFilter<"Package"> | string
+  }
+
+  export type WhatsAppSessionWhereInput = {
+    AND?: WhatsAppSessionWhereInput | WhatsAppSessionWhereInput[]
+    OR?: WhatsAppSessionWhereInput[]
+    NOT?: WhatsAppSessionWhereInput | WhatsAppSessionWhereInput[]
+    id?: StringFilter<"WhatsAppSession"> | string
+    sessionId?: StringFilter<"WhatsAppSession"> | string
+    userId?: StringFilter<"WhatsAppSession"> | string
+    status?: StringFilter<"WhatsAppSession"> | string
+    qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    isNotification?: BoolFilter<"WhatsAppSession"> | boolean
+    createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    aiConfig?: JsonNullableFilter<"WhatsAppSession">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type WhatsAppSessionOrderByWithRelationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    qr?: SortOrderInput | SortOrder
+    isNotification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    aiConfig?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    _relevance?: WhatsAppSessionOrderByRelevanceInput
+  }
+
+  export type WhatsAppSessionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sessionId?: string
+    AND?: WhatsAppSessionWhereInput | WhatsAppSessionWhereInput[]
+    OR?: WhatsAppSessionWhereInput[]
+    NOT?: WhatsAppSessionWhereInput | WhatsAppSessionWhereInput[]
+    userId?: StringFilter<"WhatsAppSession"> | string
+    status?: StringFilter<"WhatsAppSession"> | string
+    qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    isNotification?: BoolFilter<"WhatsAppSession"> | boolean
+    createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    aiConfig?: JsonNullableFilter<"WhatsAppSession">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "sessionId">
+
+  export type WhatsAppSessionOrderByWithAggregationInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    qr?: SortOrderInput | SortOrder
+    isNotification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    aiConfig?: SortOrderInput | SortOrder
+    _count?: WhatsAppSessionCountOrderByAggregateInput
+    _max?: WhatsAppSessionMaxOrderByAggregateInput
+    _min?: WhatsAppSessionMinOrderByAggregateInput
+  }
+
+  export type WhatsAppSessionScalarWhereWithAggregatesInput = {
+    AND?: WhatsAppSessionScalarWhereWithAggregatesInput | WhatsAppSessionScalarWhereWithAggregatesInput[]
+    OR?: WhatsAppSessionScalarWhereWithAggregatesInput[]
+    NOT?: WhatsAppSessionScalarWhereWithAggregatesInput | WhatsAppSessionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsAppSession"> | string
+    sessionId?: StringWithAggregatesFilter<"WhatsAppSession"> | string
+    userId?: StringWithAggregatesFilter<"WhatsAppSession"> | string
+    status?: StringWithAggregatesFilter<"WhatsAppSession"> | string
+    qr?: StringNullableWithAggregatesFilter<"WhatsAppSession"> | string | null
+    isNotification?: BoolWithAggregatesFilter<"WhatsAppSession"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsAppSession"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppSession"> | Date | string
+    aiConfig?: JsonNullableWithAggregatesFilter<"WhatsAppSession">
+  }
+
+  export type TransactionWhereInput = {
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    packageId?: StringNullableFilter<"Transaction"> | string | null
+    addonId?: StringNullableFilter<"Transaction"> | string | null
+    paymentId?: StringNullableFilter<"Transaction"> | string | null
+    transactionDate?: DateTimeFilter<"Transaction"> | Date | string
+    startDate?: DateTimeFilter<"Transaction"> | Date | string
+    endDate?: DateTimeFilter<"Transaction"> | Date | string
+    status?: StringFilter<"Transaction"> | string
+    referenceLink?: StringNullableFilter<"Transaction"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
+    addon?: XOR<AddonNullableScalarRelationFilter, AddonWhereInput> | null
+    payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
+  }
+
+  export type TransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrderInput | SortOrder
+    addonId?: SortOrderInput | SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    transactionDate?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    referenceLink?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    package?: PackageOrderByWithRelationInput
+    addon?: AddonOrderByWithRelationInput
+    payment?: PaymentOrderByWithRelationInput
+    _relevance?: TransactionOrderByRelevanceInput
+  }
+
+  export type TransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TransactionWhereInput | TransactionWhereInput[]
+    OR?: TransactionWhereInput[]
+    NOT?: TransactionWhereInput | TransactionWhereInput[]
+    userId?: StringFilter<"Transaction"> | string
+    packageId?: StringNullableFilter<"Transaction"> | string | null
+    addonId?: StringNullableFilter<"Transaction"> | string | null
+    paymentId?: StringNullableFilter<"Transaction"> | string | null
+    transactionDate?: DateTimeFilter<"Transaction"> | Date | string
+    startDate?: DateTimeFilter<"Transaction"> | Date | string
+    endDate?: DateTimeFilter<"Transaction"> | Date | string
+    status?: StringFilter<"Transaction"> | string
+    referenceLink?: StringNullableFilter<"Transaction"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
+    addon?: XOR<AddonNullableScalarRelationFilter, AddonWhereInput> | null
+    payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
+  }, "id">
+
+  export type TransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrderInput | SortOrder
+    addonId?: SortOrderInput | SortOrder
+    paymentId?: SortOrderInput | SortOrder
+    transactionDate?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    referenceLink?: SortOrderInput | SortOrder
+    _count?: TransactionCountOrderByAggregateInput
+    _max?: TransactionMaxOrderByAggregateInput
+    _min?: TransactionMinOrderByAggregateInput
+  }
+
+  export type TransactionScalarWhereWithAggregatesInput = {
+    AND?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    OR?: TransactionScalarWhereWithAggregatesInput[]
+    NOT?: TransactionScalarWhereWithAggregatesInput | TransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Transaction"> | string
+    userId?: StringWithAggregatesFilter<"Transaction"> | string
+    packageId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    addonId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    paymentId?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    transactionDate?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    startDate?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    endDate?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+    status?: StringWithAggregatesFilter<"Transaction"> | string
+    referenceLink?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  }
+
+  export type PaymentWhereInput = {
+    AND?: PaymentWhereInput | PaymentWhereInput[]
+    OR?: PaymentWhereInput[]
+    NOT?: PaymentWhereInput | PaymentWhereInput[]
+    id?: StringFilter<"Payment"> | string
+    transactionId?: StringNullableFilter<"Payment"> | string | null
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
+    method?: StringFilter<"Payment"> | string
+    status?: StringFilter<"Payment"> | string
+    paymentDate?: DateTimeNullableFilter<"Payment"> | Date | string | null
+    transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+  }
+
+  export type PaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    method?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    transaction?: TransactionOrderByWithRelationInput
+    _relevance?: PaymentOrderByRelevanceInput
+  }
+
+  export type PaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    transactionId?: string
+    AND?: PaymentWhereInput | PaymentWhereInput[]
+    OR?: PaymentWhereInput[]
+    NOT?: PaymentWhereInput | PaymentWhereInput[]
+    amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
+    method?: StringFilter<"Payment"> | string
+    status?: StringFilter<"Payment"> | string
+    paymentDate?: DateTimeNullableFilter<"Payment"> | Date | string | null
+    transaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+  }, "id" | "transactionId">
+
+  export type PaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    transactionId?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    method?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrderInput | SortOrder
+    _count?: PaymentCountOrderByAggregateInput
+    _avg?: PaymentAvgOrderByAggregateInput
+    _max?: PaymentMaxOrderByAggregateInput
+    _min?: PaymentMinOrderByAggregateInput
+    _sum?: PaymentSumOrderByAggregateInput
+  }
+
+  export type PaymentScalarWhereWithAggregatesInput = {
+    AND?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
+    OR?: PaymentScalarWhereWithAggregatesInput[]
+    NOT?: PaymentScalarWhereWithAggregatesInput | PaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Payment"> | string
+    transactionId?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    amount?: DecimalWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string
+    method?: StringWithAggregatesFilter<"Payment"> | string
+    status?: StringWithAggregatesFilter<"Payment"> | string
+    paymentDate?: DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
   }
 
   export type UserCreateInput = {
@@ -11507,6 +15378,8 @@ export namespace Prisma {
     role?: string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11526,6 +15399,8 @@ export namespace Prisma {
     role?: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11545,6 +15420,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11564,6 +15441,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11988,7 +15867,10 @@ export namespace Prisma {
     price_idr: Decimal | DecimalJsLike | number | string
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
+    duration: number
+    durationUnit: string
     category: CategoryCreateNestedOneWithoutAddonsInput
+    transactions?: TransactionCreateNestedManyWithoutAddonInput
   }
 
   export type AddonUncheckedCreateInput = {
@@ -12001,6 +15883,9 @@ export namespace Prisma {
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
     categoryId: string
+    duration: number
+    durationUnit: string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAddonInput
   }
 
   export type AddonUpdateInput = {
@@ -12012,7 +15897,10 @@ export namespace Prisma {
     price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutAddonsNestedInput
+    transactions?: TransactionUpdateManyWithoutAddonNestedInput
   }
 
   export type AddonUncheckedUpdateInput = {
@@ -12025,6 +15913,9 @@ export namespace Prisma {
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    transactions?: TransactionUncheckedUpdateManyWithoutAddonNestedInput
   }
 
   export type AddonCreateManyInput = {
@@ -12037,6 +15928,8 @@ export namespace Prisma {
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
     categoryId: string
+    duration: number
+    durationUnit: string
   }
 
   export type AddonUpdateManyMutationInput = {
@@ -12048,6 +15941,8 @@ export namespace Prisma {
     price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddonUncheckedUpdateManyInput = {
@@ -12060,6 +15955,8 @@ export namespace Prisma {
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     categoryId?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
   }
 
   export type PackageCreateInput = {
@@ -12073,9 +15970,12 @@ export namespace Prisma {
     image: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     category: CategoryCreateNestedOneWithoutPackagesInput
     subcategory: SubcategoryCreateNestedOneWithoutPackagesInput
     features?: FeatureCreateNestedManyWithoutPackageInput
+    transactions?: TransactionCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateInput = {
@@ -12091,7 +15991,10 @@ export namespace Prisma {
     subcategoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     features?: FeatureUncheckedCreateNestedManyWithoutPackageInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUpdateInput = {
@@ -12105,9 +16008,12 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     subcategory?: SubcategoryUpdateOneRequiredWithoutPackagesNestedInput
     features?: FeatureUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateInput = {
@@ -12123,7 +16029,10 @@ export namespace Prisma {
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     features?: FeatureUncheckedUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageCreateManyInput = {
@@ -12139,6 +16048,8 @@ export namespace Prisma {
     subcategoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
   }
 
   export type PackageUpdateManyMutationInput = {
@@ -12152,6 +16063,8 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
   }
 
   export type PackageUncheckedUpdateManyInput = {
@@ -12167,6 +16080,245 @@ export namespace Prisma {
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type WhatsAppSessionCreateInput = {
+    id?: string
+    sessionId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+    user: UserCreateNestedOneWithoutWhatsAppSessionsInput
+  }
+
+  export type WhatsAppSessionUncheckedCreateInput = {
+    id?: string
+    sessionId: string
+    userId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+    user?: UserUpdateOneRequiredWithoutWhatsAppSessionsNestedInput
+  }
+
+  export type WhatsAppSessionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionCreateManyInput = {
+    id?: string
+    sessionId: string
+    userId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type TransactionCreateInput = {
+    id?: string
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    user: UserCreateNestedOneWithoutTransactionsInput
+    package?: PackageCreateNestedOneWithoutTransactionsInput
+    addon?: AddonCreateNestedOneWithoutTransactionsInput
+    payment?: PaymentCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    packageId?: string | null
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    payment?: PaymentUncheckedCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    package?: PackageUpdateOneWithoutTransactionsNestedInput
+    addon?: AddonUpdateOneWithoutTransactionsNestedInput
+    payment?: PaymentUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: PaymentUncheckedUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionCreateManyInput = {
+    id?: string
+    userId: string
+    packageId?: string | null
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+  }
+
+  export type TransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PaymentCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: string
+    status: string
+    paymentDate?: Date | string | null
+    transaction?: TransactionCreateNestedOneWithoutPaymentInput
+  }
+
+  export type PaymentUncheckedCreateInput = {
+    id?: string
+    transactionId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    method: string
+    status: string
+    paymentDate?: Date | string | null
+  }
+
+  export type PaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    transaction?: TransactionUpdateOneWithoutPaymentNestedInput
+  }
+
+  export type PaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PaymentCreateManyInput = {
+    id?: string
+    transactionId?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    method: string
+    status: string
+    paymentDate?: Date | string | null
+  }
+
+  export type PaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    transactionId?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12222,6 +16374,18 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type WhatsAppSessionListRelationFilter = {
+    every?: WhatsAppSessionWhereInput
+    some?: WhatsAppSessionWhereInput
+    none?: WhatsAppSessionWhereInput
+  }
+
+  export type TransactionListRelationFilter = {
+    every?: TransactionWhereInput
+    some?: TransactionWhereInput
+    none?: TransactionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12232,6 +16396,14 @@ export namespace Prisma {
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsAppSessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12677,6 +16849,17 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type AddonOrderByRelevanceInput = {
     fields: AddonOrderByRelevanceFieldEnum | AddonOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -12703,11 +16886,14 @@ export namespace Prisma {
     price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type AddonAvgOrderByAggregateInput = {
     price_idr?: SortOrder
     price_usd?: SortOrder
+    duration?: SortOrder
   }
 
   export type AddonMaxOrderByAggregateInput = {
@@ -12720,6 +16906,8 @@ export namespace Prisma {
     price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type AddonMinOrderByAggregateInput = {
@@ -12732,11 +16920,14 @@ export namespace Prisma {
     price_usd?: SortOrder
     image?: SortOrder
     categoryId?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type AddonSumOrderByAggregateInput = {
     price_idr?: SortOrder
     price_usd?: SortOrder
+    duration?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -12753,6 +16944,22 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -12794,11 +17001,14 @@ export namespace Prisma {
     subcategoryId?: SortOrder
     popular?: SortOrder
     bgColor?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type PackageAvgOrderByAggregateInput = {
     price_idr?: SortOrder
     price_usd?: SortOrder
+    duration?: SortOrder
   }
 
   export type PackageMaxOrderByAggregateInput = {
@@ -12814,6 +17024,8 @@ export namespace Prisma {
     subcategoryId?: SortOrder
     popular?: SortOrder
     bgColor?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type PackageMinOrderByAggregateInput = {
@@ -12829,11 +17041,14 @@ export namespace Prisma {
     subcategoryId?: SortOrder
     popular?: SortOrder
     bgColor?: SortOrder
+    duration?: SortOrder
+    durationUnit?: SortOrder
   }
 
   export type PackageSumOrderByAggregateInput = {
     price_idr?: SortOrder
     price_usd?: SortOrder
+    duration?: SortOrder
   }
 
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12842,6 +17057,201 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type WhatsAppSessionOrderByRelevanceInput = {
+    fields: WhatsAppSessionOrderByRelevanceFieldEnum | WhatsAppSessionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type WhatsAppSessionCountOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    qr?: SortOrder
+    isNotification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    aiConfig?: SortOrder
+  }
+
+  export type WhatsAppSessionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    qr?: SortOrder
+    isNotification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsAppSessionMinOrderByAggregateInput = {
+    id?: SortOrder
+    sessionId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    qr?: SortOrder
+    isNotification?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type PackageNullableScalarRelationFilter = {
+    is?: PackageWhereInput | null
+    isNot?: PackageWhereInput | null
+  }
+
+  export type AddonNullableScalarRelationFilter = {
+    is?: AddonWhereInput | null
+    isNot?: AddonWhereInput | null
+  }
+
+  export type PaymentNullableScalarRelationFilter = {
+    is?: PaymentWhereInput | null
+    isNot?: PaymentWhereInput | null
+  }
+
+  export type TransactionOrderByRelevanceInput = {
+    fields: TransactionOrderByRelevanceFieldEnum | TransactionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type TransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    addonId?: SortOrder
+    paymentId?: SortOrder
+    transactionDate?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    referenceLink?: SortOrder
+  }
+
+  export type TransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    addonId?: SortOrder
+    paymentId?: SortOrder
+    transactionDate?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    referenceLink?: SortOrder
+  }
+
+  export type TransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    addonId?: SortOrder
+    paymentId?: SortOrder
+    transactionDate?: SortOrder
+    startDate?: SortOrder
+    endDate?: SortOrder
+    status?: SortOrder
+    referenceLink?: SortOrder
+  }
+
+  export type TransactionNullableScalarRelationFilter = {
+    is?: TransactionWhereInput | null
+    isNot?: TransactionWhereInput | null
+  }
+
+  export type PaymentOrderByRelevanceInput = {
+    fields: PaymentOrderByRelevanceFieldEnum | PaymentOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type PaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    amount?: SortOrder
+    method?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+  }
+
+  export type PaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type PaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    amount?: SortOrder
+    method?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+  }
+
+  export type PaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    transactionId?: SortOrder
+    amount?: SortOrder
+    method?: SortOrder
+    status?: SortOrder
+    paymentDate?: SortOrder
+  }
+
+  export type PaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -12858,6 +17268,20 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type WhatsAppSessionCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput> | WhatsAppSessionCreateWithoutUserInput[] | WhatsAppSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutUserInput | WhatsAppSessionCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsAppSessionCreateManyUserInputEnvelope
+    connect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+  }
+
+  export type TransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12870,6 +17294,20 @@ export namespace Prisma {
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput> | WhatsAppSessionCreateWithoutUserInput[] | WhatsAppSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutUserInput | WhatsAppSessionCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsAppSessionCreateManyUserInputEnvelope
+    connect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12912,6 +17350,34 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type WhatsAppSessionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput> | WhatsAppSessionCreateWithoutUserInput[] | WhatsAppSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutUserInput | WhatsAppSessionCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsAppSessionUpsertWithWhereUniqueWithoutUserInput | WhatsAppSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsAppSessionCreateManyUserInputEnvelope
+    set?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    disconnect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    delete?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    connect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    update?: WhatsAppSessionUpdateWithWhereUniqueWithoutUserInput | WhatsAppSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsAppSessionUpdateManyWithWhereWithoutUserInput | WhatsAppSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsAppSessionScalarWhereInput | WhatsAppSessionScalarWhereInput[]
+  }
+
+  export type TransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12938,6 +17404,34 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput> | WhatsAppSessionCreateWithoutUserInput[] | WhatsAppSessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsAppSessionCreateOrConnectWithoutUserInput | WhatsAppSessionCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsAppSessionUpsertWithWhereUniqueWithoutUserInput | WhatsAppSessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsAppSessionCreateManyUserInputEnvelope
+    set?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    disconnect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    delete?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    connect?: WhatsAppSessionWhereUniqueInput | WhatsAppSessionWhereUniqueInput[]
+    update?: WhatsAppSessionUpdateWithWhereUniqueWithoutUserInput | WhatsAppSessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsAppSessionUpdateManyWithWhereWithoutUserInput | WhatsAppSessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsAppSessionScalarWhereInput | WhatsAppSessionScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput> | TransactionCreateWithoutUserInput[] | TransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutUserInput | TransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionCreateManyUserInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -13186,6 +17680,20 @@ export namespace Prisma {
     connect?: CategoryWhereUniqueInput
   }
 
+  export type TransactionCreateNestedManyWithoutAddonInput = {
+    create?: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput> | TransactionCreateWithoutAddonInput[] | TransactionUncheckedCreateWithoutAddonInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAddonInput | TransactionCreateOrConnectWithoutAddonInput[]
+    createMany?: TransactionCreateManyAddonInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutAddonInput = {
+    create?: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput> | TransactionCreateWithoutAddonInput[] | TransactionUncheckedCreateWithoutAddonInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAddonInput | TransactionCreateOrConnectWithoutAddonInput[]
+    createMany?: TransactionCreateManyAddonInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type DecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string
     increment?: Decimal | DecimalJsLike | number | string
@@ -13194,12 +17702,48 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CategoryUpdateOneRequiredWithoutAddonsNestedInput = {
     create?: XOR<CategoryCreateWithoutAddonsInput, CategoryUncheckedCreateWithoutAddonsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutAddonsInput
     upsert?: CategoryUpsertWithoutAddonsInput
     connect?: CategoryWhereUniqueInput
     update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutAddonsInput, CategoryUpdateWithoutAddonsInput>, CategoryUncheckedUpdateWithoutAddonsInput>
+  }
+
+  export type TransactionUpdateManyWithoutAddonNestedInput = {
+    create?: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput> | TransactionCreateWithoutAddonInput[] | TransactionUncheckedCreateWithoutAddonInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAddonInput | TransactionCreateOrConnectWithoutAddonInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAddonInput | TransactionUpsertWithWhereUniqueWithoutAddonInput[]
+    createMany?: TransactionCreateManyAddonInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAddonInput | TransactionUpdateWithWhereUniqueWithoutAddonInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAddonInput | TransactionUpdateManyWithWhereWithoutAddonInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutAddonNestedInput = {
+    create?: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput> | TransactionCreateWithoutAddonInput[] | TransactionUncheckedCreateWithoutAddonInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutAddonInput | TransactionCreateOrConnectWithoutAddonInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutAddonInput | TransactionUpsertWithWhereUniqueWithoutAddonInput[]
+    createMany?: TransactionCreateManyAddonInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutAddonInput | TransactionUpdateWithWhereUniqueWithoutAddonInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutAddonInput | TransactionUpdateManyWithWhereWithoutAddonInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
   export type CategoryCreateNestedOneWithoutPackagesInput = {
@@ -13221,11 +17765,25 @@ export namespace Prisma {
     connect?: FeatureWhereUniqueInput | FeatureWhereUniqueInput[]
   }
 
+  export type TransactionCreateNestedManyWithoutPackageInput = {
+    create?: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput> | TransactionCreateWithoutPackageInput[] | TransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutPackageInput | TransactionCreateOrConnectWithoutPackageInput[]
+    createMany?: TransactionCreateManyPackageInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
   export type FeatureUncheckedCreateNestedManyWithoutPackageInput = {
     create?: XOR<FeatureCreateWithoutPackageInput, FeatureUncheckedCreateWithoutPackageInput> | FeatureCreateWithoutPackageInput[] | FeatureUncheckedCreateWithoutPackageInput[]
     connectOrCreate?: FeatureCreateOrConnectWithoutPackageInput | FeatureCreateOrConnectWithoutPackageInput[]
     createMany?: FeatureCreateManyPackageInputEnvelope
     connect?: FeatureWhereUniqueInput | FeatureWhereUniqueInput[]
+  }
+
+  export type TransactionUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput> | TransactionCreateWithoutPackageInput[] | TransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutPackageInput | TransactionCreateOrConnectWithoutPackageInput[]
+    createMany?: TransactionCreateManyPackageInputEnvelope
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -13262,6 +17820,20 @@ export namespace Prisma {
     deleteMany?: FeatureScalarWhereInput | FeatureScalarWhereInput[]
   }
 
+  export type TransactionUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput> | TransactionCreateWithoutPackageInput[] | TransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutPackageInput | TransactionCreateOrConnectWithoutPackageInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutPackageInput | TransactionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: TransactionCreateManyPackageInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutPackageInput | TransactionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutPackageInput | TransactionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
   export type FeatureUncheckedUpdateManyWithoutPackageNestedInput = {
     create?: XOR<FeatureCreateWithoutPackageInput, FeatureUncheckedCreateWithoutPackageInput> | FeatureCreateWithoutPackageInput[] | FeatureUncheckedCreateWithoutPackageInput[]
     connectOrCreate?: FeatureCreateOrConnectWithoutPackageInput | FeatureCreateOrConnectWithoutPackageInput[]
@@ -13274,6 +17846,128 @@ export namespace Prisma {
     update?: FeatureUpdateWithWhereUniqueWithoutPackageInput | FeatureUpdateWithWhereUniqueWithoutPackageInput[]
     updateMany?: FeatureUpdateManyWithWhereWithoutPackageInput | FeatureUpdateManyWithWhereWithoutPackageInput[]
     deleteMany?: FeatureScalarWhereInput | FeatureScalarWhereInput[]
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput> | TransactionCreateWithoutPackageInput[] | TransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutPackageInput | TransactionCreateOrConnectWithoutPackageInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutPackageInput | TransactionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: TransactionCreateManyPackageInputEnvelope
+    set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutPackageInput | TransactionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutPackageInput | TransactionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutWhatsAppSessionsInput = {
+    create?: XOR<UserCreateWithoutWhatsAppSessionsInput, UserUncheckedCreateWithoutWhatsAppSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsAppSessionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWhatsAppSessionsNestedInput = {
+    create?: XOR<UserCreateWithoutWhatsAppSessionsInput, UserUncheckedCreateWithoutWhatsAppSessionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsAppSessionsInput
+    upsert?: UserUpsertWithoutWhatsAppSessionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWhatsAppSessionsInput, UserUpdateWithoutWhatsAppSessionsInput>, UserUncheckedUpdateWithoutWhatsAppSessionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PackageCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<PackageCreateWithoutTransactionsInput, PackageUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutTransactionsInput
+    connect?: PackageWhereUniqueInput
+  }
+
+  export type AddonCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<AddonCreateWithoutTransactionsInput, AddonUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AddonCreateOrConnectWithoutTransactionsInput
+    connect?: AddonWhereUniqueInput
+  }
+
+  export type PaymentCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutTransactionInput
+    connect?: PaymentWhereUniqueInput
+  }
+
+  export type PaymentUncheckedCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutTransactionInput
+    connect?: PaymentWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTransactionsInput
+    upsert?: UserUpsertWithoutTransactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsInput, UserUpdateWithoutTransactionsInput>, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type PackageUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<PackageCreateWithoutTransactionsInput, PackageUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutTransactionsInput
+    upsert?: PackageUpsertWithoutTransactionsInput
+    disconnect?: PackageWhereInput | boolean
+    delete?: PackageWhereInput | boolean
+    connect?: PackageWhereUniqueInput
+    update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutTransactionsInput, PackageUpdateWithoutTransactionsInput>, PackageUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type AddonUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<AddonCreateWithoutTransactionsInput, AddonUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: AddonCreateOrConnectWithoutTransactionsInput
+    upsert?: AddonUpsertWithoutTransactionsInput
+    disconnect?: AddonWhereInput | boolean
+    delete?: AddonWhereInput | boolean
+    connect?: AddonWhereUniqueInput
+    update?: XOR<XOR<AddonUpdateToOneWithWhereWithoutTransactionsInput, AddonUpdateWithoutTransactionsInput>, AddonUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type PaymentUpdateOneWithoutTransactionNestedInput = {
+    create?: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutTransactionInput
+    upsert?: PaymentUpsertWithoutTransactionInput
+    disconnect?: PaymentWhereInput | boolean
+    delete?: PaymentWhereInput | boolean
+    connect?: PaymentWhereUniqueInput
+    update?: XOR<XOR<PaymentUpdateToOneWithWhereWithoutTransactionInput, PaymentUpdateWithoutTransactionInput>, PaymentUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type PaymentUncheckedUpdateOneWithoutTransactionNestedInput = {
+    create?: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: PaymentCreateOrConnectWithoutTransactionInput
+    upsert?: PaymentUpsertWithoutTransactionInput
+    disconnect?: PaymentWhereInput | boolean
+    delete?: PaymentWhereInput | boolean
+    connect?: PaymentWhereUniqueInput
+    update?: XOR<XOR<PaymentUpdateToOneWithWhereWithoutTransactionInput, PaymentUpdateWithoutTransactionInput>, PaymentUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type TransactionCreateNestedOneWithoutPaymentInput = {
+    create?: XOR<TransactionCreateWithoutPaymentInput, TransactionUncheckedCreateWithoutPaymentInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutPaymentInput
+    connect?: TransactionWhereUniqueInput
+  }
+
+  export type TransactionUpdateOneWithoutPaymentNestedInput = {
+    create?: XOR<TransactionCreateWithoutPaymentInput, TransactionUncheckedCreateWithoutPaymentInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutPaymentInput
+    upsert?: TransactionUpsertWithoutPaymentInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutPaymentInput, TransactionUpdateWithoutPaymentInput>, TransactionUncheckedUpdateWithoutPaymentInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13481,6 +18175,33 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -13492,6 +18213,29 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -13551,6 +18295,74 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsAppSessionCreateWithoutUserInput = {
+    id?: string
+    sessionId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUncheckedCreateWithoutUserInput = {
+    id?: string
+    sessionId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionCreateOrConnectWithoutUserInput = {
+    where: WhatsAppSessionWhereUniqueInput
+    create: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsAppSessionCreateManyUserInputEnvelope = {
+    data: WhatsAppSessionCreateManyUserInput | WhatsAppSessionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutUserInput = {
+    id?: string
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    package?: PackageCreateNestedOneWithoutTransactionsInput
+    addon?: AddonCreateNestedOneWithoutTransactionsInput
+    payment?: PaymentCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    packageId?: string | null
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    payment?: PaymentUncheckedCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionCreateManyUserInputEnvelope = {
+    data: TransactionCreateManyUserInput | TransactionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13614,6 +18426,69 @@ export namespace Prisma {
     expires?: DateTimeFilter<"Session"> | Date | string
   }
 
+  export type WhatsAppSessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: WhatsAppSessionWhereUniqueInput
+    update: XOR<WhatsAppSessionUpdateWithoutUserInput, WhatsAppSessionUncheckedUpdateWithoutUserInput>
+    create: XOR<WhatsAppSessionCreateWithoutUserInput, WhatsAppSessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsAppSessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: WhatsAppSessionWhereUniqueInput
+    data: XOR<WhatsAppSessionUpdateWithoutUserInput, WhatsAppSessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WhatsAppSessionUpdateManyWithWhereWithoutUserInput = {
+    where: WhatsAppSessionScalarWhereInput
+    data: XOR<WhatsAppSessionUpdateManyMutationInput, WhatsAppSessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WhatsAppSessionScalarWhereInput = {
+    AND?: WhatsAppSessionScalarWhereInput | WhatsAppSessionScalarWhereInput[]
+    OR?: WhatsAppSessionScalarWhereInput[]
+    NOT?: WhatsAppSessionScalarWhereInput | WhatsAppSessionScalarWhereInput[]
+    id?: StringFilter<"WhatsAppSession"> | string
+    sessionId?: StringFilter<"WhatsAppSession"> | string
+    userId?: StringFilter<"WhatsAppSession"> | string
+    status?: StringFilter<"WhatsAppSession"> | string
+    qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    isNotification?: BoolFilter<"WhatsAppSession"> | boolean
+    createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
+    aiConfig?: JsonNullableFilter<"WhatsAppSession">
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<TransactionCreateWithoutUserInput, TransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutUserInput, TransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutUserInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TransactionScalarWhereInput = {
+    AND?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    OR?: TransactionScalarWhereInput[]
+    NOT?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+    id?: StringFilter<"Transaction"> | string
+    userId?: StringFilter<"Transaction"> | string
+    packageId?: StringNullableFilter<"Transaction"> | string | null
+    addonId?: StringNullableFilter<"Transaction"> | string | null
+    paymentId?: StringNullableFilter<"Transaction"> | string | null
+    transactionDate?: DateTimeFilter<"Transaction"> | Date | string
+    startDate?: DateTimeFilter<"Transaction"> | Date | string
+    endDate?: DateTimeFilter<"Transaction"> | Date | string
+    status?: StringFilter<"Transaction"> | string
+    referenceLink?: StringNullableFilter<"Transaction"> | string | null
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -13630,6 +18505,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: Date | string | null
     role?: string
     sessions?: SessionCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13648,6 +18525,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: Date | string | null
     role?: string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13682,6 +18561,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13700,6 +18581,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -13718,6 +18601,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: Date | string | null
     role?: string
     accounts?: AccountCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13736,6 +18621,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: Date | string | null
     role?: string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13770,6 +18657,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13788,6 +18677,8 @@ export namespace Prisma {
     emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: StringFieldUpdateOperationsInput | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PackageCreateWithoutFeaturesInput = {
@@ -13801,8 +18692,11 @@ export namespace Prisma {
     image: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     category: CategoryCreateNestedOneWithoutPackagesInput
     subcategory: SubcategoryCreateNestedOneWithoutPackagesInput
+    transactions?: TransactionCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutFeaturesInput = {
@@ -13818,6 +18712,9 @@ export namespace Prisma {
     subcategoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutFeaturesInput = {
@@ -13847,8 +18744,11 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     subcategory?: SubcategoryUpdateOneRequiredWithoutPackagesNestedInput
+    transactions?: TransactionUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutFeaturesInput = {
@@ -13864,6 +18764,9 @@ export namespace Prisma {
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    transactions?: TransactionUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type CategoryCreateWithoutSubcategoriesInput = {
@@ -13900,8 +18803,11 @@ export namespace Prisma {
     image: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     category: CategoryCreateNestedOneWithoutPackagesInput
     features?: FeatureCreateNestedManyWithoutPackageInput
+    transactions?: TransactionCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutSubcategoryInput = {
@@ -13916,7 +18822,10 @@ export namespace Prisma {
     categoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     features?: FeatureUncheckedCreateNestedManyWithoutPackageInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutSubcategoryInput = {
@@ -13990,6 +18899,8 @@ export namespace Prisma {
     subcategoryId?: StringFilter<"Package"> | string
     popular?: BoolNullableFilter<"Package"> | boolean | null
     bgColor?: StringNullableFilter<"Package"> | string | null
+    duration?: IntFilter<"Package"> | number
+    durationUnit?: StringFilter<"Package"> | string
   }
 
   export type SubcategoryCreateWithoutCategoryInput = {
@@ -14027,8 +18938,11 @@ export namespace Prisma {
     image: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     subcategory: SubcategoryCreateNestedOneWithoutPackagesInput
     features?: FeatureCreateNestedManyWithoutPackageInput
+    transactions?: TransactionCreateNestedManyWithoutPackageInput
   }
 
   export type PackageUncheckedCreateWithoutCategoryInput = {
@@ -14043,7 +18957,10 @@ export namespace Prisma {
     subcategoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
     features?: FeatureUncheckedCreateNestedManyWithoutPackageInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutPackageInput
   }
 
   export type PackageCreateOrConnectWithoutCategoryInput = {
@@ -14065,6 +18982,9 @@ export namespace Prisma {
     price_idr: Decimal | DecimalJsLike | number | string
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
+    duration: number
+    durationUnit: string
+    transactions?: TransactionCreateNestedManyWithoutAddonInput
   }
 
   export type AddonUncheckedCreateWithoutCategoryInput = {
@@ -14076,6 +18996,9 @@ export namespace Prisma {
     price_idr: Decimal | DecimalJsLike | number | string
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
+    duration: number
+    durationUnit: string
+    transactions?: TransactionUncheckedCreateNestedManyWithoutAddonInput
   }
 
   export type AddonCreateOrConnectWithoutCategoryInput = {
@@ -14159,6 +19082,8 @@ export namespace Prisma {
     price_usd?: DecimalFilter<"Addon"> | Decimal | DecimalJsLike | number | string
     image?: StringNullableFilter<"Addon"> | string | null
     categoryId?: StringFilter<"Addon"> | string
+    duration?: IntFilter<"Addon"> | number
+    durationUnit?: StringFilter<"Addon"> | string
   }
 
   export type CategoryCreateWithoutAddonsInput = {
@@ -14182,6 +19107,42 @@ export namespace Prisma {
   export type CategoryCreateOrConnectWithoutAddonsInput = {
     where: CategoryWhereUniqueInput
     create: XOR<CategoryCreateWithoutAddonsInput, CategoryUncheckedCreateWithoutAddonsInput>
+  }
+
+  export type TransactionCreateWithoutAddonInput = {
+    id?: string
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    user: UserCreateNestedOneWithoutTransactionsInput
+    package?: PackageCreateNestedOneWithoutTransactionsInput
+    payment?: PaymentCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutAddonInput = {
+    id?: string
+    userId: string
+    packageId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    payment?: PaymentUncheckedCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutAddonInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput>
+  }
+
+  export type TransactionCreateManyAddonInputEnvelope = {
+    data: TransactionCreateManyAddonInput | TransactionCreateManyAddonInput[]
+    skipDuplicates?: boolean
   }
 
   export type CategoryUpsertWithoutAddonsInput = {
@@ -14211,6 +19172,22 @@ export namespace Prisma {
     icon?: StringFieldUpdateOperationsInput | string
     subcategories?: SubcategoryUncheckedUpdateManyWithoutCategoryNestedInput
     packages?: PackageUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type TransactionUpsertWithWhereUniqueWithoutAddonInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutAddonInput, TransactionUncheckedUpdateWithoutAddonInput>
+    create: XOR<TransactionCreateWithoutAddonInput, TransactionUncheckedCreateWithoutAddonInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutAddonInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutAddonInput, TransactionUncheckedUpdateWithoutAddonInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutAddonInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutAddonInput>
   }
 
   export type CategoryCreateWithoutPackagesInput = {
@@ -14276,6 +19253,42 @@ export namespace Prisma {
 
   export type FeatureCreateManyPackageInputEnvelope = {
     data: FeatureCreateManyPackageInput | FeatureCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionCreateWithoutPackageInput = {
+    id?: string
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    user: UserCreateNestedOneWithoutTransactionsInput
+    addon?: AddonCreateNestedOneWithoutTransactionsInput
+    payment?: PaymentCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionUncheckedCreateWithoutPackageInput = {
+    id?: string
+    userId: string
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    payment?: PaymentUncheckedCreateNestedOneWithoutTransactionInput
+  }
+
+  export type TransactionCreateOrConnectWithoutPackageInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type TransactionCreateManyPackageInputEnvelope = {
+    data: TransactionCreateManyPackageInput | TransactionCreateManyPackageInput[]
     skipDuplicates?: boolean
   }
 
@@ -14360,6 +19373,490 @@ export namespace Prisma {
     packageId?: StringFilter<"Feature"> | string
   }
 
+  export type TransactionUpsertWithWhereUniqueWithoutPackageInput = {
+    where: TransactionWhereUniqueInput
+    update: XOR<TransactionUpdateWithoutPackageInput, TransactionUncheckedUpdateWithoutPackageInput>
+    create: XOR<TransactionCreateWithoutPackageInput, TransactionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type TransactionUpdateWithWhereUniqueWithoutPackageInput = {
+    where: TransactionWhereUniqueInput
+    data: XOR<TransactionUpdateWithoutPackageInput, TransactionUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type TransactionUpdateManyWithWhereWithoutPackageInput = {
+    where: TransactionScalarWhereInput
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type UserCreateWithoutWhatsAppSessionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWhatsAppSessionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWhatsAppSessionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWhatsAppSessionsInput, UserUncheckedCreateWithoutWhatsAppSessionsInput>
+  }
+
+  export type UserUpsertWithoutWhatsAppSessionsInput = {
+    update: XOR<UserUpdateWithoutWhatsAppSessionsInput, UserUncheckedUpdateWithoutWhatsAppSessionsInput>
+    create: XOR<UserCreateWithoutWhatsAppSessionsInput, UserUncheckedCreateWithoutWhatsAppSessionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWhatsAppSessionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWhatsAppSessionsInput, UserUncheckedUpdateWithoutWhatsAppSessionsInput>
+  }
+
+  export type UserUpdateWithoutWhatsAppSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWhatsAppSessionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutTransactionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type PackageCreateWithoutTransactionsInput = {
+    id?: string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
+    image: string
+    popular?: boolean | null
+    bgColor?: string | null
+    duration: number
+    durationUnit: string
+    category: CategoryCreateNestedOneWithoutPackagesInput
+    subcategory: SubcategoryCreateNestedOneWithoutPackagesInput
+    features?: FeatureCreateNestedManyWithoutPackageInput
+  }
+
+  export type PackageUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name_en: string
+    name_id: string
+    description_en: string
+    description_id: string
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
+    image: string
+    categoryId: string
+    subcategoryId: string
+    popular?: boolean | null
+    bgColor?: string | null
+    duration: number
+    durationUnit: string
+    features?: FeatureUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type PackageCreateOrConnectWithoutTransactionsInput = {
+    where: PackageWhereUniqueInput
+    create: XOR<PackageCreateWithoutTransactionsInput, PackageUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type AddonCreateWithoutTransactionsInput = {
+    id?: string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
+    image?: string | null
+    duration: number
+    durationUnit: string
+    category: CategoryCreateNestedOneWithoutAddonsInput
+  }
+
+  export type AddonUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name_en: string
+    name_id: string
+    description_en?: string | null
+    description_id?: string | null
+    price_idr: Decimal | DecimalJsLike | number | string
+    price_usd: Decimal | DecimalJsLike | number | string
+    image?: string | null
+    categoryId: string
+    duration: number
+    durationUnit: string
+  }
+
+  export type AddonCreateOrConnectWithoutTransactionsInput = {
+    where: AddonWhereUniqueInput
+    create: XOR<AddonCreateWithoutTransactionsInput, AddonUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type PaymentCreateWithoutTransactionInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: string
+    status: string
+    paymentDate?: Date | string | null
+  }
+
+  export type PaymentUncheckedCreateWithoutTransactionInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    method: string
+    status: string
+    paymentDate?: Date | string | null
+  }
+
+  export type PaymentCreateOrConnectWithoutTransactionInput = {
+    where: PaymentWhereUniqueInput
+    create: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type UserUpsertWithoutTransactionsInput = {
+    update: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<UserCreateWithoutTransactionsInput, UserUncheckedCreateWithoutTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTransactionsInput, UserUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PackageUpsertWithoutTransactionsInput = {
+    update: XOR<PackageUpdateWithoutTransactionsInput, PackageUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<PackageCreateWithoutTransactionsInput, PackageUncheckedCreateWithoutTransactionsInput>
+    where?: PackageWhereInput
+  }
+
+  export type PackageUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: PackageWhereInput
+    data: XOR<PackageUpdateWithoutTransactionsInput, PackageUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type PackageUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    image?: StringFieldUpdateOperationsInput | string
+    popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
+    subcategory?: SubcategoryUpdateOneRequiredWithoutPackagesNestedInput
+    features?: FeatureUpdateManyWithoutPackageNestedInput
+  }
+
+  export type PackageUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: StringFieldUpdateOperationsInput | string
+    description_id?: StringFieldUpdateOperationsInput | string
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    image?: StringFieldUpdateOperationsInput | string
+    categoryId?: StringFieldUpdateOperationsInput | string
+    subcategoryId?: StringFieldUpdateOperationsInput | string
+    popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    features?: FeatureUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type AddonUpsertWithoutTransactionsInput = {
+    update: XOR<AddonUpdateWithoutTransactionsInput, AddonUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<AddonCreateWithoutTransactionsInput, AddonUncheckedCreateWithoutTransactionsInput>
+    where?: AddonWhereInput
+  }
+
+  export type AddonUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: AddonWhereInput
+    data: XOR<AddonUpdateWithoutTransactionsInput, AddonUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type AddonUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    category?: CategoryUpdateOneRequiredWithoutAddonsNestedInput
+  }
+
+  export type AddonUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name_en?: StringFieldUpdateOperationsInput | string
+    name_id?: StringFieldUpdateOperationsInput | string
+    description_en?: NullableStringFieldUpdateOperationsInput | string | null
+    description_id?: NullableStringFieldUpdateOperationsInput | string | null
+    price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PaymentUpsertWithoutTransactionInput = {
+    update: XOR<PaymentUpdateWithoutTransactionInput, PaymentUncheckedUpdateWithoutTransactionInput>
+    create: XOR<PaymentCreateWithoutTransactionInput, PaymentUncheckedCreateWithoutTransactionInput>
+    where?: PaymentWhereInput
+  }
+
+  export type PaymentUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: PaymentWhereInput
+    data: XOR<PaymentUpdateWithoutTransactionInput, PaymentUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type PaymentUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PaymentUncheckedUpdateWithoutTransactionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    method?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type TransactionCreateWithoutPaymentInput = {
+    id?: string
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+    user: UserCreateNestedOneWithoutTransactionsInput
+    package?: PackageCreateNestedOneWithoutTransactionsInput
+    addon?: AddonCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    userId: string
+    packageId?: string | null
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+  }
+
+  export type TransactionCreateOrConnectWithoutPaymentInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutPaymentInput, TransactionUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type TransactionUpsertWithoutPaymentInput = {
+    update: XOR<TransactionUpdateWithoutPaymentInput, TransactionUncheckedUpdateWithoutPaymentInput>
+    create: XOR<TransactionCreateWithoutPaymentInput, TransactionUncheckedCreateWithoutPaymentInput>
+    where?: TransactionWhereInput
+  }
+
+  export type TransactionUpdateToOneWithWhereWithoutPaymentInput = {
+    where?: TransactionWhereInput
+    data: XOR<TransactionUpdateWithoutPaymentInput, TransactionUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type TransactionUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    package?: PackageUpdateOneWithoutTransactionsNestedInput
+    addon?: AddonUpdateOneWithoutTransactionsNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -14378,6 +19875,29 @@ export namespace Prisma {
     id?: string
     sessionToken: string
     expires: Date | string
+  }
+
+  export type WhatsAppSessionCreateManyUserInput = {
+    id?: string
+    sessionId: string
+    status: string
+    qr?: string | null
+    isNotification?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type TransactionCreateManyUserInput = {
+    id?: string
+    packageId?: string | null
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -14440,6 +19960,77 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WhatsAppSessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type WhatsAppSessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sessionId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    qr?: NullableStringFieldUpdateOperationsInput | string | null
+    isNotification?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiConfig?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type TransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    package?: PackageUpdateOneWithoutTransactionsNestedInput
+    addon?: AddonUpdateOneWithoutTransactionsNestedInput
+    payment?: PaymentUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: PaymentUncheckedUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type PackageCreateManySubcategoryInput = {
     id?: string
     name_en: string
@@ -14452,6 +20043,8 @@ export namespace Prisma {
     categoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
   }
 
   export type PackageUpdateWithoutSubcategoryInput = {
@@ -14465,8 +20058,11 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     category?: CategoryUpdateOneRequiredWithoutPackagesNestedInput
     features?: FeatureUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutSubcategoryInput = {
@@ -14481,7 +20077,10 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     features?: FeatureUncheckedUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateManyWithoutSubcategoryInput = {
@@ -14496,6 +20095,8 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
   }
 
   export type SubcategoryCreateManyCategoryInput = {
@@ -14516,6 +20117,8 @@ export namespace Prisma {
     subcategoryId: string
     popular?: boolean | null
     bgColor?: string | null
+    duration: number
+    durationUnit: string
   }
 
   export type AddonCreateManyCategoryInput = {
@@ -14527,6 +20130,8 @@ export namespace Prisma {
     price_idr: Decimal | DecimalJsLike | number | string
     price_usd: Decimal | DecimalJsLike | number | string
     image?: string | null
+    duration: number
+    durationUnit: string
   }
 
   export type SubcategoryUpdateWithoutCategoryInput = {
@@ -14560,8 +20165,11 @@ export namespace Prisma {
     image?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     subcategory?: SubcategoryUpdateOneRequiredWithoutPackagesNestedInput
     features?: FeatureUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateWithoutCategoryInput = {
@@ -14576,7 +20184,10 @@ export namespace Prisma {
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
     features?: FeatureUncheckedUpdateManyWithoutPackageNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutPackageNestedInput
   }
 
   export type PackageUncheckedUpdateManyWithoutCategoryInput = {
@@ -14591,6 +20202,8 @@ export namespace Prisma {
     subcategoryId?: StringFieldUpdateOperationsInput | string
     popular?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
   }
 
   export type AddonUpdateWithoutCategoryInput = {
@@ -14602,6 +20215,9 @@ export namespace Prisma {
     price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    transactions?: TransactionUpdateManyWithoutAddonNestedInput
   }
 
   export type AddonUncheckedUpdateWithoutCategoryInput = {
@@ -14613,6 +20229,9 @@ export namespace Prisma {
     price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+    transactions?: TransactionUncheckedUpdateManyWithoutAddonNestedInput
   }
 
   export type AddonUncheckedUpdateManyWithoutCategoryInput = {
@@ -14624,6 +20243,58 @@ export namespace Prisma {
     price_idr?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     price_usd?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    durationUnit?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TransactionCreateManyAddonInput = {
+    id?: string
+    userId: string
+    packageId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
+  }
+
+  export type TransactionUpdateWithoutAddonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    package?: PackageUpdateOneWithoutTransactionsNestedInput
+    payment?: PaymentUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutAddonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: PaymentUncheckedUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutAddonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FeatureCreateManyPackageInput = {
@@ -14631,6 +20302,18 @@ export namespace Prisma {
     name_en: string
     name_id: string
     included: boolean
+  }
+
+  export type TransactionCreateManyPackageInput = {
+    id?: string
+    userId: string
+    addonId?: string | null
+    paymentId?: string | null
+    transactionDate?: Date | string
+    startDate: Date | string
+    endDate: Date | string
+    status: string
+    referenceLink?: string | null
   }
 
   export type FeatureUpdateWithoutPackageInput = {
@@ -14652,6 +20335,44 @@ export namespace Prisma {
     name_en?: StringFieldUpdateOperationsInput | string
     name_id?: StringFieldUpdateOperationsInput | string
     included?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TransactionUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutTransactionsNestedInput
+    addon?: AddonUpdateOneWithoutTransactionsNestedInput
+    payment?: PaymentUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+    payment?: PaymentUncheckedUpdateOneWithoutTransactionNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    addonId?: NullableStringFieldUpdateOperationsInput | string | null
+    paymentId?: NullableStringFieldUpdateOperationsInput | string | null
+    transactionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

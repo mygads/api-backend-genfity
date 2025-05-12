@@ -1,5 +1,6 @@
 export async function sendWhatsAppMessage(phoneNumber: string, message: string): Promise<boolean> {
-    const WA_URL = process.env.WHATSAPP_API_ENDPOINT;
+    const WA_URL = "/client/sendMessage/genfity";
+    const API_URL = process.env.WHATSAPP_SERVER_API;
     const CHAT_ID_SUFFIX = '@c.us';
     // Pastikan nomor telepon diawali dengan 62 dan tanpa +
     let formattedPhoneNumber = phoneNumber.replace(/\D/g, ''); // Hapus semua non-digit
@@ -23,7 +24,7 @@ export async function sendWhatsAppMessage(phoneNumber: string, message: string):
     }
 
     try {
-        const response = await fetch(WA_URL, {
+        const response = await fetch(API_URL + WA_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,8 +53,3 @@ export async function sendWhatsAppMessage(phoneNumber: string, message: string):
     }
 }
 
-// // Fungsi untuk mengirim OTP via WhatsApp menggunakan sendWhatsAppMessage
-// export async function sendOtpViaWhatsApp(phoneNumber: string, otp: string): Promise<boolean> {
-//     const message = `Kode OTP Anda adalah: ${otp}. Jangan bagikan kode ini kepada siapa pun. Kode ini berlaku selama 1 jam.`;
-//     return sendWhatsAppMessage(phoneNumber, message);
-// }

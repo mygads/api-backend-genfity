@@ -84,6 +84,11 @@ const PackageModal: React.FC<PackageModalProps> = ({
           <Label htmlFor="packagePriceUsd" className="text-left">Price (USD)</Label>
           <Input id="packagePriceUsd" name="price_usd" type="number" value={formData.price_usd} onChange={onFormChange} className="col-span-3" placeholder="e.g., 10" />
         </div>
+        {/* Duration (days) */}
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="packageDuration" className="text-left">Duration (days, optional)</Label>
+          <Input id="packageDuration" name="duration" type="number" min="1" value={formData.duration || ''} onChange={onFormChange} className="col-span-3" placeholder="e.g., 30" />
+        </div>
         {/* Category */}
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="packageCategoryId" className="text-left">Category</Label>

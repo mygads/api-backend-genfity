@@ -21,6 +21,8 @@ const packageSchema = z.object({
   popular: z.boolean().optional(),
   bgColor: z.string().optional(),
   features: z.array(featureSchema).min(1, "At least one feature is required"),
+  duration: z.number().int().positive().optional().default(1),
+  durationUnit: z.literal('day').default('day'),
 });
 
 export async function POST(request: Request) {
@@ -79,7 +81,11 @@ export async function POST(request: Request) {
 
     const newPackage = await prisma.$transaction(async (tx) => {
       const createdPackage = await tx.package.create({
-        data: packageData,
+        data: {
+          ...packageData,
+          duration: packageData.duration ?? 1,
+          durationUnit: 'day',
+        },
       });
       if (features && features.length > 0) {
         await tx.feature.createMany({

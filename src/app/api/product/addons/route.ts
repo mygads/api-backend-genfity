@@ -11,6 +11,8 @@ const addonSchema = z.object({
   price_usd: z.number().positive("Price USD must be a positive number"),
   image: z.string().url("Image must be a valid URL").optional().nullable(),
   categoryId: z.string().cuid("Invalid Category ID"),
+  duration: z.number().int().positive().optional().default(1),
+  durationUnit: z.literal('day').default('day'),
 });
 
 export async function POST(request: Request) {
@@ -25,7 +27,7 @@ export async function POST(request: Request) {
       });
     }
 
-    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId } = validation.data;
+    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId, duration, durationUnit } = validation.data;
 
     const category = await prisma.category.findUnique({ where: { id: categoryId } });
     if (!category) {
@@ -63,6 +65,8 @@ export async function POST(request: Request) {
         price_usd,
         image: image ?? "",
         categoryId,
+        duration: duration ?? 1,
+        durationUnit: 'day',
       },
     });
     return NextResponse.json(addon, { status: 201 });
@@ -86,7 +90,13 @@ export async function GET(request: Request) {
         category: true,
       },
     });
-    return NextResponse.json(addons);
+    // Pastikan duration selalu ada (default 1 jika null/undefined)
+    const addonsWithDuration = addons.map(a => ({
+      ...a,
+      duration: a.duration ?? 1,
+      durationUnit: 'day',
+    }));
+    return NextResponse.json(addonsWithDuration);
   } catch (error) {
     console.error("[ADDONS_GET]", error);
     return new NextResponse(JSON.stringify({ message: "Internal server error" }), {

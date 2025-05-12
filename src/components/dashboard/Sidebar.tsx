@@ -55,6 +55,11 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
       href: "/dashboard/users",
       icon: Users,
     },
+    {
+      title: "WhatsApp Management",
+      href: "/dashboard/whatsapp-management",
+      icon: Users,
+    }
   ]
 
   return (

@@ -26,6 +26,7 @@ const PackagesSection: React.FC = () => {
     features: [],
     image: undefined,
     addonIds: [],
+    duration: '', // default string agar konsisten dengan input
   });
   const [editingPackage, setEditingPackage] = useState<Package | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
@@ -77,6 +78,7 @@ const PackagesSection: React.FC = () => {
       features: [],
       image: undefined,
       addonIds: [],
+      duration: '', // default string agar konsisten dengan input
     });
     setSelectedImageFile(null);
     setImagePreview(null);
@@ -105,6 +107,7 @@ const PackagesSection: React.FC = () => {
       bgColor: pkg.bgColor || '#FFFFFF',
       features: pkg.features.map(f => ({ id: f.id, name_en: f.name_en, name_id: f.name_id, included: f.included })),
       addonIds: pkg.addons ? pkg.addons.map(a => a.id) : [],
+      duration: (pkg.duration !== undefined && pkg.duration !== null) ? pkg.duration.toString() : '',
     });
     setSelectedImageFile(null);
     setImagePreview(pkg.image || null);
@@ -199,6 +202,11 @@ const PackagesSection: React.FC = () => {
       setIsLoading(false);
       return;
     }
+    if (!packageFormData.features || packageFormData.features.length === 0) {
+      setError('At least one feature is required for a package.');
+      setIsLoading(false);
+      return;
+    }
     if (packageFormData.features.some(f => !f.name_en.trim() || !f.name_id.trim())) {
       setError('All features must have a name in both languages.');
       setIsLoading(false);
@@ -239,6 +247,8 @@ const PackagesSection: React.FC = () => {
         name_id: f.name_id,
         included: f.included,
       })),
+      duration: packageFormData.duration ? parseInt(packageFormData.duration) : '',
+      durationUnit: 'day',
     };
     try {
       const response = await fetch(url, {
@@ -326,14 +336,21 @@ const PackagesSection: React.FC = () => {
                     </div>
                   )}
                   <div>
-                    <div className="font-medium text-gray-700 dark:text-gray-200">{pkg.name_id}</div>
+                    <div className="font-medium text-gray-700 dark:text-gray-200">{pkg.name_en}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName} / {subcategoryName}</div>
-                    {pkg.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description_id}</div>}
+                    {pkg.description_en && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description_en}</div>}
+                  </div>
+                  {pkg.popular && <div className="px-2 py-1 text-xs font-semibold text-white bg-indigo-600 rounded-full">Popular</div>}
+                  <div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">Duration: {pkg.duration} days</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-semibold text-green-700 dark:text-green-400">
                     {typeof pkg.price_idr === 'number' ? `Rp${pkg.price_idr.toLocaleString('id-ID')}` : `Rp${parseFloat(pkg.price_idr as any).toLocaleString('id-ID')}`}
+                  </span>
+                  <span className="text-sm font-semibold text-blue-700 dark:text-blue-400">
+                    {typeof pkg.price_usd === 'number' ? `$${pkg.price_usd.toLocaleString('en-US')}` : `$${parseFloat(pkg.price_usd as any).toLocaleString('en-US')}`}
                   </span>
                   <Button variant="outline" size="sm" onClick={() => openEditPackageModal(pkg)}>
                     <Pencil className="mr-1 h-3 w-3" /> Edit

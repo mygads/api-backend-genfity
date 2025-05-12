@@ -54,7 +54,7 @@ export default function VerifyEmailPage() {
         <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-tr from-[#ef4444]/60 via-white/10 to-[#2563eb]/60 rounded-full blur-2xl opacity-60 animate-[pulse_10s_ease-in-out_infinite]" />
       </div>
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
+      <div className="relative z-10 w-full max-w-md bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
         {/* Logo & Title */}
         <div className="flex flex-col items-center mb-8 gap-4">
           

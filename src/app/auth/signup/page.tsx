@@ -171,7 +171,20 @@ export default function SignUpPage() {
         <div className="relative z-10 w-full max-w-md bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
           <div className="flex flex-col items-center mb-8 gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo-dark.svg" alt="Genfity Logo" width={500} height={200} className="object-contain" />
+              <Image
+                src="/logo-light.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain block dark:hidden"
+              />
+              <Image
+                src="/logo-dark.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain hidden dark:block"
+              />
             </Link>
             <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white">Verifikasi OTP</h2>
           </div>
@@ -232,6 +245,12 @@ export default function SignUpPage() {
               {resendCooldown > 0 ? `Kirim Ulang OTP (${resendCooldown}s)` : 'Kirim Ulang OTP'}
             </button>
           </p>
+          <p className="mt-4 text-sm text-center text-gray-600 dark:text-gray-400">
+            Sudah punya akun?{' '}
+            <Link href="/auth/signin" className="font-medium text-[#2563eb] hover:text-[#1d4ed8] dark:hover:text-blue-400 focus:outline-none">
+              Masuk
+            </Link>
+          </p>
         </div>
         <footer className="mt-8 text-xs text-white/80 dark:text-white/70 z-10">
           &copy; {new Date().getFullYear()} Genfity. All rights reserved.
@@ -251,8 +270,21 @@ export default function SignUpPage() {
       <div className="relative z-10 w-full max-w-md bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
         <div className="flex flex-col items-center mb-8 gap-4">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo-dark.svg" alt="Genfity Logo" width={500} height={200} className="object-contain" />
-          </Link>
+              <Image
+                src="/logo-light.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain block dark:hidden"
+              />
+              <Image
+                src="/logo-dark.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain hidden dark:block"
+              />
+            </Link>
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
             Create Your Account
           </h1>

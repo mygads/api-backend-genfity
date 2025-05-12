@@ -23,6 +23,8 @@ export interface Addon {
   price_usd: number;
   image?: string | null;
   categoryId: string;
+  duration?: number; // tambahkan duration agar bisa diakses di UI
+  durationUnit?: string; // opsional, untuk konsistensi
 }
 
 export interface Package {
@@ -40,6 +42,8 @@ export interface Package {
   subcategoryId: string;
   features: Feature[];
   addons?: Addon[];
+  duration?: number; // tambahkan agar bisa diakses di frontend
+  durationUnit?: string; // opsional, untuk konsistensi
 }
 
 export interface Category {
@@ -74,6 +78,7 @@ export interface AddonFormData {
   price_usd: string;
   categoryId: string;
   image?: string;
+  duration?: string; // opsional, satuan hari
 }
 
 export interface PackageFeatureFormData {
@@ -97,6 +102,7 @@ export interface PackageFormData {
   bgColor?: string;
   features: PackageFeatureFormData[];
   addonIds: string[];
+  duration?: string; // opsional, satuan hari
 }
 
 export type ProductEntityType = 'categories' | 'subcategories' | 'addons' | 'packages';

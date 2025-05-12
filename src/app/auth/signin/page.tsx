@@ -56,15 +56,22 @@ export default function SignInPage() {
       <div className="relative z-10 w-full max-w-md bg-white/95 dark:bg-[#101828]/95 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 flex flex-col items-center border border-white/30 dark:border-black/30 animate-in fade-in zoom-in-75 duration-700">
         {/* Logo & Title */}
         <div className="flex flex-col items-center mb-8 gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo-dark.svg" // Assuming you have a dark logo in public folder
-              alt="Genfity Logo"
-              width={500}
-              height={200}
-              className="object-contain"
-            />
-          </Link>
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logo-light.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain block dark:hidden"
+              />
+              <Image
+                src="/logo-dark.svg"
+                alt="Genfity Logo"
+                width={500}
+                height={200}
+                className="object-contain hidden dark:block"
+              />
+            </Link>
           <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-white">
             Sign In to Your Account
           </h1>

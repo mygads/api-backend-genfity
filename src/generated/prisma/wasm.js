@@ -196,7 +196,9 @@ exports.Prisma.AddonScalarFieldEnum = {
   price_idr: 'price_idr',
   price_usd: 'price_usd',
   image: 'image',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  duration: 'duration',
+  durationUnit: 'durationUnit'
 };
 
 exports.Prisma.PackageScalarFieldEnum = {
@@ -211,12 +213,53 @@ exports.Prisma.PackageScalarFieldEnum = {
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',
   popular: 'popular',
-  bgColor: 'bgColor'
+  bgColor: 'bgColor',
+  duration: 'duration',
+  durationUnit: 'durationUnit'
+};
+
+exports.Prisma.WhatsAppSessionScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  status: 'status',
+  qr: 'qr',
+  isNotification: 'isNotification',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  aiConfig: 'aiConfig'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId',
+  addonId: 'addonId',
+  paymentId: 'paymentId',
+  transactionDate: 'transactionDate',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  referenceLink: 'referenceLink'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  amount: 'amount',
+  method: 'method',
+  status: 'status',
+  paymentDate: 'paymentDate'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -289,7 +332,8 @@ exports.Prisma.AddonOrderByRelevanceFieldEnum = {
   description_en: 'description_en',
   description_id: 'description_id',
   image: 'image',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  durationUnit: 'durationUnit'
 };
 
 exports.Prisma.PackageOrderByRelevanceFieldEnum = {
@@ -301,7 +345,44 @@ exports.Prisma.PackageOrderByRelevanceFieldEnum = {
   image: 'image',
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',
-  bgColor: 'bgColor'
+  bgColor: 'bgColor',
+  durationUnit: 'durationUnit'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.WhatsAppSessionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  userId: 'userId',
+  status: 'status',
+  qr: 'qr'
+};
+
+exports.Prisma.TransactionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId',
+  addonId: 'addonId',
+  paymentId: 'paymentId',
+  status: 'status',
+  referenceLink: 'referenceLink'
+};
+
+exports.Prisma.PaymentOrderByRelevanceFieldEnum = {
+  id: 'id',
+  transactionId: 'transactionId',
+  method: 'method',
+  status: 'status'
 };
 
 
@@ -314,7 +395,10 @@ exports.Prisma.ModelName = {
   Subcategory: 'Subcategory',
   Category: 'Category',
   Addon: 'Addon',
-  Package: 'Package'
+  Package: 'Package',
+  WhatsAppSession: 'WhatsAppSession',
+  Transaction: 'Transaction',
+  Payment: 'Payment'
 };
 
 /**

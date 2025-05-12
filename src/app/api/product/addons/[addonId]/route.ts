@@ -14,6 +14,8 @@ const addonSchemaBase = z.object({
   price_usd: z.number().positive("Price (USD) must be a positive number").optional(),
   image: z.string().url("Image must be a valid URL").optional(),
   categoryId: z.string().cuid("Invalid Category ID").optional(),
+  duration: z.number().int().positive().optional(),
+  durationUnit: z.literal('day').optional(),
 });
 
 export async function GET(
@@ -75,12 +77,8 @@ export async function PUT(
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
-    }
-
-    // Ambil semua field dari validation.data
-    const {
-      name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId
-    } = validation.data as any;
+    }    // Ambil semua field dari validation.data
+    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId, duration, durationUnit } = validation.data as any;
 
     if (Object.keys(validation.data).length === 0) {
         return new NextResponse(JSON.stringify({ message: "No fields to update" }), {
@@ -149,14 +147,22 @@ export async function PUT(
           console.error('Gagal menghapus file gambar lama saat edit:', err);
         }
       }
-    }
+    }    // Update data
+    const updateData: any = {};
+    if (name_en !== undefined) updateData.name_en = name_en;
+    if (name_id !== undefined) updateData.name_id = name_id;
+    if (description_en !== undefined) updateData.description_en = description_en;
+    if (description_id !== undefined) updateData.description_id = description_id;
+    if (price_idr !== undefined) updateData.price_idr = price_idr;
+    if (price_usd !== undefined) updateData.price_usd = price_usd;
+    if (image !== undefined) updateData.image = image;
+    if (categoryId !== undefined) updateData.categoryId = categoryId;
+    if (duration !== undefined) updateData.duration = duration;
+    if (durationUnit !== undefined) updateData.durationUnit = durationUnit;
 
-    // Update data
     const updatedAddon = await prisma.addon.update({
       where: { id: addonId },
-      data: {
-        name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId
-      },
+      data: updateData,
     });
 
     return NextResponse.json(updatedAddon);

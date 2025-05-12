@@ -32,6 +32,8 @@ model User {
   role                          String    @default("customer")
   accounts                      Account[]
   sessions                      Session[]
+  whatsAppSessions              WhatsAppSession[]
+  transactions                  Transaction[]
 }
 
 model Account {
@@ -116,6 +118,9 @@ model Addon {
   image          String?  @db.Text
   categoryId     String
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  duration       Int      // dalam hari, misal 30 untuk bulanan, 365 untuk tahunan
+  durationUnit   String   // "day", "month", "year"
+  transactions   Transaction[]
 
   @@unique([categoryId, name_en])
   @@unique([categoryId, name_id])
@@ -138,7 +143,50 @@ model Package {
   popular         Boolean?
   bgColor         String?
   features        Feature[]
+  duration        Int      // dalam hari, misal 30 untuk bulanan, 365 untuk tahunan
+  durationUnit    String  // "day", "month", "year"
+  transactions    Transaction[]
 
   @@index([categoryId])
   @@index([subcategoryId])
+}
+
+model WhatsAppSession {
+  id             String   @id @default(cuid())
+  sessionId      String   @unique
+  userId         String
+  status         String
+  qr             String?
+  isNotification Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id])
+  aiConfig       Json?
+}
+
+model Transaction {
+  id              String   @id @default(cuid())
+  userId          String
+  packageId       String?
+  addonId         String?
+  paymentId       String? // foreign key ke Payment
+  transactionDate DateTime @default(now())
+  startDate       DateTime
+  endDate         DateTime
+  status          String   // e.g. pending, paid, expired, cancelled
+  referenceLink   String?  // link referensi/gambar dari customer
+  user            User     @relation(fields: [userId], references: [id])
+  package         Package? @relation(fields: [packageId], references: [id])
+  addon           Addon?   @relation(fields: [addonId], references: [id])
+  payment         Payment? @relation("TransactionPayment")
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  transaction   Transaction? @relation("TransactionPayment", fields: [transactionId], references: [id])
+  transactionId String?  @unique
+  amount        Decimal
+  method        String   // e.g. "midtrans", "xendit", "manual"
+  status        String   // e.g. "pending", "paid", "failed"
+  paymentDate   DateTime?
 }
