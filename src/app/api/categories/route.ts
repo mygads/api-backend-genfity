@@ -21,8 +21,8 @@ export async function POST(request: Request) {
 
     const { name, icon } = validation.data;
 
-    const existingCategory = await prisma.category.findUnique({
-      where: { name },
+    const existingCategory = await prisma.category.findFirst({
+      where: { name_en: name },
     });
 
     if (existingCategory) {
@@ -34,7 +34,8 @@ export async function POST(request: Request) {
 
     const category = await prisma.category.create({
       data: {
-        name,
+        name_en: name,
+        name_id: name,
         icon,
       },
     });

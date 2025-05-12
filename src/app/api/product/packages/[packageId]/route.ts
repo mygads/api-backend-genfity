@@ -30,10 +30,10 @@ const packageUpdateSchema = z.object({
 
 export async function GET(
   request: Request,
-  { params }: { params: { packageId: string } }
+  context: { params: Promise<{ packageId: string }> }
 ) {
   try {
-    const { packageId } = params;
+    const { packageId } = await context.params;
     if (!packageId) {
       return new NextResponse(JSON.stringify({ message: "Package ID is required" }), {
         status: 400,
@@ -69,10 +69,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { packageId: string } }
+  context: { params: Promise<{ packageId: string }> }
 ) {
   try {
-    const { packageId } = await params;
+    const { packageId } = await context.params;
     if (!packageId) {
       return new NextResponse(JSON.stringify({ message: "Package ID is required" }), {
         status: 400,
@@ -216,10 +216,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { packageId: string } }
+  context: { params: Promise<{ packageId: string }> }
 ) {
   try {
-    const { packageId } = await params;
+    const { packageId } = await context.params;
     if (!packageId) {
       return new NextResponse(JSON.stringify({ message: "Package ID is required" }), {
         status: 400,

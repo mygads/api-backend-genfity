@@ -75,7 +75,7 @@ export async function PUT(
 
     const existingCategoryWithName = await prisma.category.findFirst({
       where: {
-        name,
+        name_en: name, // Changed from name to name_en
         id: { not: categoryId },
       },
     });
@@ -90,7 +90,8 @@ export async function PUT(
     const updatedCategory = await prisma.category.update({
       where: { id: categoryId },
       data: {
-        name,
+        name_en: name, // Changed from name to name_en
+        name_id: name, // Added name_id
         icon,
       },
     });

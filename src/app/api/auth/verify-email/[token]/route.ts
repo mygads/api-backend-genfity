@@ -3,9 +3,10 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: Request,
-  { params }: { params: { token: string } }
+  context: { params: Promise<Promise<{ token: string }>> } // Params is now a Promise of a Promise
 ) {
-  const { token } = await params;
+  const promiseParamsObj = await context.params; // First await to get the inner Promise
+  const { token } = await promiseParamsObj;    // Second await to get the actual token object
 
   if (!token) {
     return NextResponse.json({ message: 'Verification token not found.' }, { status: 400 });

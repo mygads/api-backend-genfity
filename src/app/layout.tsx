@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import type React from "react";
 import "@/app/globals.css"; // Ensure this path is correct
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider"; // Ensure this path is correct
+import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers"; // Added Providers import
 
 const inter = Inter({
   subsets: ["latin"],
@@ -76,9 +77,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <Providers> {/* Wrapped ThemeProvider and children with Providers */}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </Providers> {/* Closed Providers */}
       </body>
     </html>
   );

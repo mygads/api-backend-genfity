@@ -20,10 +20,10 @@ const addonSchemaBase = z.object({
 
 export async function GET(
   request: Request,
-  { params }: { params: { addonId: string } }
+  context: { params: Promise<{ addonId: string }> }
 ) {
   try {
-    const { addonId } = params;
+    const { addonId } = await context.params;
     if (!addonId) {
       return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
@@ -57,11 +57,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { addonId: string } }
+  context: { params: Promise<{ addonId: string }> }
 ) {
   try {
-    const awaitedParams = await params; // Await params as suggested by the error
-    const { addonId } = awaitedParams;
+    const { addonId } = await context.params;
     if (!addonId) {
       return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
@@ -183,7 +182,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  context: { params: { addonId: string } }
+  context: { params: Promise<{ addonId: string }> }
 ) {
   try {
     const { addonId } = await context.params;

@@ -3,16 +3,16 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const subcategorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required"), // This will be used for name_en and name_id
   categoryId: z.string().cuid("Invalid Category ID"),
 });
 
 export async function GET(
   request: Request,
-  { params }: { params: { subcategoryId: string } }
+  context: { params: Promise<{ subcategoryId: string }> }
 ) {
   try {
-    const { subcategoryId } = params;
+    const { subcategoryId } = await context.params;
     if (!subcategoryId) {
       return new NextResponse(JSON.stringify({ message: "Subcategory ID is required" }), {
         status: 400,
@@ -47,10 +47,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { subcategoryId: string } }
+  context: { params: Promise<{ subcategoryId: string }> }
 ) {
   try {
-    const { subcategoryId } = params;
+    const { subcategoryId } = await context.params;
     if (!subcategoryId) {
       return new NextResponse(JSON.stringify({ message: "Subcategory ID is required" }), {
         status: 400,
@@ -92,7 +92,7 @@ export async function PUT(
     if (name) {
         const existingSubcategoryWithName = await prisma.subcategory.findFirst({
             where: {
-                name,
+                name_en: name, // Check against name_en
                 categoryId: targetCategoryId,
                 id: { not: subcategoryId },
             },
@@ -122,7 +122,8 @@ export async function PUT(
     const updatedSubcategory = await prisma.subcategory.update({
       where: { id: subcategoryId },
       data: {
-        name: name || undefined, // only update if provided
+        name_en: name || undefined, // Update name_en if provided
+        name_id: name || undefined, // Update name_id if provided
         categoryId: categoryId || undefined, // only update if provided
       },
     });
@@ -145,10 +146,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { subcategoryId: string } }
+  context: { params: Promise<{ subcategoryId: string }> }
 ) {
   try {
-    const { subcategoryId } = params;
+    const { subcategoryId } = await context.params;
     if (!subcategoryId) {
       return new NextResponse(JSON.stringify({ message: "Subcategory ID is required" }), {
         status: 400,
