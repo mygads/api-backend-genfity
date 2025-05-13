@@ -14,7 +14,7 @@ export async function waFetch(path: string, method: string = 'GET', body?: any) 
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            'access-token': API_KEY ? `Bearer ${API_KEY}` : '',
+            'access-token': `${API_KEY}`,
         },
     };
     if (body) {

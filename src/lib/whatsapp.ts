@@ -28,7 +28,7 @@ export async function sendWhatsAppMessage(phoneNumber: string, message: string):
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'access-token': `Bearer ${process.env.WHATSAPP_API_KEY}`,
+                'access-token': `${process.env.WHATSAPP_API_KEY}`,
             },
             body: JSON.stringify({
                 chatId: `${formattedPhoneNumber}${CHAT_ID_SUFFIX}`,
