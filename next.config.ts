@@ -21,6 +21,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.ozwaretech.com',
+        port: '',
+        pathname: '/product-images/**',
+      },
 
       // Add other trusted hostnames here as needed
       {

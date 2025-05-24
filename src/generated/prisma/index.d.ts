@@ -73,6 +73,21 @@ export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+/**
+ * Model WhatsappApiPackage
+ * 
+ */
+export type WhatsappApiPackage = $Result.DefaultSelection<Prisma.$WhatsappApiPackagePayload>
+/**
+ * Model WhatsappApiTransaction
+ * 
+ */
+export type WhatsappApiTransaction = $Result.DefaultSelection<Prisma.$WhatsappApiTransactionPayload>
+/**
+ * Model WhatsappApiService
+ * 
+ */
+export type WhatsappApiService = $Result.DefaultSelection<Prisma.$WhatsappApiServicePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -318,6 +333,36 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsappApiPackage`: Exposes CRUD operations for the **WhatsappApiPackage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsappApiPackages
+    * const whatsappApiPackages = await prisma.whatsappApiPackage.findMany()
+    * ```
+    */
+  get whatsappApiPackage(): Prisma.WhatsappApiPackageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsappApiTransaction`: Exposes CRUD operations for the **WhatsappApiTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsappApiTransactions
+    * const whatsappApiTransactions = await prisma.whatsappApiTransaction.findMany()
+    * ```
+    */
+  get whatsappApiTransaction(): Prisma.WhatsappApiTransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.whatsappApiService`: Exposes CRUD operations for the **WhatsappApiService** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WhatsappApiServices
+    * const whatsappApiServices = await prisma.whatsappApiService.findMany()
+    * ```
+    */
+  get whatsappApiService(): Prisma.WhatsappApiServiceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -376,8 +421,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -769,7 +814,10 @@ export namespace Prisma {
     Package: 'Package',
     WhatsAppSession: 'WhatsAppSession',
     Transaction: 'Transaction',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    WhatsappApiPackage: 'WhatsappApiPackage',
+    WhatsappApiTransaction: 'WhatsappApiTransaction',
+    WhatsappApiService: 'WhatsappApiService'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -788,7 +836,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "feature" | "subcategory" | "category" | "addon" | "package" | "whatsAppSession" | "transaction" | "payment"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "feature" | "subcategory" | "category" | "addon" | "package" | "whatsAppSession" | "transaction" | "payment" | "whatsappApiPackage" | "whatsappApiTransaction" | "whatsappApiService"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1584,6 +1632,204 @@ export namespace Prisma {
           }
         }
       }
+      WhatsappApiPackage: {
+        payload: Prisma.$WhatsappApiPackagePayload<ExtArgs>
+        fields: Prisma.WhatsappApiPackageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsappApiPackageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsappApiPackageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsappApiPackageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsappApiPackageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          findMany: {
+            args: Prisma.WhatsappApiPackageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>[]
+          }
+          create: {
+            args: Prisma.WhatsappApiPackageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          createMany: {
+            args: Prisma.WhatsappApiPackageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WhatsappApiPackageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          update: {
+            args: Prisma.WhatsappApiPackageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsappApiPackageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsappApiPackageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WhatsappApiPackageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiPackagePayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsappApiPackageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsappApiPackage>
+          }
+          groupBy: {
+            args: Prisma.WhatsappApiPackageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiPackageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsappApiPackageCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiPackageCountAggregateOutputType> | number
+          }
+        }
+      }
+      WhatsappApiTransaction: {
+        payload: Prisma.$WhatsappApiTransactionPayload<ExtArgs>
+        fields: Prisma.WhatsappApiTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsappApiTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsappApiTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsappApiTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsappApiTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.WhatsappApiTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.WhatsappApiTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.WhatsappApiTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WhatsappApiTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          update: {
+            args: Prisma.WhatsappApiTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsappApiTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsappApiTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WhatsappApiTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsappApiTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsappApiTransaction>
+          }
+          groupBy: {
+            args: Prisma.WhatsappApiTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsappApiTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      WhatsappApiService: {
+        payload: Prisma.$WhatsappApiServicePayload<ExtArgs>
+        fields: Prisma.WhatsappApiServiceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WhatsappApiServiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WhatsappApiServiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          findFirst: {
+            args: Prisma.WhatsappApiServiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WhatsappApiServiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          findMany: {
+            args: Prisma.WhatsappApiServiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>[]
+          }
+          create: {
+            args: Prisma.WhatsappApiServiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          createMany: {
+            args: Prisma.WhatsappApiServiceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WhatsappApiServiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          update: {
+            args: Prisma.WhatsappApiServiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          deleteMany: {
+            args: Prisma.WhatsappApiServiceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WhatsappApiServiceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WhatsappApiServiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WhatsappApiServicePayload>
+          }
+          aggregate: {
+            args: Prisma.WhatsappApiServiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWhatsappApiService>
+          }
+          groupBy: {
+            args: Prisma.WhatsappApiServiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiServiceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WhatsappApiServiceCountArgs<ExtArgs>
+            result: $Utils.Optional<WhatsappApiServiceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1680,6 +1926,9 @@ export namespace Prisma {
     whatsAppSession?: WhatsAppSessionOmit
     transaction?: TransactionOmit
     payment?: PaymentOmit
+    whatsappApiPackage?: WhatsappApiPackageOmit
+    whatsappApiTransaction?: WhatsappApiTransactionOmit
+    whatsappApiService?: WhatsappApiServiceOmit
   }
 
   /* Types for Logging */
@@ -1778,6 +2027,8 @@ export namespace Prisma {
     sessions: number
     whatsAppSessions: number
     transactions: number
+    whatsappApiTransactions: number
+    whatsappApiServices: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1785,6 +2036,8 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     whatsAppSessions?: boolean | UserCountOutputTypeCountWhatsAppSessionsArgs
     transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
+    whatsappApiTransactions?: boolean | UserCountOutputTypeCountWhatsappApiTransactionsArgs
+    whatsappApiServices?: boolean | UserCountOutputTypeCountWhatsappApiServicesArgs
   }
 
   // Custom InputTypes
@@ -1824,6 +2077,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWhatsappApiTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiTransactionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWhatsappApiServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiServiceWhereInput
   }
 
 
@@ -1975,6 +2242,46 @@ export namespace Prisma {
    */
   export type PackageCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
+  }
+
+
+  /**
+   * Count Type WhatsappApiPackageCountOutputType
+   */
+
+  export type WhatsappApiPackageCountOutputType = {
+    services: number
+    transactions: number
+  }
+
+  export type WhatsappApiPackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    services?: boolean | WhatsappApiPackageCountOutputTypeCountServicesArgs
+    transactions?: boolean | WhatsappApiPackageCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WhatsappApiPackageCountOutputType without action
+   */
+  export type WhatsappApiPackageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackageCountOutputType
+     */
+    select?: WhatsappApiPackageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WhatsappApiPackageCountOutputType without action
+   */
+  export type WhatsappApiPackageCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiServiceWhereInput
+  }
+
+  /**
+   * WhatsappApiPackageCountOutputType without action
+   */
+  export type WhatsappApiPackageCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiTransactionWhereInput
   }
 
 
@@ -2222,6 +2529,8 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
+    whatsappApiTransactions?: boolean | User$whatsappApiTransactionsArgs<ExtArgs>
+    whatsappApiServices?: boolean | User$whatsappApiServicesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2250,6 +2559,8 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     whatsAppSessions?: boolean | User$whatsAppSessionsArgs<ExtArgs>
     transactions?: boolean | User$transactionsArgs<ExtArgs>
+    whatsappApiTransactions?: boolean | User$whatsappApiTransactionsArgs<ExtArgs>
+    whatsappApiServices?: boolean | User$whatsappApiServicesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2260,6 +2571,8 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       whatsAppSessions: Prisma.$WhatsAppSessionPayload<ExtArgs>[]
       transactions: Prisma.$TransactionPayload<ExtArgs>[]
+      whatsappApiTransactions: Prisma.$WhatsappApiTransactionPayload<ExtArgs>[]
+      whatsappApiServices: Prisma.$WhatsappApiServicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2620,6 +2933,8 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     whatsAppSessions<T extends User$whatsAppSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsAppSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsAppSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends User$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    whatsappApiTransactions<T extends User$whatsappApiTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsappApiTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    whatsappApiServices<T extends User$whatsappApiServicesArgs<ExtArgs> = {}>(args?: Subset<T, User$whatsappApiServicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3099,6 +3414,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TransactionScalarFieldEnum | TransactionScalarFieldEnum[]
+  }
+
+  /**
+   * User.whatsappApiTransactions
+   */
+  export type User$whatsappApiTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    where?: WhatsappApiTransactionWhereInput
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsappApiTransactionScalarFieldEnum | WhatsappApiTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * User.whatsappApiServices
+   */
+  export type User$whatsappApiServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    where?: WhatsappApiServiceWhereInput
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsappApiServiceScalarFieldEnum | WhatsappApiServiceScalarFieldEnum[]
   }
 
   /**
@@ -14030,6 +14393,2986 @@ export namespace Prisma {
 
 
   /**
+   * Model WhatsappApiPackage
+   */
+
+  export type AggregateWhatsappApiPackage = {
+    _count: WhatsappApiPackageCountAggregateOutputType | null
+    _avg: WhatsappApiPackageAvgAggregateOutputType | null
+    _sum: WhatsappApiPackageSumAggregateOutputType | null
+    _min: WhatsappApiPackageMinAggregateOutputType | null
+    _max: WhatsappApiPackageMaxAggregateOutputType | null
+  }
+
+  export type WhatsappApiPackageAvgAggregateOutputType = {
+    priceMonth: number | null
+    priceYear: number | null
+    maxSession: number | null
+  }
+
+  export type WhatsappApiPackageSumAggregateOutputType = {
+    priceMonth: number | null
+    priceYear: number | null
+    maxSession: number | null
+  }
+
+  export type WhatsappApiPackageMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    priceMonth: number | null
+    priceYear: number | null
+    maxSession: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsappApiPackageMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    priceMonth: number | null
+    priceYear: number | null
+    maxSession: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WhatsappApiPackageCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WhatsappApiPackageAvgAggregateInputType = {
+    priceMonth?: true
+    priceYear?: true
+    maxSession?: true
+  }
+
+  export type WhatsappApiPackageSumAggregateInputType = {
+    priceMonth?: true
+    priceYear?: true
+    maxSession?: true
+  }
+
+  export type WhatsappApiPackageMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    priceMonth?: true
+    priceYear?: true
+    maxSession?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsappApiPackageMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    priceMonth?: true
+    priceYear?: true
+    maxSession?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WhatsappApiPackageCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    priceMonth?: true
+    priceYear?: true
+    maxSession?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WhatsappApiPackageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiPackage to aggregate.
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiPackages to fetch.
+     */
+    orderBy?: WhatsappApiPackageOrderByWithRelationInput | WhatsappApiPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsappApiPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsappApiPackages
+    **/
+    _count?: true | WhatsappApiPackageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WhatsappApiPackageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WhatsappApiPackageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsappApiPackageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsappApiPackageMaxAggregateInputType
+  }
+
+  export type GetWhatsappApiPackageAggregateType<T extends WhatsappApiPackageAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsappApiPackage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsappApiPackage[P]>
+      : GetScalarType<T[P], AggregateWhatsappApiPackage[P]>
+  }
+
+
+
+
+  export type WhatsappApiPackageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiPackageWhereInput
+    orderBy?: WhatsappApiPackageOrderByWithAggregationInput | WhatsappApiPackageOrderByWithAggregationInput[]
+    by: WhatsappApiPackageScalarFieldEnum[] | WhatsappApiPackageScalarFieldEnum
+    having?: WhatsappApiPackageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsappApiPackageCountAggregateInputType | true
+    _avg?: WhatsappApiPackageAvgAggregateInputType
+    _sum?: WhatsappApiPackageSumAggregateInputType
+    _min?: WhatsappApiPackageMinAggregateInputType
+    _max?: WhatsappApiPackageMaxAggregateInputType
+  }
+
+  export type WhatsappApiPackageGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt: Date
+    updatedAt: Date
+    _count: WhatsappApiPackageCountAggregateOutputType | null
+    _avg: WhatsappApiPackageAvgAggregateOutputType | null
+    _sum: WhatsappApiPackageSumAggregateOutputType | null
+    _min: WhatsappApiPackageMinAggregateOutputType | null
+    _max: WhatsappApiPackageMaxAggregateOutputType | null
+  }
+
+  type GetWhatsappApiPackageGroupByPayload<T extends WhatsappApiPackageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsappApiPackageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsappApiPackageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsappApiPackageGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsappApiPackageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsappApiPackageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
+    maxSession?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    services?: boolean | WhatsappApiPackage$servicesArgs<ExtArgs>
+    transactions?: boolean | WhatsappApiPackage$transactionsArgs<ExtArgs>
+    _count?: boolean | WhatsappApiPackageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsappApiPackage"]>
+
+
+
+  export type WhatsappApiPackageSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    priceMonth?: boolean
+    priceYear?: boolean
+    maxSession?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WhatsappApiPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "priceMonth" | "priceYear" | "maxSession" | "createdAt" | "updatedAt", ExtArgs["result"]["whatsappApiPackage"]>
+  export type WhatsappApiPackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    services?: boolean | WhatsappApiPackage$servicesArgs<ExtArgs>
+    transactions?: boolean | WhatsappApiPackage$transactionsArgs<ExtArgs>
+    _count?: boolean | WhatsappApiPackageCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsappApiPackagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsappApiPackage"
+    objects: {
+      services: Prisma.$WhatsappApiServicePayload<ExtArgs>[]
+      transactions: Prisma.$WhatsappApiTransactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      priceMonth: number
+      priceYear: number
+      maxSession: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["whatsappApiPackage"]>
+    composites: {}
+  }
+
+  type WhatsappApiPackageGetPayload<S extends boolean | null | undefined | WhatsappApiPackageDefaultArgs> = $Result.GetResult<Prisma.$WhatsappApiPackagePayload, S>
+
+  type WhatsappApiPackageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsappApiPackageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsappApiPackageCountAggregateInputType | true
+    }
+
+  export interface WhatsappApiPackageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsappApiPackage'], meta: { name: 'WhatsappApiPackage' } }
+    /**
+     * Find zero or one WhatsappApiPackage that matches the filter.
+     * @param {WhatsappApiPackageFindUniqueArgs} args - Arguments to find a WhatsappApiPackage
+     * @example
+     * // Get one WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsappApiPackageFindUniqueArgs>(args: SelectSubset<T, WhatsappApiPackageFindUniqueArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsappApiPackage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsappApiPackageFindUniqueOrThrowArgs} args - Arguments to find a WhatsappApiPackage
+     * @example
+     * // Get one WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsappApiPackageFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsappApiPackageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiPackage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageFindFirstArgs} args - Arguments to find a WhatsappApiPackage
+     * @example
+     * // Get one WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsappApiPackageFindFirstArgs>(args?: SelectSubset<T, WhatsappApiPackageFindFirstArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiPackage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageFindFirstOrThrowArgs} args - Arguments to find a WhatsappApiPackage
+     * @example
+     * // Get one WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsappApiPackageFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsappApiPackageFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsappApiPackages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsappApiPackages
+     * const whatsappApiPackages = await prisma.whatsappApiPackage.findMany()
+     * 
+     * // Get first 10 WhatsappApiPackages
+     * const whatsappApiPackages = await prisma.whatsappApiPackage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsappApiPackageWithIdOnly = await prisma.whatsappApiPackage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsappApiPackageFindManyArgs>(args?: SelectSubset<T, WhatsappApiPackageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsappApiPackage.
+     * @param {WhatsappApiPackageCreateArgs} args - Arguments to create a WhatsappApiPackage.
+     * @example
+     * // Create one WhatsappApiPackage
+     * const WhatsappApiPackage = await prisma.whatsappApiPackage.create({
+     *   data: {
+     *     // ... data to create a WhatsappApiPackage
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsappApiPackageCreateArgs>(args: SelectSubset<T, WhatsappApiPackageCreateArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsappApiPackages.
+     * @param {WhatsappApiPackageCreateManyArgs} args - Arguments to create many WhatsappApiPackages.
+     * @example
+     * // Create many WhatsappApiPackages
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsappApiPackageCreateManyArgs>(args?: SelectSubset<T, WhatsappApiPackageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WhatsappApiPackage.
+     * @param {WhatsappApiPackageDeleteArgs} args - Arguments to delete one WhatsappApiPackage.
+     * @example
+     * // Delete one WhatsappApiPackage
+     * const WhatsappApiPackage = await prisma.whatsappApiPackage.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsappApiPackage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsappApiPackageDeleteArgs>(args: SelectSubset<T, WhatsappApiPackageDeleteArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsappApiPackage.
+     * @param {WhatsappApiPackageUpdateArgs} args - Arguments to update one WhatsappApiPackage.
+     * @example
+     * // Update one WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsappApiPackageUpdateArgs>(args: SelectSubset<T, WhatsappApiPackageUpdateArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsappApiPackages.
+     * @param {WhatsappApiPackageDeleteManyArgs} args - Arguments to filter WhatsappApiPackages to delete.
+     * @example
+     * // Delete a few WhatsappApiPackages
+     * const { count } = await prisma.whatsappApiPackage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsappApiPackageDeleteManyArgs>(args?: SelectSubset<T, WhatsappApiPackageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsappApiPackages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsappApiPackages
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsappApiPackageUpdateManyArgs>(args: SelectSubset<T, WhatsappApiPackageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WhatsappApiPackage.
+     * @param {WhatsappApiPackageUpsertArgs} args - Arguments to update or create a WhatsappApiPackage.
+     * @example
+     * // Update or create a WhatsappApiPackage
+     * const whatsappApiPackage = await prisma.whatsappApiPackage.upsert({
+     *   create: {
+     *     // ... data to create a WhatsappApiPackage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsappApiPackage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsappApiPackageUpsertArgs>(args: SelectSubset<T, WhatsappApiPackageUpsertArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsappApiPackages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageCountArgs} args - Arguments to filter WhatsappApiPackages to count.
+     * @example
+     * // Count the number of WhatsappApiPackages
+     * const count = await prisma.whatsappApiPackage.count({
+     *   where: {
+     *     // ... the filter for the WhatsappApiPackages we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsappApiPackageCountArgs>(
+      args?: Subset<T, WhatsappApiPackageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsappApiPackageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsappApiPackage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsappApiPackageAggregateArgs>(args: Subset<T, WhatsappApiPackageAggregateArgs>): Prisma.PrismaPromise<GetWhatsappApiPackageAggregateType<T>>
+
+    /**
+     * Group by WhatsappApiPackage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiPackageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsappApiPackageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsappApiPackageGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsappApiPackageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsappApiPackageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsappApiPackageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsappApiPackage model
+   */
+  readonly fields: WhatsappApiPackageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsappApiPackage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsappApiPackageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    services<T extends WhatsappApiPackage$servicesArgs<ExtArgs> = {}>(args?: Subset<T, WhatsappApiPackage$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    transactions<T extends WhatsappApiPackage$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, WhatsappApiPackage$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsappApiPackage model
+   */
+  interface WhatsappApiPackageFieldRefs {
+    readonly id: FieldRef<"WhatsappApiPackage", 'String'>
+    readonly name: FieldRef<"WhatsappApiPackage", 'String'>
+    readonly description: FieldRef<"WhatsappApiPackage", 'String'>
+    readonly priceMonth: FieldRef<"WhatsappApiPackage", 'Int'>
+    readonly priceYear: FieldRef<"WhatsappApiPackage", 'Int'>
+    readonly maxSession: FieldRef<"WhatsappApiPackage", 'Int'>
+    readonly createdAt: FieldRef<"WhatsappApiPackage", 'DateTime'>
+    readonly updatedAt: FieldRef<"WhatsappApiPackage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsappApiPackage findUnique
+   */
+  export type WhatsappApiPackageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiPackage to fetch.
+     */
+    where: WhatsappApiPackageWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiPackage findUniqueOrThrow
+   */
+  export type WhatsappApiPackageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiPackage to fetch.
+     */
+    where: WhatsappApiPackageWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiPackage findFirst
+   */
+  export type WhatsappApiPackageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiPackage to fetch.
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiPackages to fetch.
+     */
+    orderBy?: WhatsappApiPackageOrderByWithRelationInput | WhatsappApiPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiPackages.
+     */
+    cursor?: WhatsappApiPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiPackages.
+     */
+    distinct?: WhatsappApiPackageScalarFieldEnum | WhatsappApiPackageScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiPackage findFirstOrThrow
+   */
+  export type WhatsappApiPackageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiPackage to fetch.
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiPackages to fetch.
+     */
+    orderBy?: WhatsappApiPackageOrderByWithRelationInput | WhatsappApiPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiPackages.
+     */
+    cursor?: WhatsappApiPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiPackages.
+     */
+    distinct?: WhatsappApiPackageScalarFieldEnum | WhatsappApiPackageScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiPackage findMany
+   */
+  export type WhatsappApiPackageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiPackages to fetch.
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiPackages to fetch.
+     */
+    orderBy?: WhatsappApiPackageOrderByWithRelationInput | WhatsappApiPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsappApiPackages.
+     */
+    cursor?: WhatsappApiPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiPackages.
+     */
+    skip?: number
+    distinct?: WhatsappApiPackageScalarFieldEnum | WhatsappApiPackageScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiPackage create
+   */
+  export type WhatsappApiPackageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsappApiPackage.
+     */
+    data: XOR<WhatsappApiPackageCreateInput, WhatsappApiPackageUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsappApiPackage createMany
+   */
+  export type WhatsappApiPackageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsappApiPackages.
+     */
+    data: WhatsappApiPackageCreateManyInput | WhatsappApiPackageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsappApiPackage update
+   */
+  export type WhatsappApiPackageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsappApiPackage.
+     */
+    data: XOR<WhatsappApiPackageUpdateInput, WhatsappApiPackageUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsappApiPackage to update.
+     */
+    where: WhatsappApiPackageWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiPackage updateMany
+   */
+  export type WhatsappApiPackageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsappApiPackages.
+     */
+    data: XOR<WhatsappApiPackageUpdateManyMutationInput, WhatsappApiPackageUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsappApiPackages to update
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * Limit how many WhatsappApiPackages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiPackage upsert
+   */
+  export type WhatsappApiPackageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsappApiPackage to update in case it exists.
+     */
+    where: WhatsappApiPackageWhereUniqueInput
+    /**
+     * In case the WhatsappApiPackage found by the `where` argument doesn't exist, create a new WhatsappApiPackage with this data.
+     */
+    create: XOR<WhatsappApiPackageCreateInput, WhatsappApiPackageUncheckedCreateInput>
+    /**
+     * In case the WhatsappApiPackage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsappApiPackageUpdateInput, WhatsappApiPackageUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsappApiPackage delete
+   */
+  export type WhatsappApiPackageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsappApiPackage to delete.
+     */
+    where: WhatsappApiPackageWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiPackage deleteMany
+   */
+  export type WhatsappApiPackageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiPackages to delete
+     */
+    where?: WhatsappApiPackageWhereInput
+    /**
+     * Limit how many WhatsappApiPackages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiPackage.services
+   */
+  export type WhatsappApiPackage$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    where?: WhatsappApiServiceWhereInput
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsappApiServiceScalarFieldEnum | WhatsappApiServiceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiPackage.transactions
+   */
+  export type WhatsappApiPackage$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    where?: WhatsappApiTransactionWhereInput
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WhatsappApiTransactionScalarFieldEnum | WhatsappApiTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiPackage without action
+   */
+  export type WhatsappApiPackageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiPackage
+     */
+    select?: WhatsappApiPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiPackage
+     */
+    omit?: WhatsappApiPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiPackageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsappApiTransaction
+   */
+
+  export type AggregateWhatsappApiTransaction = {
+    _count: WhatsappApiTransactionCountAggregateOutputType | null
+    _avg: WhatsappApiTransactionAvgAggregateOutputType | null
+    _sum: WhatsappApiTransactionSumAggregateOutputType | null
+    _min: WhatsappApiTransactionMinAggregateOutputType | null
+    _max: WhatsappApiTransactionMaxAggregateOutputType | null
+  }
+
+  export type WhatsappApiTransactionAvgAggregateOutputType = {
+    price: number | null
+  }
+
+  export type WhatsappApiTransactionSumAggregateOutputType = {
+    price: number | null
+  }
+
+  export type WhatsappApiTransactionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    duration: string | null
+    price: number | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type WhatsappApiTransactionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    duration: string | null
+    price: number | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type WhatsappApiTransactionCountAggregateOutputType = {
+    id: number
+    userId: number
+    packageId: number
+    duration: number
+    price: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WhatsappApiTransactionAvgAggregateInputType = {
+    price?: true
+  }
+
+  export type WhatsappApiTransactionSumAggregateInputType = {
+    price?: true
+  }
+
+  export type WhatsappApiTransactionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    duration?: true
+    price?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type WhatsappApiTransactionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    duration?: true
+    price?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type WhatsappApiTransactionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    duration?: true
+    price?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WhatsappApiTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiTransaction to aggregate.
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiTransactions to fetch.
+     */
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsappApiTransactions
+    **/
+    _count?: true | WhatsappApiTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WhatsappApiTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WhatsappApiTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsappApiTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsappApiTransactionMaxAggregateInputType
+  }
+
+  export type GetWhatsappApiTransactionAggregateType<T extends WhatsappApiTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsappApiTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsappApiTransaction[P]>
+      : GetScalarType<T[P], AggregateWhatsappApiTransaction[P]>
+  }
+
+
+
+
+  export type WhatsappApiTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiTransactionWhereInput
+    orderBy?: WhatsappApiTransactionOrderByWithAggregationInput | WhatsappApiTransactionOrderByWithAggregationInput[]
+    by: WhatsappApiTransactionScalarFieldEnum[] | WhatsappApiTransactionScalarFieldEnum
+    having?: WhatsappApiTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsappApiTransactionCountAggregateInputType | true
+    _avg?: WhatsappApiTransactionAvgAggregateInputType
+    _sum?: WhatsappApiTransactionSumAggregateInputType
+    _min?: WhatsappApiTransactionMinAggregateInputType
+    _max?: WhatsappApiTransactionMaxAggregateInputType
+  }
+
+  export type WhatsappApiTransactionGroupByOutputType = {
+    id: string
+    userId: string
+    packageId: string
+    duration: string
+    price: number
+    status: string
+    createdAt: Date
+    _count: WhatsappApiTransactionCountAggregateOutputType | null
+    _avg: WhatsappApiTransactionAvgAggregateOutputType | null
+    _sum: WhatsappApiTransactionSumAggregateOutputType | null
+    _min: WhatsappApiTransactionMinAggregateOutputType | null
+    _max: WhatsappApiTransactionMaxAggregateOutputType | null
+  }
+
+  type GetWhatsappApiTransactionGroupByPayload<T extends WhatsappApiTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsappApiTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsappApiTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsappApiTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsappApiTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsappApiTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    duration?: boolean
+    price?: boolean
+    status?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | WhatsappApiPackageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsappApiTransaction"]>
+
+
+
+  export type WhatsappApiTransactionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    duration?: boolean
+    price?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type WhatsappApiTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "packageId" | "duration" | "price" | "status" | "createdAt", ExtArgs["result"]["whatsappApiTransaction"]>
+  export type WhatsappApiTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | WhatsappApiPackageDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsappApiTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsappApiTransaction"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      package: Prisma.$WhatsappApiPackagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      packageId: string
+      duration: string
+      price: number
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["whatsappApiTransaction"]>
+    composites: {}
+  }
+
+  type WhatsappApiTransactionGetPayload<S extends boolean | null | undefined | WhatsappApiTransactionDefaultArgs> = $Result.GetResult<Prisma.$WhatsappApiTransactionPayload, S>
+
+  type WhatsappApiTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsappApiTransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsappApiTransactionCountAggregateInputType | true
+    }
+
+  export interface WhatsappApiTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsappApiTransaction'], meta: { name: 'WhatsappApiTransaction' } }
+    /**
+     * Find zero or one WhatsappApiTransaction that matches the filter.
+     * @param {WhatsappApiTransactionFindUniqueArgs} args - Arguments to find a WhatsappApiTransaction
+     * @example
+     * // Get one WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsappApiTransactionFindUniqueArgs>(args: SelectSubset<T, WhatsappApiTransactionFindUniqueArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsappApiTransaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsappApiTransactionFindUniqueOrThrowArgs} args - Arguments to find a WhatsappApiTransaction
+     * @example
+     * // Get one WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsappApiTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsappApiTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionFindFirstArgs} args - Arguments to find a WhatsappApiTransaction
+     * @example
+     * // Get one WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsappApiTransactionFindFirstArgs>(args?: SelectSubset<T, WhatsappApiTransactionFindFirstArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionFindFirstOrThrowArgs} args - Arguments to find a WhatsappApiTransaction
+     * @example
+     * // Get one WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsappApiTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsappApiTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsappApiTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsappApiTransactions
+     * const whatsappApiTransactions = await prisma.whatsappApiTransaction.findMany()
+     * 
+     * // Get first 10 WhatsappApiTransactions
+     * const whatsappApiTransactions = await prisma.whatsappApiTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsappApiTransactionWithIdOnly = await prisma.whatsappApiTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsappApiTransactionFindManyArgs>(args?: SelectSubset<T, WhatsappApiTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsappApiTransaction.
+     * @param {WhatsappApiTransactionCreateArgs} args - Arguments to create a WhatsappApiTransaction.
+     * @example
+     * // Create one WhatsappApiTransaction
+     * const WhatsappApiTransaction = await prisma.whatsappApiTransaction.create({
+     *   data: {
+     *     // ... data to create a WhatsappApiTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsappApiTransactionCreateArgs>(args: SelectSubset<T, WhatsappApiTransactionCreateArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsappApiTransactions.
+     * @param {WhatsappApiTransactionCreateManyArgs} args - Arguments to create many WhatsappApiTransactions.
+     * @example
+     * // Create many WhatsappApiTransactions
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsappApiTransactionCreateManyArgs>(args?: SelectSubset<T, WhatsappApiTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WhatsappApiTransaction.
+     * @param {WhatsappApiTransactionDeleteArgs} args - Arguments to delete one WhatsappApiTransaction.
+     * @example
+     * // Delete one WhatsappApiTransaction
+     * const WhatsappApiTransaction = await prisma.whatsappApiTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsappApiTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsappApiTransactionDeleteArgs>(args: SelectSubset<T, WhatsappApiTransactionDeleteArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsappApiTransaction.
+     * @param {WhatsappApiTransactionUpdateArgs} args - Arguments to update one WhatsappApiTransaction.
+     * @example
+     * // Update one WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsappApiTransactionUpdateArgs>(args: SelectSubset<T, WhatsappApiTransactionUpdateArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsappApiTransactions.
+     * @param {WhatsappApiTransactionDeleteManyArgs} args - Arguments to filter WhatsappApiTransactions to delete.
+     * @example
+     * // Delete a few WhatsappApiTransactions
+     * const { count } = await prisma.whatsappApiTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsappApiTransactionDeleteManyArgs>(args?: SelectSubset<T, WhatsappApiTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsappApiTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsappApiTransactions
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsappApiTransactionUpdateManyArgs>(args: SelectSubset<T, WhatsappApiTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WhatsappApiTransaction.
+     * @param {WhatsappApiTransactionUpsertArgs} args - Arguments to update or create a WhatsappApiTransaction.
+     * @example
+     * // Update or create a WhatsappApiTransaction
+     * const whatsappApiTransaction = await prisma.whatsappApiTransaction.upsert({
+     *   create: {
+     *     // ... data to create a WhatsappApiTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsappApiTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsappApiTransactionUpsertArgs>(args: SelectSubset<T, WhatsappApiTransactionUpsertArgs<ExtArgs>>): Prisma__WhatsappApiTransactionClient<$Result.GetResult<Prisma.$WhatsappApiTransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsappApiTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionCountArgs} args - Arguments to filter WhatsappApiTransactions to count.
+     * @example
+     * // Count the number of WhatsappApiTransactions
+     * const count = await prisma.whatsappApiTransaction.count({
+     *   where: {
+     *     // ... the filter for the WhatsappApiTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsappApiTransactionCountArgs>(
+      args?: Subset<T, WhatsappApiTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsappApiTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsappApiTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsappApiTransactionAggregateArgs>(args: Subset<T, WhatsappApiTransactionAggregateArgs>): Prisma.PrismaPromise<GetWhatsappApiTransactionAggregateType<T>>
+
+    /**
+     * Group by WhatsappApiTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsappApiTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsappApiTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsappApiTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsappApiTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsappApiTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsappApiTransaction model
+   */
+  readonly fields: WhatsappApiTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsappApiTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsappApiTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    package<T extends WhatsappApiPackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsappApiPackageDefaultArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsappApiTransaction model
+   */
+  interface WhatsappApiTransactionFieldRefs {
+    readonly id: FieldRef<"WhatsappApiTransaction", 'String'>
+    readonly userId: FieldRef<"WhatsappApiTransaction", 'String'>
+    readonly packageId: FieldRef<"WhatsappApiTransaction", 'String'>
+    readonly duration: FieldRef<"WhatsappApiTransaction", 'String'>
+    readonly price: FieldRef<"WhatsappApiTransaction", 'Int'>
+    readonly status: FieldRef<"WhatsappApiTransaction", 'String'>
+    readonly createdAt: FieldRef<"WhatsappApiTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsappApiTransaction findUnique
+   */
+  export type WhatsappApiTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiTransaction to fetch.
+     */
+    where: WhatsappApiTransactionWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiTransaction findUniqueOrThrow
+   */
+  export type WhatsappApiTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiTransaction to fetch.
+     */
+    where: WhatsappApiTransactionWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiTransaction findFirst
+   */
+  export type WhatsappApiTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiTransaction to fetch.
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiTransactions to fetch.
+     */
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiTransactions.
+     */
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiTransactions.
+     */
+    distinct?: WhatsappApiTransactionScalarFieldEnum | WhatsappApiTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiTransaction findFirstOrThrow
+   */
+  export type WhatsappApiTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiTransaction to fetch.
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiTransactions to fetch.
+     */
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiTransactions.
+     */
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiTransactions.
+     */
+    distinct?: WhatsappApiTransactionScalarFieldEnum | WhatsappApiTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiTransaction findMany
+   */
+  export type WhatsappApiTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiTransactions to fetch.
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiTransactions to fetch.
+     */
+    orderBy?: WhatsappApiTransactionOrderByWithRelationInput | WhatsappApiTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsappApiTransactions.
+     */
+    cursor?: WhatsappApiTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiTransactions.
+     */
+    skip?: number
+    distinct?: WhatsappApiTransactionScalarFieldEnum | WhatsappApiTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiTransaction create
+   */
+  export type WhatsappApiTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsappApiTransaction.
+     */
+    data: XOR<WhatsappApiTransactionCreateInput, WhatsappApiTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsappApiTransaction createMany
+   */
+  export type WhatsappApiTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsappApiTransactions.
+     */
+    data: WhatsappApiTransactionCreateManyInput | WhatsappApiTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsappApiTransaction update
+   */
+  export type WhatsappApiTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsappApiTransaction.
+     */
+    data: XOR<WhatsappApiTransactionUpdateInput, WhatsappApiTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsappApiTransaction to update.
+     */
+    where: WhatsappApiTransactionWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiTransaction updateMany
+   */
+  export type WhatsappApiTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsappApiTransactions.
+     */
+    data: XOR<WhatsappApiTransactionUpdateManyMutationInput, WhatsappApiTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsappApiTransactions to update
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * Limit how many WhatsappApiTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiTransaction upsert
+   */
+  export type WhatsappApiTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsappApiTransaction to update in case it exists.
+     */
+    where: WhatsappApiTransactionWhereUniqueInput
+    /**
+     * In case the WhatsappApiTransaction found by the `where` argument doesn't exist, create a new WhatsappApiTransaction with this data.
+     */
+    create: XOR<WhatsappApiTransactionCreateInput, WhatsappApiTransactionUncheckedCreateInput>
+    /**
+     * In case the WhatsappApiTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsappApiTransactionUpdateInput, WhatsappApiTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsappApiTransaction delete
+   */
+  export type WhatsappApiTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsappApiTransaction to delete.
+     */
+    where: WhatsappApiTransactionWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiTransaction deleteMany
+   */
+  export type WhatsappApiTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiTransactions to delete
+     */
+    where?: WhatsappApiTransactionWhereInput
+    /**
+     * Limit how many WhatsappApiTransactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiTransaction without action
+   */
+  export type WhatsappApiTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiTransaction
+     */
+    select?: WhatsappApiTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiTransaction
+     */
+    omit?: WhatsappApiTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WhatsappApiService
+   */
+
+  export type AggregateWhatsappApiService = {
+    _count: WhatsappApiServiceCountAggregateOutputType | null
+    _min: WhatsappApiServiceMinAggregateOutputType | null
+    _max: WhatsappApiServiceMaxAggregateOutputType | null
+  }
+
+  export type WhatsappApiServiceMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    expiredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type WhatsappApiServiceMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    packageId: string | null
+    expiredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type WhatsappApiServiceCountAggregateOutputType = {
+    id: number
+    userId: number
+    packageId: number
+    expiredAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WhatsappApiServiceMinAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    expiredAt?: true
+    createdAt?: true
+  }
+
+  export type WhatsappApiServiceMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    expiredAt?: true
+    createdAt?: true
+  }
+
+  export type WhatsappApiServiceCountAggregateInputType = {
+    id?: true
+    userId?: true
+    packageId?: true
+    expiredAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WhatsappApiServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiService to aggregate.
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiServices to fetch.
+     */
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WhatsappApiServices
+    **/
+    _count?: true | WhatsappApiServiceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WhatsappApiServiceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WhatsappApiServiceMaxAggregateInputType
+  }
+
+  export type GetWhatsappApiServiceAggregateType<T extends WhatsappApiServiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateWhatsappApiService]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWhatsappApiService[P]>
+      : GetScalarType<T[P], AggregateWhatsappApiService[P]>
+  }
+
+
+
+
+  export type WhatsappApiServiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WhatsappApiServiceWhereInput
+    orderBy?: WhatsappApiServiceOrderByWithAggregationInput | WhatsappApiServiceOrderByWithAggregationInput[]
+    by: WhatsappApiServiceScalarFieldEnum[] | WhatsappApiServiceScalarFieldEnum
+    having?: WhatsappApiServiceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WhatsappApiServiceCountAggregateInputType | true
+    _min?: WhatsappApiServiceMinAggregateInputType
+    _max?: WhatsappApiServiceMaxAggregateInputType
+  }
+
+  export type WhatsappApiServiceGroupByOutputType = {
+    id: string
+    userId: string
+    packageId: string
+    expiredAt: Date
+    createdAt: Date
+    _count: WhatsappApiServiceCountAggregateOutputType | null
+    _min: WhatsappApiServiceMinAggregateOutputType | null
+    _max: WhatsappApiServiceMaxAggregateOutputType | null
+  }
+
+  type GetWhatsappApiServiceGroupByPayload<T extends WhatsappApiServiceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WhatsappApiServiceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WhatsappApiServiceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WhatsappApiServiceGroupByOutputType[P]>
+            : GetScalarType<T[P], WhatsappApiServiceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WhatsappApiServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    expiredAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | WhatsappApiPackageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["whatsappApiService"]>
+
+
+
+  export type WhatsappApiServiceSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    packageId?: boolean
+    expiredAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type WhatsappApiServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "packageId" | "expiredAt" | "createdAt", ExtArgs["result"]["whatsappApiService"]>
+  export type WhatsappApiServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    package?: boolean | WhatsappApiPackageDefaultArgs<ExtArgs>
+  }
+
+  export type $WhatsappApiServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WhatsappApiService"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      package: Prisma.$WhatsappApiPackagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      packageId: string
+      expiredAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["whatsappApiService"]>
+    composites: {}
+  }
+
+  type WhatsappApiServiceGetPayload<S extends boolean | null | undefined | WhatsappApiServiceDefaultArgs> = $Result.GetResult<Prisma.$WhatsappApiServicePayload, S>
+
+  type WhatsappApiServiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WhatsappApiServiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WhatsappApiServiceCountAggregateInputType | true
+    }
+
+  export interface WhatsappApiServiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WhatsappApiService'], meta: { name: 'WhatsappApiService' } }
+    /**
+     * Find zero or one WhatsappApiService that matches the filter.
+     * @param {WhatsappApiServiceFindUniqueArgs} args - Arguments to find a WhatsappApiService
+     * @example
+     * // Get one WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WhatsappApiServiceFindUniqueArgs>(args: SelectSubset<T, WhatsappApiServiceFindUniqueArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WhatsappApiService that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WhatsappApiServiceFindUniqueOrThrowArgs} args - Arguments to find a WhatsappApiService
+     * @example
+     * // Get one WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WhatsappApiServiceFindUniqueOrThrowArgs>(args: SelectSubset<T, WhatsappApiServiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiService that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceFindFirstArgs} args - Arguments to find a WhatsappApiService
+     * @example
+     * // Get one WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WhatsappApiServiceFindFirstArgs>(args?: SelectSubset<T, WhatsappApiServiceFindFirstArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WhatsappApiService that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceFindFirstOrThrowArgs} args - Arguments to find a WhatsappApiService
+     * @example
+     * // Get one WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WhatsappApiServiceFindFirstOrThrowArgs>(args?: SelectSubset<T, WhatsappApiServiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WhatsappApiServices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WhatsappApiServices
+     * const whatsappApiServices = await prisma.whatsappApiService.findMany()
+     * 
+     * // Get first 10 WhatsappApiServices
+     * const whatsappApiServices = await prisma.whatsappApiService.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const whatsappApiServiceWithIdOnly = await prisma.whatsappApiService.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WhatsappApiServiceFindManyArgs>(args?: SelectSubset<T, WhatsappApiServiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WhatsappApiService.
+     * @param {WhatsappApiServiceCreateArgs} args - Arguments to create a WhatsappApiService.
+     * @example
+     * // Create one WhatsappApiService
+     * const WhatsappApiService = await prisma.whatsappApiService.create({
+     *   data: {
+     *     // ... data to create a WhatsappApiService
+     *   }
+     * })
+     * 
+     */
+    create<T extends WhatsappApiServiceCreateArgs>(args: SelectSubset<T, WhatsappApiServiceCreateArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WhatsappApiServices.
+     * @param {WhatsappApiServiceCreateManyArgs} args - Arguments to create many WhatsappApiServices.
+     * @example
+     * // Create many WhatsappApiServices
+     * const whatsappApiService = await prisma.whatsappApiService.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WhatsappApiServiceCreateManyArgs>(args?: SelectSubset<T, WhatsappApiServiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WhatsappApiService.
+     * @param {WhatsappApiServiceDeleteArgs} args - Arguments to delete one WhatsappApiService.
+     * @example
+     * // Delete one WhatsappApiService
+     * const WhatsappApiService = await prisma.whatsappApiService.delete({
+     *   where: {
+     *     // ... filter to delete one WhatsappApiService
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WhatsappApiServiceDeleteArgs>(args: SelectSubset<T, WhatsappApiServiceDeleteArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WhatsappApiService.
+     * @param {WhatsappApiServiceUpdateArgs} args - Arguments to update one WhatsappApiService.
+     * @example
+     * // Update one WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WhatsappApiServiceUpdateArgs>(args: SelectSubset<T, WhatsappApiServiceUpdateArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WhatsappApiServices.
+     * @param {WhatsappApiServiceDeleteManyArgs} args - Arguments to filter WhatsappApiServices to delete.
+     * @example
+     * // Delete a few WhatsappApiServices
+     * const { count } = await prisma.whatsappApiService.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WhatsappApiServiceDeleteManyArgs>(args?: SelectSubset<T, WhatsappApiServiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WhatsappApiServices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WhatsappApiServices
+     * const whatsappApiService = await prisma.whatsappApiService.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WhatsappApiServiceUpdateManyArgs>(args: SelectSubset<T, WhatsappApiServiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WhatsappApiService.
+     * @param {WhatsappApiServiceUpsertArgs} args - Arguments to update or create a WhatsappApiService.
+     * @example
+     * // Update or create a WhatsappApiService
+     * const whatsappApiService = await prisma.whatsappApiService.upsert({
+     *   create: {
+     *     // ... data to create a WhatsappApiService
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WhatsappApiService we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WhatsappApiServiceUpsertArgs>(args: SelectSubset<T, WhatsappApiServiceUpsertArgs<ExtArgs>>): Prisma__WhatsappApiServiceClient<$Result.GetResult<Prisma.$WhatsappApiServicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WhatsappApiServices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceCountArgs} args - Arguments to filter WhatsappApiServices to count.
+     * @example
+     * // Count the number of WhatsappApiServices
+     * const count = await prisma.whatsappApiService.count({
+     *   where: {
+     *     // ... the filter for the WhatsappApiServices we want to count
+     *   }
+     * })
+    **/
+    count<T extends WhatsappApiServiceCountArgs>(
+      args?: Subset<T, WhatsappApiServiceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WhatsappApiServiceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WhatsappApiService.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WhatsappApiServiceAggregateArgs>(args: Subset<T, WhatsappApiServiceAggregateArgs>): Prisma.PrismaPromise<GetWhatsappApiServiceAggregateType<T>>
+
+    /**
+     * Group by WhatsappApiService.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WhatsappApiServiceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WhatsappApiServiceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WhatsappApiServiceGroupByArgs['orderBy'] }
+        : { orderBy?: WhatsappApiServiceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WhatsappApiServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWhatsappApiServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WhatsappApiService model
+   */
+  readonly fields: WhatsappApiServiceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WhatsappApiService.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WhatsappApiServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    package<T extends WhatsappApiPackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WhatsappApiPackageDefaultArgs<ExtArgs>>): Prisma__WhatsappApiPackageClient<$Result.GetResult<Prisma.$WhatsappApiPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WhatsappApiService model
+   */
+  interface WhatsappApiServiceFieldRefs {
+    readonly id: FieldRef<"WhatsappApiService", 'String'>
+    readonly userId: FieldRef<"WhatsappApiService", 'String'>
+    readonly packageId: FieldRef<"WhatsappApiService", 'String'>
+    readonly expiredAt: FieldRef<"WhatsappApiService", 'DateTime'>
+    readonly createdAt: FieldRef<"WhatsappApiService", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WhatsappApiService findUnique
+   */
+  export type WhatsappApiServiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiService to fetch.
+     */
+    where: WhatsappApiServiceWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiService findUniqueOrThrow
+   */
+  export type WhatsappApiServiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiService to fetch.
+     */
+    where: WhatsappApiServiceWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiService findFirst
+   */
+  export type WhatsappApiServiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiService to fetch.
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiServices to fetch.
+     */
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiServices.
+     */
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiServices.
+     */
+    distinct?: WhatsappApiServiceScalarFieldEnum | WhatsappApiServiceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiService findFirstOrThrow
+   */
+  export type WhatsappApiServiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiService to fetch.
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiServices to fetch.
+     */
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WhatsappApiServices.
+     */
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiServices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WhatsappApiServices.
+     */
+    distinct?: WhatsappApiServiceScalarFieldEnum | WhatsappApiServiceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiService findMany
+   */
+  export type WhatsappApiServiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter, which WhatsappApiServices to fetch.
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WhatsappApiServices to fetch.
+     */
+    orderBy?: WhatsappApiServiceOrderByWithRelationInput | WhatsappApiServiceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WhatsappApiServices.
+     */
+    cursor?: WhatsappApiServiceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WhatsappApiServices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WhatsappApiServices.
+     */
+    skip?: number
+    distinct?: WhatsappApiServiceScalarFieldEnum | WhatsappApiServiceScalarFieldEnum[]
+  }
+
+  /**
+   * WhatsappApiService create
+   */
+  export type WhatsappApiServiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WhatsappApiService.
+     */
+    data: XOR<WhatsappApiServiceCreateInput, WhatsappApiServiceUncheckedCreateInput>
+  }
+
+  /**
+   * WhatsappApiService createMany
+   */
+  export type WhatsappApiServiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WhatsappApiServices.
+     */
+    data: WhatsappApiServiceCreateManyInput | WhatsappApiServiceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WhatsappApiService update
+   */
+  export type WhatsappApiServiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WhatsappApiService.
+     */
+    data: XOR<WhatsappApiServiceUpdateInput, WhatsappApiServiceUncheckedUpdateInput>
+    /**
+     * Choose, which WhatsappApiService to update.
+     */
+    where: WhatsappApiServiceWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiService updateMany
+   */
+  export type WhatsappApiServiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WhatsappApiServices.
+     */
+    data: XOR<WhatsappApiServiceUpdateManyMutationInput, WhatsappApiServiceUncheckedUpdateManyInput>
+    /**
+     * Filter which WhatsappApiServices to update
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * Limit how many WhatsappApiServices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiService upsert
+   */
+  export type WhatsappApiServiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WhatsappApiService to update in case it exists.
+     */
+    where: WhatsappApiServiceWhereUniqueInput
+    /**
+     * In case the WhatsappApiService found by the `where` argument doesn't exist, create a new WhatsappApiService with this data.
+     */
+    create: XOR<WhatsappApiServiceCreateInput, WhatsappApiServiceUncheckedCreateInput>
+    /**
+     * In case the WhatsappApiService was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WhatsappApiServiceUpdateInput, WhatsappApiServiceUncheckedUpdateInput>
+  }
+
+  /**
+   * WhatsappApiService delete
+   */
+  export type WhatsappApiServiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+    /**
+     * Filter which WhatsappApiService to delete.
+     */
+    where: WhatsappApiServiceWhereUniqueInput
+  }
+
+  /**
+   * WhatsappApiService deleteMany
+   */
+  export type WhatsappApiServiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WhatsappApiServices to delete
+     */
+    where?: WhatsappApiServiceWhereInput
+    /**
+     * Limit how many WhatsappApiServices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WhatsappApiService without action
+   */
+  export type WhatsappApiServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WhatsappApiService
+     */
+    select?: WhatsappApiServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WhatsappApiService
+     */
+    omit?: WhatsappApiServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WhatsappApiServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14209,6 +17552,44 @@ export namespace Prisma {
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+  export const WhatsappApiPackageScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    priceMonth: 'priceMonth',
+    priceYear: 'priceYear',
+    maxSession: 'maxSession',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WhatsappApiPackageScalarFieldEnum = (typeof WhatsappApiPackageScalarFieldEnum)[keyof typeof WhatsappApiPackageScalarFieldEnum]
+
+
+  export const WhatsappApiTransactionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId',
+    duration: 'duration',
+    price: 'price',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type WhatsappApiTransactionScalarFieldEnum = (typeof WhatsappApiTransactionScalarFieldEnum)[keyof typeof WhatsappApiTransactionScalarFieldEnum]
+
+
+  export const WhatsappApiServiceScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId',
+    expiredAt: 'expiredAt',
+    createdAt: 'createdAt'
+  };
+
+  export type WhatsappApiServiceScalarFieldEnum = (typeof WhatsappApiServiceScalarFieldEnum)[keyof typeof WhatsappApiServiceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14395,6 +17776,35 @@ export namespace Prisma {
   export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFieldEnum)[keyof typeof PaymentOrderByRelevanceFieldEnum]
 
 
+  export const WhatsappApiPackageOrderByRelevanceFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description'
+  };
+
+  export type WhatsappApiPackageOrderByRelevanceFieldEnum = (typeof WhatsappApiPackageOrderByRelevanceFieldEnum)[keyof typeof WhatsappApiPackageOrderByRelevanceFieldEnum]
+
+
+  export const WhatsappApiTransactionOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId',
+    duration: 'duration',
+    status: 'status'
+  };
+
+  export type WhatsappApiTransactionOrderByRelevanceFieldEnum = (typeof WhatsappApiTransactionOrderByRelevanceFieldEnum)[keyof typeof WhatsappApiTransactionOrderByRelevanceFieldEnum]
+
+
+  export const WhatsappApiServiceOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    packageId: 'packageId'
+  };
+
+  export type WhatsappApiServiceOrderByRelevanceFieldEnum = (typeof WhatsappApiServiceOrderByRelevanceFieldEnum)[keyof typeof WhatsappApiServiceOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
@@ -14481,6 +17891,8 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     whatsAppSessions?: WhatsAppSessionListRelationFilter
     transactions?: TransactionListRelationFilter
+    whatsappApiTransactions?: WhatsappApiTransactionListRelationFilter
+    whatsappApiServices?: WhatsappApiServiceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14502,6 +17914,8 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     whatsAppSessions?: WhatsAppSessionOrderByRelationAggregateInput
     transactions?: TransactionOrderByRelationAggregateInput
+    whatsappApiTransactions?: WhatsappApiTransactionOrderByRelationAggregateInput
+    whatsappApiServices?: WhatsappApiServiceOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -14527,6 +17941,8 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     whatsAppSessions?: WhatsAppSessionListRelationFilter
     transactions?: TransactionListRelationFilter
+    whatsappApiTransactions?: WhatsappApiTransactionListRelationFilter
+    whatsappApiServices?: WhatsappApiServiceListRelationFilter
   }, "id" | "email" | "phone" | "emailVerificationToken">
 
   export type UserOrderByWithAggregationInput = {
@@ -15361,6 +18777,212 @@ export namespace Prisma {
     paymentDate?: DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
   }
 
+  export type WhatsappApiPackageWhereInput = {
+    AND?: WhatsappApiPackageWhereInput | WhatsappApiPackageWhereInput[]
+    OR?: WhatsappApiPackageWhereInput[]
+    NOT?: WhatsappApiPackageWhereInput | WhatsappApiPackageWhereInput[]
+    id?: StringFilter<"WhatsappApiPackage"> | string
+    name?: StringFilter<"WhatsappApiPackage"> | string
+    description?: StringNullableFilter<"WhatsappApiPackage"> | string | null
+    priceMonth?: IntFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntFilter<"WhatsappApiPackage"> | number
+    maxSession?: IntFilter<"WhatsappApiPackage"> | number
+    createdAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
+    services?: WhatsappApiServiceListRelationFilter
+    transactions?: WhatsappApiTransactionListRelationFilter
+  }
+
+  export type WhatsappApiPackageOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    services?: WhatsappApiServiceOrderByRelationAggregateInput
+    transactions?: WhatsappApiTransactionOrderByRelationAggregateInput
+    _relevance?: WhatsappApiPackageOrderByRelevanceInput
+  }
+
+  export type WhatsappApiPackageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WhatsappApiPackageWhereInput | WhatsappApiPackageWhereInput[]
+    OR?: WhatsappApiPackageWhereInput[]
+    NOT?: WhatsappApiPackageWhereInput | WhatsappApiPackageWhereInput[]
+    name?: StringFilter<"WhatsappApiPackage"> | string
+    description?: StringNullableFilter<"WhatsappApiPackage"> | string | null
+    priceMonth?: IntFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntFilter<"WhatsappApiPackage"> | number
+    maxSession?: IntFilter<"WhatsappApiPackage"> | number
+    createdAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
+    updatedAt?: DateTimeFilter<"WhatsappApiPackage"> | Date | string
+    services?: WhatsappApiServiceListRelationFilter
+    transactions?: WhatsappApiTransactionListRelationFilter
+  }, "id">
+
+  export type WhatsappApiPackageOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WhatsappApiPackageCountOrderByAggregateInput
+    _avg?: WhatsappApiPackageAvgOrderByAggregateInput
+    _max?: WhatsappApiPackageMaxOrderByAggregateInput
+    _min?: WhatsappApiPackageMinOrderByAggregateInput
+    _sum?: WhatsappApiPackageSumOrderByAggregateInput
+  }
+
+  export type WhatsappApiPackageScalarWhereWithAggregatesInput = {
+    AND?: WhatsappApiPackageScalarWhereWithAggregatesInput | WhatsappApiPackageScalarWhereWithAggregatesInput[]
+    OR?: WhatsappApiPackageScalarWhereWithAggregatesInput[]
+    NOT?: WhatsappApiPackageScalarWhereWithAggregatesInput | WhatsappApiPackageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsappApiPackage"> | string
+    name?: StringWithAggregatesFilter<"WhatsappApiPackage"> | string
+    description?: StringNullableWithAggregatesFilter<"WhatsappApiPackage"> | string | null
+    priceMonth?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
+    priceYear?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
+    maxSession?: IntWithAggregatesFilter<"WhatsappApiPackage"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsappApiPackage"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WhatsappApiPackage"> | Date | string
+  }
+
+  export type WhatsappApiTransactionWhereInput = {
+    AND?: WhatsappApiTransactionWhereInput | WhatsappApiTransactionWhereInput[]
+    OR?: WhatsappApiTransactionWhereInput[]
+    NOT?: WhatsappApiTransactionWhereInput | WhatsappApiTransactionWhereInput[]
+    id?: StringFilter<"WhatsappApiTransaction"> | string
+    userId?: StringFilter<"WhatsappApiTransaction"> | string
+    packageId?: StringFilter<"WhatsappApiTransaction"> | string
+    duration?: StringFilter<"WhatsappApiTransaction"> | string
+    price?: IntFilter<"WhatsappApiTransaction"> | number
+    status?: StringFilter<"WhatsappApiTransaction"> | string
+    createdAt?: DateTimeFilter<"WhatsappApiTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<WhatsappApiPackageScalarRelationFilter, WhatsappApiPackageWhereInput>
+  }
+
+  export type WhatsappApiTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    duration?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    package?: WhatsappApiPackageOrderByWithRelationInput
+    _relevance?: WhatsappApiTransactionOrderByRelevanceInput
+  }
+
+  export type WhatsappApiTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WhatsappApiTransactionWhereInput | WhatsappApiTransactionWhereInput[]
+    OR?: WhatsappApiTransactionWhereInput[]
+    NOT?: WhatsappApiTransactionWhereInput | WhatsappApiTransactionWhereInput[]
+    userId?: StringFilter<"WhatsappApiTransaction"> | string
+    packageId?: StringFilter<"WhatsappApiTransaction"> | string
+    duration?: StringFilter<"WhatsappApiTransaction"> | string
+    price?: IntFilter<"WhatsappApiTransaction"> | number
+    status?: StringFilter<"WhatsappApiTransaction"> | string
+    createdAt?: DateTimeFilter<"WhatsappApiTransaction"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<WhatsappApiPackageScalarRelationFilter, WhatsappApiPackageWhereInput>
+  }, "id">
+
+  export type WhatsappApiTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    duration?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: WhatsappApiTransactionCountOrderByAggregateInput
+    _avg?: WhatsappApiTransactionAvgOrderByAggregateInput
+    _max?: WhatsappApiTransactionMaxOrderByAggregateInput
+    _min?: WhatsappApiTransactionMinOrderByAggregateInput
+    _sum?: WhatsappApiTransactionSumOrderByAggregateInput
+  }
+
+  export type WhatsappApiTransactionScalarWhereWithAggregatesInput = {
+    AND?: WhatsappApiTransactionScalarWhereWithAggregatesInput | WhatsappApiTransactionScalarWhereWithAggregatesInput[]
+    OR?: WhatsappApiTransactionScalarWhereWithAggregatesInput[]
+    NOT?: WhatsappApiTransactionScalarWhereWithAggregatesInput | WhatsappApiTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsappApiTransaction"> | string
+    userId?: StringWithAggregatesFilter<"WhatsappApiTransaction"> | string
+    packageId?: StringWithAggregatesFilter<"WhatsappApiTransaction"> | string
+    duration?: StringWithAggregatesFilter<"WhatsappApiTransaction"> | string
+    price?: IntWithAggregatesFilter<"WhatsappApiTransaction"> | number
+    status?: StringWithAggregatesFilter<"WhatsappApiTransaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsappApiTransaction"> | Date | string
+  }
+
+  export type WhatsappApiServiceWhereInput = {
+    AND?: WhatsappApiServiceWhereInput | WhatsappApiServiceWhereInput[]
+    OR?: WhatsappApiServiceWhereInput[]
+    NOT?: WhatsappApiServiceWhereInput | WhatsappApiServiceWhereInput[]
+    id?: StringFilter<"WhatsappApiService"> | string
+    userId?: StringFilter<"WhatsappApiService"> | string
+    packageId?: StringFilter<"WhatsappApiService"> | string
+    expiredAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+    createdAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<WhatsappApiPackageScalarRelationFilter, WhatsappApiPackageWhereInput>
+  }
+
+  export type WhatsappApiServiceOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    expiredAt?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    package?: WhatsappApiPackageOrderByWithRelationInput
+    _relevance?: WhatsappApiServiceOrderByRelevanceInput
+  }
+
+  export type WhatsappApiServiceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WhatsappApiServiceWhereInput | WhatsappApiServiceWhereInput[]
+    OR?: WhatsappApiServiceWhereInput[]
+    NOT?: WhatsappApiServiceWhereInput | WhatsappApiServiceWhereInput[]
+    userId?: StringFilter<"WhatsappApiService"> | string
+    packageId?: StringFilter<"WhatsappApiService"> | string
+    expiredAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+    createdAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    package?: XOR<WhatsappApiPackageScalarRelationFilter, WhatsappApiPackageWhereInput>
+  }, "id">
+
+  export type WhatsappApiServiceOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    expiredAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: WhatsappApiServiceCountOrderByAggregateInput
+    _max?: WhatsappApiServiceMaxOrderByAggregateInput
+    _min?: WhatsappApiServiceMinOrderByAggregateInput
+  }
+
+  export type WhatsappApiServiceScalarWhereWithAggregatesInput = {
+    AND?: WhatsappApiServiceScalarWhereWithAggregatesInput | WhatsappApiServiceScalarWhereWithAggregatesInput[]
+    OR?: WhatsappApiServiceScalarWhereWithAggregatesInput[]
+    NOT?: WhatsappApiServiceScalarWhereWithAggregatesInput | WhatsappApiServiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WhatsappApiService"> | string
+    userId?: StringWithAggregatesFilter<"WhatsappApiService"> | string
+    packageId?: StringWithAggregatesFilter<"WhatsappApiService"> | string
+    expiredAt?: DateTimeWithAggregatesFilter<"WhatsappApiService"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"WhatsappApiService"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -15380,6 +19002,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15401,6 +19025,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15422,6 +19048,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15443,6 +19071,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16321,6 +19951,213 @@ export namespace Prisma {
     paymentDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type WhatsappApiPackageCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: WhatsappApiServiceCreateNestedManyWithoutPackageInput
+    transactions?: WhatsappApiTransactionCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: WhatsappApiServiceUncheckedCreateNestedManyWithoutPackageInput
+    transactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: WhatsappApiServiceUpdateManyWithoutPackageNestedInput
+    transactions?: WhatsappApiTransactionUpdateManyWithoutPackageNestedInput
+  }
+
+  export type WhatsappApiPackageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: WhatsappApiServiceUncheckedUpdateManyWithoutPackageNestedInput
+    transactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type WhatsappApiPackageCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WhatsappApiPackageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiPackageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionCreateInput = {
+    id?: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsappApiTransactionsInput
+    package: WhatsappApiPackageCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type WhatsappApiTransactionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    packageId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsappApiTransactionsNestedInput
+    package?: WhatsappApiPackageUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionCreateManyInput = {
+    id?: string
+    userId: string
+    packageId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceCreateInput = {
+    id?: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsappApiServicesInput
+    package: WhatsappApiPackageCreateNestedOneWithoutServicesInput
+  }
+
+  export type WhatsappApiServiceUncheckedCreateInput = {
+    id?: string
+    userId: string
+    packageId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsappApiServicesNestedInput
+    package?: WhatsappApiPackageUpdateOneRequiredWithoutServicesNestedInput
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceCreateManyInput = {
+    id?: string
+    userId: string
+    packageId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -16386,6 +20223,18 @@ export namespace Prisma {
     none?: TransactionWhereInput
   }
 
+  export type WhatsappApiTransactionListRelationFilter = {
+    every?: WhatsappApiTransactionWhereInput
+    some?: WhatsappApiTransactionWhereInput
+    none?: WhatsappApiTransactionWhereInput
+  }
+
+  export type WhatsappApiServiceListRelationFilter = {
+    every?: WhatsappApiServiceWhereInput
+    some?: WhatsappApiServiceWhereInput
+    none?: WhatsappApiServiceWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -16404,6 +20253,14 @@ export namespace Prisma {
   }
 
   export type TransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsappApiTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WhatsappApiServiceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17254,6 +21111,136 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type WhatsappApiPackageOrderByRelevanceInput = {
+    fields: WhatsappApiPackageOrderByRelevanceFieldEnum | WhatsappApiPackageOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type WhatsappApiPackageCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsappApiPackageAvgOrderByAggregateInput = {
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+  }
+
+  export type WhatsappApiPackageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsappApiPackageMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WhatsappApiPackageSumOrderByAggregateInput = {
+    priceMonth?: SortOrder
+    priceYear?: SortOrder
+    maxSession?: SortOrder
+  }
+
+  export type WhatsappApiPackageScalarRelationFilter = {
+    is?: WhatsappApiPackageWhereInput
+    isNot?: WhatsappApiPackageWhereInput
+  }
+
+  export type WhatsappApiTransactionOrderByRelevanceInput = {
+    fields: WhatsappApiTransactionOrderByRelevanceFieldEnum | WhatsappApiTransactionOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type WhatsappApiTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    duration?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WhatsappApiTransactionAvgOrderByAggregateInput = {
+    price?: SortOrder
+  }
+
+  export type WhatsappApiTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    duration?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WhatsappApiTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    duration?: SortOrder
+    price?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WhatsappApiTransactionSumOrderByAggregateInput = {
+    price?: SortOrder
+  }
+
+  export type WhatsappApiServiceOrderByRelevanceInput = {
+    fields: WhatsappApiServiceOrderByRelevanceFieldEnum | WhatsappApiServiceOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type WhatsappApiServiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    expiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WhatsappApiServiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    expiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WhatsappApiServiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    packageId?: SortOrder
+    expiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -17282,6 +21269,20 @@ export namespace Prisma {
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
+  export type WhatsappApiTransactionCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput> | WhatsappApiTransactionCreateWithoutUserInput[] | WhatsappApiTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutUserInput | WhatsappApiTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsappApiTransactionCreateManyUserInputEnvelope
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+  }
+
+  export type WhatsappApiServiceCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput> | WhatsappApiServiceCreateWithoutUserInput[] | WhatsappApiServiceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutUserInput | WhatsappApiServiceCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsappApiServiceCreateManyUserInputEnvelope
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -17308,6 +21309,20 @@ export namespace Prisma {
     connectOrCreate?: TransactionCreateOrConnectWithoutUserInput | TransactionCreateOrConnectWithoutUserInput[]
     createMany?: TransactionCreateManyUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
+  }
+
+  export type WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput> | WhatsappApiTransactionCreateWithoutUserInput[] | WhatsappApiTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutUserInput | WhatsappApiTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsappApiTransactionCreateManyUserInputEnvelope
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+  }
+
+  export type WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput> | WhatsappApiServiceCreateWithoutUserInput[] | WhatsappApiServiceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutUserInput | WhatsappApiServiceCreateOrConnectWithoutUserInput[]
+    createMany?: WhatsappApiServiceCreateManyUserInputEnvelope
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17378,6 +21393,34 @@ export namespace Prisma {
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
+  export type WhatsappApiTransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput> | WhatsappApiTransactionCreateWithoutUserInput[] | WhatsappApiTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutUserInput | WhatsappApiTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsappApiTransactionUpsertWithWhereUniqueWithoutUserInput | WhatsappApiTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsappApiTransactionCreateManyUserInputEnvelope
+    set?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    disconnect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    delete?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    update?: WhatsappApiTransactionUpdateWithWhereUniqueWithoutUserInput | WhatsappApiTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsappApiTransactionUpdateManyWithWhereWithoutUserInput | WhatsappApiTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+  }
+
+  export type WhatsappApiServiceUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput> | WhatsappApiServiceCreateWithoutUserInput[] | WhatsappApiServiceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutUserInput | WhatsappApiServiceCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsappApiServiceUpsertWithWhereUniqueWithoutUserInput | WhatsappApiServiceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsappApiServiceCreateManyUserInputEnvelope
+    set?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    disconnect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    delete?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    update?: WhatsappApiServiceUpdateWithWhereUniqueWithoutUserInput | WhatsappApiServiceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsappApiServiceUpdateManyWithWhereWithoutUserInput | WhatsappApiServiceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -17432,6 +21475,34 @@ export namespace Prisma {
     update?: TransactionUpdateWithWhereUniqueWithoutUserInput | TransactionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TransactionUpdateManyWithWhereWithoutUserInput | TransactionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput> | WhatsappApiTransactionCreateWithoutUserInput[] | WhatsappApiTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutUserInput | WhatsappApiTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsappApiTransactionUpsertWithWhereUniqueWithoutUserInput | WhatsappApiTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsappApiTransactionCreateManyUserInputEnvelope
+    set?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    disconnect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    delete?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    update?: WhatsappApiTransactionUpdateWithWhereUniqueWithoutUserInput | WhatsappApiTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsappApiTransactionUpdateManyWithWhereWithoutUserInput | WhatsappApiTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput> | WhatsappApiServiceCreateWithoutUserInput[] | WhatsappApiServiceUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutUserInput | WhatsappApiServiceCreateOrConnectWithoutUserInput[]
+    upsert?: WhatsappApiServiceUpsertWithWhereUniqueWithoutUserInput | WhatsappApiServiceUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WhatsappApiServiceCreateManyUserInputEnvelope
+    set?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    disconnect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    delete?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    update?: WhatsappApiServiceUpdateWithWhereUniqueWithoutUserInput | WhatsappApiServiceUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WhatsappApiServiceUpdateManyWithWhereWithoutUserInput | WhatsappApiServiceUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -17970,6 +22041,146 @@ export namespace Prisma {
     update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutPaymentInput, TransactionUpdateWithoutPaymentInput>, TransactionUncheckedUpdateWithoutPaymentInput>
   }
 
+  export type WhatsappApiServiceCreateNestedManyWithoutPackageInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput> | WhatsappApiServiceCreateWithoutPackageInput[] | WhatsappApiServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutPackageInput | WhatsappApiServiceCreateOrConnectWithoutPackageInput[]
+    createMany?: WhatsappApiServiceCreateManyPackageInputEnvelope
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+  }
+
+  export type WhatsappApiTransactionCreateNestedManyWithoutPackageInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput> | WhatsappApiTransactionCreateWithoutPackageInput[] | WhatsappApiTransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutPackageInput | WhatsappApiTransactionCreateOrConnectWithoutPackageInput[]
+    createMany?: WhatsappApiTransactionCreateManyPackageInputEnvelope
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+  }
+
+  export type WhatsappApiServiceUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput> | WhatsappApiServiceCreateWithoutPackageInput[] | WhatsappApiServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutPackageInput | WhatsappApiServiceCreateOrConnectWithoutPackageInput[]
+    createMany?: WhatsappApiServiceCreateManyPackageInputEnvelope
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+  }
+
+  export type WhatsappApiTransactionUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput> | WhatsappApiTransactionCreateWithoutPackageInput[] | WhatsappApiTransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutPackageInput | WhatsappApiTransactionCreateOrConnectWithoutPackageInput[]
+    createMany?: WhatsappApiTransactionCreateManyPackageInputEnvelope
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+  }
+
+  export type WhatsappApiServiceUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput> | WhatsappApiServiceCreateWithoutPackageInput[] | WhatsappApiServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutPackageInput | WhatsappApiServiceCreateOrConnectWithoutPackageInput[]
+    upsert?: WhatsappApiServiceUpsertWithWhereUniqueWithoutPackageInput | WhatsappApiServiceUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: WhatsappApiServiceCreateManyPackageInputEnvelope
+    set?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    disconnect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    delete?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    update?: WhatsappApiServiceUpdateWithWhereUniqueWithoutPackageInput | WhatsappApiServiceUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: WhatsappApiServiceUpdateManyWithWhereWithoutPackageInput | WhatsappApiServiceUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
+  }
+
+  export type WhatsappApiTransactionUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput> | WhatsappApiTransactionCreateWithoutPackageInput[] | WhatsappApiTransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutPackageInput | WhatsappApiTransactionCreateOrConnectWithoutPackageInput[]
+    upsert?: WhatsappApiTransactionUpsertWithWhereUniqueWithoutPackageInput | WhatsappApiTransactionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: WhatsappApiTransactionCreateManyPackageInputEnvelope
+    set?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    disconnect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    delete?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    update?: WhatsappApiTransactionUpdateWithWhereUniqueWithoutPackageInput | WhatsappApiTransactionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: WhatsappApiTransactionUpdateManyWithWhereWithoutPackageInput | WhatsappApiTransactionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput> | WhatsappApiServiceCreateWithoutPackageInput[] | WhatsappApiServiceUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiServiceCreateOrConnectWithoutPackageInput | WhatsappApiServiceCreateOrConnectWithoutPackageInput[]
+    upsert?: WhatsappApiServiceUpsertWithWhereUniqueWithoutPackageInput | WhatsappApiServiceUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: WhatsappApiServiceCreateManyPackageInputEnvelope
+    set?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    disconnect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    delete?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    connect?: WhatsappApiServiceWhereUniqueInput | WhatsappApiServiceWhereUniqueInput[]
+    update?: WhatsappApiServiceUpdateWithWhereUniqueWithoutPackageInput | WhatsappApiServiceUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: WhatsappApiServiceUpdateManyWithWhereWithoutPackageInput | WhatsappApiServiceUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput> | WhatsappApiTransactionCreateWithoutPackageInput[] | WhatsappApiTransactionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: WhatsappApiTransactionCreateOrConnectWithoutPackageInput | WhatsappApiTransactionCreateOrConnectWithoutPackageInput[]
+    upsert?: WhatsappApiTransactionUpsertWithWhereUniqueWithoutPackageInput | WhatsappApiTransactionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: WhatsappApiTransactionCreateManyPackageInputEnvelope
+    set?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    disconnect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    delete?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    connect?: WhatsappApiTransactionWhereUniqueInput | WhatsappApiTransactionWhereUniqueInput[]
+    update?: WhatsappApiTransactionUpdateWithWhereUniqueWithoutPackageInput | WhatsappApiTransactionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: WhatsappApiTransactionUpdateManyWithWhereWithoutPackageInput | WhatsappApiTransactionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutWhatsappApiTransactionsInput = {
+    create?: XOR<UserCreateWithoutWhatsappApiTransactionsInput, UserUncheckedCreateWithoutWhatsappApiTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsappApiTransactionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WhatsappApiPackageCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<WhatsappApiPackageCreateWithoutTransactionsInput, WhatsappApiPackageUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: WhatsappApiPackageCreateOrConnectWithoutTransactionsInput
+    connect?: WhatsappApiPackageWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWhatsappApiTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutWhatsappApiTransactionsInput, UserUncheckedCreateWithoutWhatsappApiTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsappApiTransactionsInput
+    upsert?: UserUpsertWithoutWhatsappApiTransactionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWhatsappApiTransactionsInput, UserUpdateWithoutWhatsappApiTransactionsInput>, UserUncheckedUpdateWithoutWhatsappApiTransactionsInput>
+  }
+
+  export type WhatsappApiPackageUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<WhatsappApiPackageCreateWithoutTransactionsInput, WhatsappApiPackageUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: WhatsappApiPackageCreateOrConnectWithoutTransactionsInput
+    upsert?: WhatsappApiPackageUpsertWithoutTransactionsInput
+    connect?: WhatsappApiPackageWhereUniqueInput
+    update?: XOR<XOR<WhatsappApiPackageUpdateToOneWithWhereWithoutTransactionsInput, WhatsappApiPackageUpdateWithoutTransactionsInput>, WhatsappApiPackageUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type UserCreateNestedOneWithoutWhatsappApiServicesInput = {
+    create?: XOR<UserCreateWithoutWhatsappApiServicesInput, UserUncheckedCreateWithoutWhatsappApiServicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsappApiServicesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WhatsappApiPackageCreateNestedOneWithoutServicesInput = {
+    create?: XOR<WhatsappApiPackageCreateWithoutServicesInput, WhatsappApiPackageUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: WhatsappApiPackageCreateOrConnectWithoutServicesInput
+    connect?: WhatsappApiPackageWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutWhatsappApiServicesNestedInput = {
+    create?: XOR<UserCreateWithoutWhatsappApiServicesInput, UserUncheckedCreateWithoutWhatsappApiServicesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWhatsappApiServicesInput
+    upsert?: UserUpsertWithoutWhatsappApiServicesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWhatsappApiServicesInput, UserUpdateWithoutWhatsappApiServicesInput>, UserUncheckedUpdateWithoutWhatsappApiServicesInput>
+  }
+
+  export type WhatsappApiPackageUpdateOneRequiredWithoutServicesNestedInput = {
+    create?: XOR<WhatsappApiPackageCreateWithoutServicesInput, WhatsappApiPackageUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: WhatsappApiPackageCreateOrConnectWithoutServicesInput
+    upsert?: WhatsappApiPackageUpsertWithoutServicesInput
+    connect?: WhatsappApiPackageWhereUniqueInput
+    update?: XOR<XOR<WhatsappApiPackageUpdateToOneWithWhereWithoutServicesInput, WhatsappApiPackageUpdateWithoutServicesInput>, WhatsappApiPackageUncheckedUpdateWithoutServicesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -18366,6 +22577,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WhatsappApiTransactionCreateWithoutUserInput = {
+    id?: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+    package: WhatsappApiPackageCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type WhatsappApiTransactionUncheckedCreateWithoutUserInput = {
+    id?: string
+    packageId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiTransactionCreateOrConnectWithoutUserInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    create: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsappApiTransactionCreateManyUserInputEnvelope = {
+    data: WhatsappApiTransactionCreateManyUserInput | WhatsappApiTransactionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsappApiServiceCreateWithoutUserInput = {
+    id?: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+    package: WhatsappApiPackageCreateNestedOneWithoutServicesInput
+  }
+
+  export type WhatsappApiServiceUncheckedCreateWithoutUserInput = {
+    id?: string
+    packageId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceCreateOrConnectWithoutUserInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    create: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsappApiServiceCreateManyUserInputEnvelope = {
+    data: WhatsappApiServiceCreateManyUserInput | WhatsappApiServiceCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -18489,6 +22752,62 @@ export namespace Prisma {
     referenceLink?: StringNullableFilter<"Transaction"> | string | null
   }
 
+  export type WhatsappApiTransactionUpsertWithWhereUniqueWithoutUserInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    update: XOR<WhatsappApiTransactionUpdateWithoutUserInput, WhatsappApiTransactionUncheckedUpdateWithoutUserInput>
+    create: XOR<WhatsappApiTransactionCreateWithoutUserInput, WhatsappApiTransactionUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsappApiTransactionUpdateWithWhereUniqueWithoutUserInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    data: XOR<WhatsappApiTransactionUpdateWithoutUserInput, WhatsappApiTransactionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WhatsappApiTransactionUpdateManyWithWhereWithoutUserInput = {
+    where: WhatsappApiTransactionScalarWhereInput
+    data: XOR<WhatsappApiTransactionUpdateManyMutationInput, WhatsappApiTransactionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WhatsappApiTransactionScalarWhereInput = {
+    AND?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+    OR?: WhatsappApiTransactionScalarWhereInput[]
+    NOT?: WhatsappApiTransactionScalarWhereInput | WhatsappApiTransactionScalarWhereInput[]
+    id?: StringFilter<"WhatsappApiTransaction"> | string
+    userId?: StringFilter<"WhatsappApiTransaction"> | string
+    packageId?: StringFilter<"WhatsappApiTransaction"> | string
+    duration?: StringFilter<"WhatsappApiTransaction"> | string
+    price?: IntFilter<"WhatsappApiTransaction"> | number
+    status?: StringFilter<"WhatsappApiTransaction"> | string
+    createdAt?: DateTimeFilter<"WhatsappApiTransaction"> | Date | string
+  }
+
+  export type WhatsappApiServiceUpsertWithWhereUniqueWithoutUserInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    update: XOR<WhatsappApiServiceUpdateWithoutUserInput, WhatsappApiServiceUncheckedUpdateWithoutUserInput>
+    create: XOR<WhatsappApiServiceCreateWithoutUserInput, WhatsappApiServiceUncheckedCreateWithoutUserInput>
+  }
+
+  export type WhatsappApiServiceUpdateWithWhereUniqueWithoutUserInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    data: XOR<WhatsappApiServiceUpdateWithoutUserInput, WhatsappApiServiceUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WhatsappApiServiceUpdateManyWithWhereWithoutUserInput = {
+    where: WhatsappApiServiceScalarWhereInput
+    data: XOR<WhatsappApiServiceUpdateManyMutationInput, WhatsappApiServiceUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type WhatsappApiServiceScalarWhereInput = {
+    AND?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
+    OR?: WhatsappApiServiceScalarWhereInput[]
+    NOT?: WhatsappApiServiceScalarWhereInput | WhatsappApiServiceScalarWhereInput[]
+    id?: StringFilter<"WhatsappApiService"> | string
+    userId?: StringFilter<"WhatsappApiService"> | string
+    packageId?: StringFilter<"WhatsappApiService"> | string
+    expiredAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+    createdAt?: DateTimeFilter<"WhatsappApiService"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -18507,6 +22826,8 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -18527,6 +22848,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -18563,6 +22886,8 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -18583,6 +22908,8 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -18603,6 +22930,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -18623,6 +22952,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -18659,6 +22990,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -18679,6 +23012,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PackageCreateWithoutFeaturesInput = {
@@ -19407,6 +23742,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWhatsAppSessionsInput = {
@@ -19427,6 +23764,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWhatsAppSessionsInput = {
@@ -19463,6 +23802,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWhatsAppSessionsInput = {
@@ -19483,6 +23824,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutTransactionsInput = {
@@ -19503,6 +23846,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -19523,6 +23868,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -19654,6 +24001,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -19674,6 +24023,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PackageUpsertWithoutTransactionsInput = {
@@ -19857,6 +24208,426 @@ export namespace Prisma {
     referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type WhatsappApiServiceCreateWithoutPackageInput = {
+    id?: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsappApiServicesInput
+  }
+
+  export type WhatsappApiServiceUncheckedCreateWithoutPackageInput = {
+    id?: string
+    userId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceCreateOrConnectWithoutPackageInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    create: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput>
+  }
+
+  export type WhatsappApiServiceCreateManyPackageInputEnvelope = {
+    data: WhatsappApiServiceCreateManyPackageInput | WhatsappApiServiceCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsappApiTransactionCreateWithoutPackageInput = {
+    id?: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutWhatsappApiTransactionsInput
+  }
+
+  export type WhatsappApiTransactionUncheckedCreateWithoutPackageInput = {
+    id?: string
+    userId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiTransactionCreateOrConnectWithoutPackageInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    create: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type WhatsappApiTransactionCreateManyPackageInputEnvelope = {
+    data: WhatsappApiTransactionCreateManyPackageInput | WhatsappApiTransactionCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WhatsappApiServiceUpsertWithWhereUniqueWithoutPackageInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    update: XOR<WhatsappApiServiceUpdateWithoutPackageInput, WhatsappApiServiceUncheckedUpdateWithoutPackageInput>
+    create: XOR<WhatsappApiServiceCreateWithoutPackageInput, WhatsappApiServiceUncheckedCreateWithoutPackageInput>
+  }
+
+  export type WhatsappApiServiceUpdateWithWhereUniqueWithoutPackageInput = {
+    where: WhatsappApiServiceWhereUniqueInput
+    data: XOR<WhatsappApiServiceUpdateWithoutPackageInput, WhatsappApiServiceUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type WhatsappApiServiceUpdateManyWithWhereWithoutPackageInput = {
+    where: WhatsappApiServiceScalarWhereInput
+    data: XOR<WhatsappApiServiceUpdateManyMutationInput, WhatsappApiServiceUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type WhatsappApiTransactionUpsertWithWhereUniqueWithoutPackageInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    update: XOR<WhatsappApiTransactionUpdateWithoutPackageInput, WhatsappApiTransactionUncheckedUpdateWithoutPackageInput>
+    create: XOR<WhatsappApiTransactionCreateWithoutPackageInput, WhatsappApiTransactionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type WhatsappApiTransactionUpdateWithWhereUniqueWithoutPackageInput = {
+    where: WhatsappApiTransactionWhereUniqueInput
+    data: XOR<WhatsappApiTransactionUpdateWithoutPackageInput, WhatsappApiTransactionUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type WhatsappApiTransactionUpdateManyWithWhereWithoutPackageInput = {
+    where: WhatsappApiTransactionScalarWhereInput
+    data: XOR<WhatsappApiTransactionUpdateManyMutationInput, WhatsappApiTransactionUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type UserCreateWithoutWhatsappApiTransactionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWhatsappApiTransactionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWhatsappApiTransactionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWhatsappApiTransactionsInput, UserUncheckedCreateWithoutWhatsappApiTransactionsInput>
+  }
+
+  export type WhatsappApiPackageCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: WhatsappApiServiceCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: WhatsappApiServiceUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageCreateOrConnectWithoutTransactionsInput = {
+    where: WhatsappApiPackageWhereUniqueInput
+    create: XOR<WhatsappApiPackageCreateWithoutTransactionsInput, WhatsappApiPackageUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UserUpsertWithoutWhatsappApiTransactionsInput = {
+    update: XOR<UserUpdateWithoutWhatsappApiTransactionsInput, UserUncheckedUpdateWithoutWhatsappApiTransactionsInput>
+    create: XOR<UserCreateWithoutWhatsappApiTransactionsInput, UserUncheckedCreateWithoutWhatsappApiTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWhatsappApiTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWhatsappApiTransactionsInput, UserUncheckedUpdateWithoutWhatsappApiTransactionsInput>
+  }
+
+  export type UserUpdateWithoutWhatsappApiTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWhatsappApiTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiServices?: WhatsappApiServiceUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WhatsappApiPackageUpsertWithoutTransactionsInput = {
+    update: XOR<WhatsappApiPackageUpdateWithoutTransactionsInput, WhatsappApiPackageUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<WhatsappApiPackageCreateWithoutTransactionsInput, WhatsappApiPackageUncheckedCreateWithoutTransactionsInput>
+    where?: WhatsappApiPackageWhereInput
+  }
+
+  export type WhatsappApiPackageUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: WhatsappApiPackageWhereInput
+    data: XOR<WhatsappApiPackageUpdateWithoutTransactionsInput, WhatsappApiPackageUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type WhatsappApiPackageUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: WhatsappApiServiceUpdateManyWithoutPackageNestedInput
+  }
+
+  export type WhatsappApiPackageUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: WhatsappApiServiceUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type UserCreateWithoutWhatsappApiServicesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionCreateNestedManyWithoutUserInput
+    transactions?: TransactionCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWhatsappApiServicesInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    phone?: string | null
+    password?: string | null
+    otp?: string | null
+    otpExpires?: Date | string | null
+    otpVerificationDeadline?: Date | string | null
+    emailVerified?: Date | string | null
+    phoneVerified?: Date | string | null
+    image?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    role?: string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    whatsAppSessions?: WhatsAppSessionUncheckedCreateNestedManyWithoutUserInput
+    transactions?: TransactionUncheckedCreateNestedManyWithoutUserInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWhatsappApiServicesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWhatsappApiServicesInput, UserUncheckedCreateWithoutWhatsappApiServicesInput>
+  }
+
+  export type WhatsappApiPackageCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: WhatsappApiTransactionCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageUncheckedCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    priceMonth: number
+    priceYear: number
+    maxSession: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: WhatsappApiTransactionUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type WhatsappApiPackageCreateOrConnectWithoutServicesInput = {
+    where: WhatsappApiPackageWhereUniqueInput
+    create: XOR<WhatsappApiPackageCreateWithoutServicesInput, WhatsappApiPackageUncheckedCreateWithoutServicesInput>
+  }
+
+  export type UserUpsertWithoutWhatsappApiServicesInput = {
+    update: XOR<UserUpdateWithoutWhatsappApiServicesInput, UserUncheckedUpdateWithoutWhatsappApiServicesInput>
+    create: XOR<UserCreateWithoutWhatsappApiServicesInput, UserUncheckedCreateWithoutWhatsappApiServicesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWhatsappApiServicesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWhatsappApiServicesInput, UserUncheckedUpdateWithoutWhatsappApiServicesInput>
+  }
+
+  export type UserUpdateWithoutWhatsappApiServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWhatsappApiServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    otpVerificationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phoneVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    whatsAppSessions?: WhatsAppSessionUncheckedUpdateManyWithoutUserNestedInput
+    transactions?: TransactionUncheckedUpdateManyWithoutUserNestedInput
+    whatsappApiTransactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type WhatsappApiPackageUpsertWithoutServicesInput = {
+    update: XOR<WhatsappApiPackageUpdateWithoutServicesInput, WhatsappApiPackageUncheckedUpdateWithoutServicesInput>
+    create: XOR<WhatsappApiPackageCreateWithoutServicesInput, WhatsappApiPackageUncheckedCreateWithoutServicesInput>
+    where?: WhatsappApiPackageWhereInput
+  }
+
+  export type WhatsappApiPackageUpdateToOneWithWhereWithoutServicesInput = {
+    where?: WhatsappApiPackageWhereInput
+    data: XOR<WhatsappApiPackageUpdateWithoutServicesInput, WhatsappApiPackageUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type WhatsappApiPackageUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: WhatsappApiTransactionUpdateManyWithoutPackageNestedInput
+  }
+
+  export type WhatsappApiPackageUncheckedUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    priceMonth?: IntFieldUpdateOperationsInput | number
+    priceYear?: IntFieldUpdateOperationsInput | number
+    maxSession?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: WhatsappApiTransactionUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -19898,6 +24669,22 @@ export namespace Prisma {
     endDate: Date | string
     status: string
     referenceLink?: string | null
+  }
+
+  export type WhatsappApiTransactionCreateManyUserInput = {
+    id?: string
+    packageId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceCreateManyUserInput = {
+    id?: string
+    packageId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -20029,6 +24816,54 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WhatsappApiTransactionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: WhatsappApiPackageUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: WhatsappApiPackageUpdateOneRequiredWithoutServicesNestedInput
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PackageCreateManySubcategoryInput = {
@@ -20373,6 +25208,70 @@ export namespace Prisma {
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: StringFieldUpdateOperationsInput | string
     referenceLink?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WhatsappApiServiceCreateManyPackageInput = {
+    id?: string
+    userId: string
+    expiredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiTransactionCreateManyPackageInput = {
+    id?: string
+    userId: string
+    duration: string
+    price: number
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type WhatsappApiServiceUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsappApiServicesNestedInput
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiServiceUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWhatsappApiTransactionsNestedInput
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WhatsappApiTransactionUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    duration?: StringFieldUpdateOperationsInput | string
+    price?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

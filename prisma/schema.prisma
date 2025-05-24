@@ -34,6 +34,8 @@ model User {
   sessions                      Session[]
   whatsAppSessions              WhatsAppSession[]
   transactions                  Transaction[]
+  whatsappApiTransactions       WhatsappApiTransaction[]
+  whatsappApiServices           WhatsappApiService[]
 }
 
 model Account {
@@ -189,4 +191,41 @@ model Payment {
   method        String   // e.g. "midtrans", "xendit", "manual"
   status        String   // e.g. "pending", "paid", "failed"
   paymentDate   DateTime?
+}
+
+// WhatsApp API Service Subscription Models
+model WhatsappApiPackage {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  priceMonth  Int
+  priceYear   Int
+  maxSession  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  services    WhatsappApiService[]
+  transactions WhatsappApiTransaction[]
+}
+
+model WhatsappApiTransaction {
+  id         String   @id @default(cuid())
+  userId     String
+  packageId  String
+  duration   String   // 'month' | 'year'
+  price      Int
+  status     String   // 'pending' | 'paid' | 'failed'
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  package    WhatsappApiPackage @relation(fields: [packageId], references: [id])
+}
+
+model WhatsappApiService {
+  id         String   @id @default(cuid())
+  userId     String
+  packageId  String
+  expiredAt  DateTime
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  package    WhatsappApiPackage @relation(fields: [packageId], references: [id])
+  // sessions   WhatsAppSession[] // Uncomment if you want to relate sessions here
 }

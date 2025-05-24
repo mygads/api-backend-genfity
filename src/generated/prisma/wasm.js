@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.8.2
+ * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.8.2",
+  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -252,6 +252,35 @@ exports.Prisma.PaymentScalarFieldEnum = {
   paymentDate: 'paymentDate'
 };
 
+exports.Prisma.WhatsappApiPackageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  priceMonth: 'priceMonth',
+  priceYear: 'priceYear',
+  maxSession: 'maxSession',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WhatsappApiTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId',
+  duration: 'duration',
+  price: 'price',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WhatsappApiServiceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId',
+  expiredAt: 'expiredAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -385,6 +414,26 @@ exports.Prisma.PaymentOrderByRelevanceFieldEnum = {
   status: 'status'
 };
 
+exports.Prisma.WhatsappApiPackageOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.WhatsappApiTransactionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId',
+  duration: 'duration',
+  status: 'status'
+};
+
+exports.Prisma.WhatsappApiServiceOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  packageId: 'packageId'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -398,7 +447,10 @@ exports.Prisma.ModelName = {
   Package: 'Package',
   WhatsAppSession: 'WhatsAppSession',
   Transaction: 'Transaction',
-  Payment: 'Payment'
+  Payment: 'Payment',
+  WhatsappApiPackage: 'WhatsappApiPackage',
+  WhatsappApiTransaction: 'WhatsappApiTransaction',
+  WhatsappApiService: 'WhatsappApiService'
 };
 
 /**
