@@ -13,8 +13,8 @@ export async function waFetch(path: string, method: string = 'GET', body?: any) 
     const options: RequestInit = {
         method: method,
         headers: {
-            'Content-Type': 'application/json',
-            'access-token': `${API_KEY}`,
+          'Content-Type': 'application/json',
+          'access-token': `${API_KEY}`,
         },
     };
     if (body) {
