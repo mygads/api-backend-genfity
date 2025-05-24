@@ -1,5 +1,6 @@
 export async function sendWhatsAppMessage(phoneNumber: string, message: string): Promise<boolean> {
-    const WA_URL = "/client/sendMessage/genfity";
+    const SESSION_ID = process.env.WHATSAPP_SESSION_ID;
+    const WA_URL = "/client/sendMessage/" + SESSION_ID;
     const API_URL = process.env.WHATSAPP_SERVER_API;
     const CHAT_ID_SUFFIX = '@c.us';
     // Pastikan nomor telepon diawali dengan 62 dan tanpa +

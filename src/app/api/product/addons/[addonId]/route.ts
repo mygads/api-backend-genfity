@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import fs from 'fs/promises';
 import path from 'path';
+import { withCORS, corsOptionsResponse } from "@/lib/cors";
 
 // Base schema for addon, all fields optional for PUT
 const addonSchemaBase = z.object({
@@ -18,6 +19,10 @@ const addonSchemaBase = z.object({
   durationUnit: z.literal('day').optional(),
 });
 
+export async function OPTIONS() {
+  return corsOptionsResponse();
+}
+
 export async function GET(
   request: Request,
   context: { params: Promise<{ addonId: string }> }
@@ -25,10 +30,10 @@ export async function GET(
   try {
     const { addonId } = await context.params;
     if (!addonId) {
-      return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     const addon = await prisma.addon.findUnique({
@@ -39,19 +44,19 @@ export async function GET(
     });
 
     if (!addon) {
-      return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Addon not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
-    return NextResponse.json(addon);
+    return withCORS(NextResponse.json(addon));
   } catch (error) {
     console.error("[ADDON_GET_BY_ID]", error);
-    return new NextResponse(JSON.stringify({ message: "Internal server error" }), {
+    return withCORS(new NextResponse(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
@@ -62,28 +67,28 @@ export async function PUT(
   try {
     const { addonId } = await context.params;
     if (!addonId) {
-      return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     const body = await request.json();
     const validation = addonSchemaBase.safeParse(body);
 
     if (!validation.success) {
-      return new NextResponse(JSON.stringify(validation.error.errors), {
+      return withCORS(new NextResponse(JSON.stringify(validation.error.errors), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }    // Ambil semua field dari validation.data
     const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId, duration, durationUnit } = validation.data as any;
 
     if (Object.keys(validation.data).length === 0) {
-        return new NextResponse(JSON.stringify({ message: "No fields to update" }), {
+        return withCORS(new NextResponse(JSON.stringify({ message: "No fields to update" }), {
             status: 400,
             headers: { "Content-Type": "application/json" },
-        });
+        }));
     }
 
     const currentAddon = await prisma.addon.findUnique({
@@ -91,10 +96,10 @@ export async function PUT(
     });
 
     if (!currentAddon) {
-        return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+        return withCORS(new NextResponse(JSON.stringify({ message: "Addon not found" }), {
             status: 404,
             headers: { "Content-Type": "application/json" },
-        });
+        }));
     }
 
     const targetCategoryId = categoryId || currentAddon.categoryId;
@@ -112,12 +117,12 @@ export async function PUT(
         },
       });
       if (existingAddonWithName) {
-        return new NextResponse(
-          JSON.stringify({ message: "Another addon with this name already exists in this category" }),
+        return withCORS(
+          new NextResponse(JSON.stringify({ message: "Another addon with this name already exists in this category" }),
           {
             status: 409,
             headers: { "Content-Type": "application/json" },
-          }
+          })
         );
       }
     }
@@ -125,10 +130,10 @@ export async function PUT(
     if (categoryId) {
         const categoryExists = await prisma.category.findUnique({ where: { id: categoryId } });
         if (!categoryExists) {
-            return new NextResponse(JSON.stringify({ message: "Target category not found" }), {
+            return withCORS(new NextResponse(JSON.stringify({ message: "Target category not found" }), {
                 status: 404,
                 headers: { "Content-Type": "application/json" },
-            });
+            }));
         }
     }
 
@@ -164,19 +169,19 @@ export async function PUT(
       data: updateData,
     });
 
-    return NextResponse.json(updatedAddon);
+    return withCORS(NextResponse.json(updatedAddon));
   } catch (error) {
     console.error("[ADDON_PUT]", error);
     if ((error as any).code === 'P2025') { 
-        return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+        return withCORS(new NextResponse(JSON.stringify({ message: "Addon not found" }), {
             status: 404,
             headers: { "Content-Type": "application/json" },
-        });
+        }));
     }
-    return new NextResponse(JSON.stringify({ message: "Internal server error" }), {
+    return withCORS(new NextResponse(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
@@ -187,19 +192,19 @@ export async function DELETE(
   try {
     const { addonId } = await context.params;
     if (!addonId) {
-      return new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Addon ID is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     // Cari data addon sebelum dihapus
     const addon = await prisma.addon.findUnique({ where: { id: addonId } });
     if (!addon) {
-      return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Addon not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     // Hapus file gambar jika ada dan path-nya lokal (bukan http/https/data:image)
@@ -244,18 +249,18 @@ export async function DELETE(
       where: { id: addonId },
     });
 
-    return new NextResponse(null, { status: 204 });
+    return withCORS(new NextResponse(null, { status: 204 }));
   } catch (error) {
     console.error("[ADDON_DELETE]", error);
     if ((error as any).code === 'P2025') { 
-        return new NextResponse(JSON.stringify({ message: "Addon not found" }), {
+        return withCORS(new NextResponse(JSON.stringify({ message: "Addon not found" }), {
             status: 404,
             headers: { "Content-Type": "application/json" },
-        });
+        }));
     }
-    return new NextResponse(JSON.stringify({ message: "Internal server error" }), {
+    return withCORS(new NextResponse(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }

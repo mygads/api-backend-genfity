@@ -5,10 +5,15 @@ import { randomBytes } from 'crypto';
 import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
 import { sendVerificationEmail } from '@/lib/mailer';
 import { normalizePhoneNumber } from '@/lib/auth';
+import { withCORS, corsOptionsResponse } from "@/lib/cors";
 
 // Fungsi untuk menghasilkan OTP 6 digit
 function generateOTP() {
   return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+export async function OPTIONS() {
+  return corsOptionsResponse();
 }
 
 export async function POST(request: Request) {
@@ -16,18 +21,18 @@ export async function POST(request: Request) {
     const { email, phone, password, name } = await request.json();
 
     if (!name) {
-      return NextResponse.json({ message: 'Nama diperlukan' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'Nama diperlukan' }, { status: 400 }));
     }
     if (!email && !phone) {
-      return NextResponse.json({ message: 'Email atau Nomor WhatsApp diperlukan' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'Email atau Nomor WhatsApp diperlukan' }, { status: 400 }));
     }
 
     // Validasi format email dan telepon
     if (email && (!email.includes('@') || !email.includes('.'))) {
-      return NextResponse.json({ message: 'Format email tidak valid.' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'Format email tidak valid.' }, { status: 400 }));
     }
     if (phone && !/^(\\+?62|0)8[1-9][0-9]{6,10}$/.test(phone)) {
-        return NextResponse.json({ message: 'Format nomor WhatsApp tidak valid.' }, { status: 400 });
+        return withCORS(NextResponse.json({ message: 'Format nomor WhatsApp tidak valid.' }, { status: 400 }));
     }
 
     let normalizedPhone: string | undefined = undefined;
@@ -58,7 +63,7 @@ export async function POST(request: Request) {
             } else if (normalizedPhone && existingUser.phone === normalizedPhone) {
                 message = 'Nomor WhatsApp sudah terdaftar';
             }
-            return NextResponse.json({ message }, { status: 409 });
+            return withCORS(NextResponse.json({ message }, { status: 409 }));
         }
     }
     
@@ -83,7 +88,7 @@ export async function POST(request: Request) {
         // A temporary password will be generated and set after OTP verification.
     } else if (email) { // User is signing up with email only (no phone)
         if (!password) {
-            return NextResponse.json({ message: 'Password diperlukan jika mendaftar dengan email saja' }, { status: 400 });
+            return withCORS(NextResponse.json({ message: 'Password diperlukan jika mendaftar dengan email saja' }, { status: 400 }));
         }
         hashedPassword = await bcrypt.hash(password, 10);
         // Setup token verifikasi email
@@ -140,13 +145,15 @@ Please do not share this code with anyone. The code is valid for 60 minutes.`;
         nextStep = 'LOGIN';
     }
     
-    return NextResponse.json(
-        { 
-            message: responseMessage,
-            userId: newUser.id, // userId mungkin berguna untuk client
-            nextStep: nextStep 
-        },
-        { status: 201 }
+    return withCORS(
+        NextResponse.json(
+            { 
+                message: responseMessage,
+                userId: newUser.id, // userId mungkin berguna untuk client
+                nextStep: nextStep 
+            },
+            { status: 201 }
+        )
     );
 
   } catch (error) {
@@ -156,13 +163,13 @@ Please do not share this code with anyone. The code is valid for 60 minutes.`;
         // error.meta.target berisi field yang menyebabkan unique constraint violation
         const target = (error as any).meta?.target as string[] | undefined;
         if (target?.includes('email')) {
-            return NextResponse.json({ message: 'Email sudah terdaftar.' }, { status: 409 });
+            return withCORS(NextResponse.json({ message: 'Email sudah terdaftar.' }, { status: 409 }));
         }
         if (target?.includes('phone')) {
-            return NextResponse.json({ message: 'Nomor WhatsApp sudah terdaftar.' }, { status: 409 });
+            return withCORS(NextResponse.json({ message: 'Nomor WhatsApp sudah terdaftar.' }, { status: 409 }));
         }
-        return NextResponse.json({ message: 'Data unik sudah ada.' }, { status: 409 });
+        return withCORS(NextResponse.json({ message: 'Data unik sudah ada.' }, { status: 409 }));
     }
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return withCORS(NextResponse.json({ message: 'Internal server error' }, { status: 500 }));
   }
 }

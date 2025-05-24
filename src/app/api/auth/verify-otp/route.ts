@@ -5,6 +5,7 @@ import { authOptions } from '@/lib/auth'; // Updated import path
 import bcrypt from 'bcryptjs';
 import { randomBytes } from 'crypto';
 import { sendWhatsAppMessage } from '@/lib/whatsapp'; // Import baru
+import { withCORS, corsOptionsResponse } from "@/lib/cors";
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup)
 function normalizePhoneNumber(phone: string): string {
@@ -30,12 +31,16 @@ function generateRandomPassword(length: number = 8): string {
   return password;
 }
 
+export async function OPTIONS() {
+  return corsOptionsResponse();
+}
+
 export async function POST(request: Request) {
   try {
     const { identifier, otp } = await request.json();
 
     if (!identifier || !otp) {
-      return NextResponse.json({ message: 'Identifier (email/telepon) dan OTP diperlukan' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'Identifier (email/telepon) dan OTP diperlukan' }, { status: 400 }));
     }
 
     let user;
@@ -53,15 +58,15 @@ export async function POST(request: Request) {
     }
 
     if (!user) {
-      return NextResponse.json({ message: 'Pengguna tidak ditemukan' }, { status: 404 });
+      return withCORS(NextResponse.json({ message: 'Pengguna tidak ditemukan' }, { status: 404 }));
     }
 
     if (user.otp !== otp) {
-      return NextResponse.json({ message: 'OTP tidak valid' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'OTP tidak valid' }, { status: 400 }));
     }
 
     if (user.otpExpires && new Date(user.otpExpires) < new Date()) {
-      return NextResponse.json({ message: 'OTP sudah kedaluwarsa' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'OTP sudah kedaluwarsa' }, { status: 400 }));
     }
 
     // OTP valid
@@ -118,7 +123,7 @@ ${process.env.WEBSITE_URL}
     const secret = process.env.NEXTAUTH_SECRET;
     if (!secret) {
         console.error('NEXTAUTH_SECRET tidak diatur!');
-        return NextResponse.json({ message: 'Konfigurasi server error' }, { status: 500 });
+        return withCORS(NextResponse.json({ message: 'Konfigurasi server error' }, { status: 500 }));
     }
 
     // Persiapkan payload untuk callback jwt
@@ -183,10 +188,10 @@ ${process.env.WEBSITE_URL}
       maxAge: sessionMaxAge,
     });
 
-    return response;
+    return withCORS(response);
 
   } catch (error) {
     console.error('Verify OTP error:', error);
-    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+    return withCORS(NextResponse.json({ message: 'Internal server error' }, { status: 500 }));
   }
 }

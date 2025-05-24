@@ -1,20 +1,26 @@
 openapi: 3.0.0
 info:
-  title: User Authentication and Account API
-  version: 1.0.0
-  description: API for user sign-up, sign-in, email verification, password management, and session handling.
+  title: Genfity API - Authentication, Account, and Product Management
+  version: 1.1.0
+  description: |
+    API untuk manajemen user (sign up, sign in, session, verifikasi email/OTP, password), serta manajemen produk (kategori, subkategori, addon, paket) untuk platform Genfity. Mendukung login berbasis session/cookie (NextAuth.js) dan endpoint CRUD produk.
 
 servers:
-  - url: /api # Assuming your API routes are under /api
+  - url: api.genfity.com/api
 
 components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token
+
   schemas:
     User:
       type: object
       properties:
         id:
           type: string
-          # format: cuid # cuid is not a standard OpenAPI format, comment out or use 'uuid' if applicable
           description: Unique identifier for the user.
         name:
           type: string
@@ -45,13 +51,23 @@ components:
           nullable: true
           description: URL to the user's profile image.
 
+    Session:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        expires:
+          type: string
+          format: date-time
+          description: Session expiry timestamp.
+
     Error:
       type: object
       properties:
         message:
           type: string
           description: A human-readable error message.
-        details: # Optional, for more specific error info
+        details:
           type: string
           nullable: true
 
@@ -602,14 +618,8 @@ components:
             $ref: '#/components/schemas/FeatureInput' # id can be used to update existing, or omitted for new
           description: List of features to update/replace for the package.
 
-  securitySchemes:
-    cookieAuth: # For NextAuth.js session cookies
-      type: apiKey
-      in: cookie
-      name: next-auth.session-token # Or __Secure-next-auth.session-token for HTTPS
-
 security:
-  - cookieAuth: [] # Indicates that most authenticated routes use cookieAuth
+  - cookieAuth: []
 
 paths:
   /auth/signup:
@@ -642,11 +652,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /auth/signin: # NextAuth handles this, but for documentation purposes
+  /auth/signin:
     post:
-      summary: Sign in a user (Credentials Provider)
+      summary: Login user (NextAuth Credentials Provider)
       tags: [Authentication]
-      description: This endpoint is typically handled by NextAuth.js. The request body shown is for the credentials provider.
+      description: |
+        Endpoint login utama. Jika sukses, session cookie akan di-set otomatis oleh NextAuth.js. Untuk login via API, gunakan body sesuai schema.
       requestBody:
         required: true
         content:
@@ -658,7 +669,7 @@ paths:
           description: User signed in successfully. Session cookie is set.
           content:
             application/json:
-              schema: # Response might vary based on NextAuth config
+              schema:
                 type: object
                 properties:
                   url:
@@ -677,11 +688,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /auth/signout: # NextAuth handles this
-    post:
-      summary: Sign out a user
+  /auth/session:
+    get:
+      summary: Get current session (cek status login)
       tags: [Authentication]
-      description: This endpoint is typically handled by NextAuth.js. Clears the session cookie.
+      description: |
+        Endpoint untuk mendapatkan data session user yang sedang login. Jika tidak login, akan return 401.
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: Session information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '401':
+          description: Not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/signout:
+    post:
+      summary: Logout user (NextAuth)
+      tags: [Authentication]
+      description: Menghapus session login user.
       responses:
         '200':
           description: User signed out successfully.
@@ -694,42 +727,15 @@ paths:
                     type: string
                     description: Redirect URL after successful sign-out.
 
-  /auth/session: # NextAuth handles this
-    get:
-      summary: Get current session information
-      tags: [Authentication]
-      description: This endpoint is typically handled by NextAuth.js. Returns the current user session if authenticated.
-      security:
-        - cookieAuth: []
-      responses:
-        '200':
-          description: Session information.
-          content:
-            application/json:
-              schema: # Structure defined by NextAuth session callback
-                type: object
-                properties:
-                  user:
-                    $ref: '#/components/schemas/User'
-                  expires:
-                    type: string
-                    format: date-time
-        '401':
-          description: Not authenticated.
-          content:
-            application/json:
-              schema:
-                type: object # Empty object or specific error
-
   /auth/verify-email/{token}:
     get:
-      summary: Verify user's email address using token
+      summary: Verifikasi email user via token
       tags: [Account Management]
       parameters:
         - name: token
           in: path
           required: true
-          description: The email verification token sent to the user.
+          description: Token verifikasi email.
           schema:
             type: string
       responses:

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { withCORS, corsOptionsResponse } from "@/lib/cors";
 
 const addonSchema = z.object({
   name_en: z.string().min(1, "English name is required"),
@@ -15,26 +16,30 @@ const addonSchema = z.object({
   durationUnit: z.literal('day').default('day'),
 });
 
+export async function OPTIONS() {
+  return corsOptionsResponse();
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const validation = addonSchema.safeParse(body);
 
     if (!validation.success) {
-      return new NextResponse(JSON.stringify({ message: "Validation failed", errors: validation.error.flatten() }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Validation failed", errors: validation.error.flatten() }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId, duration, durationUnit } = validation.data;
 
     const category = await prisma.category.findUnique({ where: { id: categoryId } });
     if (!category) {
-      return new NextResponse(JSON.stringify({ message: "Category not found" }), {
+      return withCORS(new NextResponse(JSON.stringify({ message: "Category not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
 
     const existingAddon = await prisma.addon.findFirst({
@@ -46,13 +51,13 @@ export async function POST(request: Request) {
       },
     });
     if (existingAddon) {
-      return new NextResponse(
+      return withCORS(new NextResponse(
         JSON.stringify({ message: "Addon with this name already exists in this category" }),
         {
           status: 409,
           headers: { "Content-Type": "application/json" },
         }
-      );
+      ));
     }
 
     const addon = await prisma.addon.create({
@@ -69,13 +74,13 @@ export async function POST(request: Request) {
         durationUnit: 'day',
       },
     });
-    return NextResponse.json(addon, { status: 201 });
+    return withCORS(NextResponse.json(addon, { status: 201 }));
   } catch (error) {
     console.error("[ADDONS_POST]", error);
-    return new NextResponse(JSON.stringify({ message: "Internal server error" }), {
+    return withCORS(new NextResponse(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
@@ -96,12 +101,12 @@ export async function GET(request: Request) {
       duration: a.duration ?? 1,
       durationUnit: 'day',
     }));
-    return NextResponse.json(addonsWithDuration);
+    return withCORS(NextResponse.json(addonsWithDuration));
   } catch (error) {
     console.error("[ADDONS_GET]", error);
-    return new NextResponse(JSON.stringify({ message: "Internal server error" }), {
+    return withCORS(new NextResponse(JSON.stringify({ message: "Internal server error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }

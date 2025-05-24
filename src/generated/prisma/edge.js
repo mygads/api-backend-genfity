@@ -419,11 +419,12 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mysql://u736831235_admin_genfity:Genfity@2025@srv1151.hstgr.io:3306/u736831235_genfity"
+        "value": null
       }
     }
   },

@@ -18,6 +18,9 @@ export async function middleware(req: NextRequest) {
 
     // Handle API key protection for specific API routes
     if (apiKeyProtectedApiRoutes.includes(pathname)) {
+        if (req.method === "OPTIONS") {
+            return NextResponse.next(); // biarkan handler OPTIONS di route yang handle CORS
+        }
         if (!serverApiKey) {
             console.error('CRITICAL: API_ACCESS_KEY environment variable is not set.');
             return NextResponse.json({ message: 'Internal Server Error: API key not configured' }, { status: 500 });

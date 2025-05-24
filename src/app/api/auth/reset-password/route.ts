@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
+import { withCORS, corsOptionsResponse } from '@/lib/cors';
 
 // Fungsi untuk normalisasi nomor telepon (konsisten dengan signup dan verify-otp)
 function normalizePhoneNumber(phone: string): string {
@@ -15,16 +16,20 @@ function normalizePhoneNumber(phone: string): string {
     return '62' + phone.replace(/\D/g, '');
 }
 
+export async function OPTIONS() {
+  return corsOptionsResponse();
+}
+
 export async function POST(request: Request) {
   try {
     const { identifier, otp, newPassword } = await request.json();
 
     if (!identifier || !otp || !newPassword) {
-      return NextResponse.json({ message: 'Identifier (email/telepon), OTP, dan kata sandi baru diperlukan' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'Identifier (email/telepon), OTP, dan kata sandi baru diperlukan' }, { status: 400 }));
     }
 
     if (newPassword.length < 6) {
-        return NextResponse.json({ message: 'Kata sandi baru minimal 6 karakter' }, { status: 400 });
+        return withCORS(NextResponse.json({ message: 'Kata sandi baru minimal 6 karakter' }, { status: 400 }));
     }
 
     let user;
@@ -43,15 +48,15 @@ export async function POST(request: Request) {
     }
 
     if (!user) {
-      return NextResponse.json({ message: 'Pengguna tidak ditemukan' }, { status: 404 });
+      return withCORS(NextResponse.json({ message: 'Pengguna tidak ditemukan' }, { status: 404 }));
     }
 
     if (user.otp !== otp) {
-      return NextResponse.json({ message: 'OTP tidak valid' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'OTP tidak valid' }, { status: 400 }));
     }
 
     if (user.otpExpires && new Date(user.otpExpires) < new Date()) {
-      return NextResponse.json({ message: 'OTP sudah kedaluwarsa' }, { status: 400 });
+      return withCORS(NextResponse.json({ message: 'OTP sudah kedaluwarsa' }, { status: 400 }));
     }
 
     // OTP valid, update kata sandi dan hapus OTP
@@ -69,10 +74,10 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ message: 'Kata sandi berhasil direset.' }, { status: 200 });
+    return withCORS(NextResponse.json({ message: 'Kata sandi berhasil direset.' }, { status: 200 }));
 
   } catch (error) {
     console.error('Reset password error:', error);
-    return NextResponse.json({ message: 'Terjadi kesalahan internal' }, { status: 500 });
+    return withCORS(NextResponse.json({ message: 'Terjadi kesalahan internal' }, { status: 500 }));
   }
 }

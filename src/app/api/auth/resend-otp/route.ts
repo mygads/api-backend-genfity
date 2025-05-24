@@ -17,8 +17,8 @@ export async function POST(request: Request) {
     }
     // Batasi pengiriman ulang OTP: cek otpExpires
     if (user.otpExpires && new Date(user.otpExpires) > new Date(Date.now() - 59 * 1000)) {
-      // Kurang dari 1 menit sejak OTP terakhir
-      return NextResponse.json({ message: 'Anda hanya dapat mengirim ulang OTP setelah 1 menit.' }, { status: 429 });
+      // Kurang dari 59 detik sejak OTP terakhir
+      return NextResponse.json({ message: 'Anda hanya dapat mengirim ulang OTP setelah 60 detik.' }, { status: 429 });
     }
     // Generate OTP baru
     const otp = randomInt(1000, 9999).toString();
