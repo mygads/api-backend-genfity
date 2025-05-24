@@ -196,9 +196,7 @@ exports.Prisma.AddonScalarFieldEnum = {
   price_idr: 'price_idr',
   price_usd: 'price_usd',
   image: 'image',
-  categoryId: 'categoryId',
-  duration: 'duration',
-  durationUnit: 'durationUnit'
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.PackageScalarFieldEnum = {
@@ -213,9 +211,7 @@ exports.Prisma.PackageScalarFieldEnum = {
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',
   popular: 'popular',
-  bgColor: 'bgColor',
-  duration: 'duration',
-  durationUnit: 'durationUnit'
+  bgColor: 'bgColor'
 };
 
 exports.Prisma.WhatsAppSessionScalarFieldEnum = {
@@ -361,8 +357,7 @@ exports.Prisma.AddonOrderByRelevanceFieldEnum = {
   description_en: 'description_en',
   description_id: 'description_id',
   image: 'image',
-  categoryId: 'categoryId',
-  durationUnit: 'durationUnit'
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.PackageOrderByRelevanceFieldEnum = {
@@ -374,8 +369,7 @@ exports.Prisma.PackageOrderByRelevanceFieldEnum = {
   image: 'image',
   categoryId: 'categoryId',
   subcategoryId: 'subcategoryId',
-  bgColor: 'bgColor',
-  durationUnit: 'durationUnit'
+  bgColor: 'bgColor'
 };
 
 exports.Prisma.JsonNullValueFilter = {

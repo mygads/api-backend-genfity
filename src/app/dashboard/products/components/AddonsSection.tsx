@@ -67,7 +67,6 @@ const AddonsSection: React.FC = () => {
     setError(null);
     setIsAddonModalOpen(true);
   };
-
   const openEditAddonModal = (addon: Addon) => {
     setEditingAddon(addon);
     setAddonFormData({
@@ -79,7 +78,6 @@ const AddonsSection: React.FC = () => {
       price_usd: addon.price_usd.toString(),
       categoryId: addon.categoryId,
       image: addon.image || undefined,
-      duration: (addon.duration !== undefined && addon.duration !== null) ? addon.duration.toString() : '',
     });
     setSelectedImageFile(null);
     setImagePreview(addon.image || null);
@@ -159,13 +157,10 @@ const AddonsSection: React.FC = () => {
     const dataToSave: any = {
       name_en: addonFormData.name_en,
       name_id: addonFormData.name_id,
-      description_en: addonFormData.description_en,
-      description_id: addonFormData.description_id,
+      description_en: addonFormData.description_en,      description_id: addonFormData.description_id,
       price_idr: parseFloat(addonFormData.price_idr),
       price_usd: parseFloat(addonFormData.price_usd),
       categoryId: addonFormData.categoryId,
-      duration: addonFormData.duration ? parseInt(addonFormData.duration) : "",
-      durationUnit: 'day',
     };
     if (imageUrl) dataToSave.image = imageUrl;
     const apiUrl = editingAddon ? `/api/product/addons/${editingAddon.id}` : '/api/product/addons';
@@ -274,15 +269,7 @@ const AddonsSection: React.FC = () => {
                   )}
                   <div>
                     <div className="font-medium text-gray-700 dark:text-gray-200">{addon.name_en}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>
-                    {addon.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description_en}</div>}
-                  </div>
-                  <div>
-                    {addon.duration && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        Duration: {addon.duration} {addon.durationUnit}
-                      </span>
-                    )}
+                    <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName}</div>                    {addon.description_id && <div className="text-xs text-gray-400 dark:text-gray-500">{addon.description_en}</div>}
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">

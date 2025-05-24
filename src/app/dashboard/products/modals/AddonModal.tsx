@@ -67,15 +67,9 @@ const AddonModal: React.FC<AddonModalProps> = ({
                 <Label htmlFor="addonPriceIdr" className="text-left">Price (IDR)</Label>
                 <Input id="addonPriceIdr" name="price_idr" type="number" value={formData.price_idr} onChange={onFormChange} className="col-span-3" placeholder="e.g., 10000" />
                 </div>
-                {/* Price USD */}
-                <div className="grid grid-cols-4 items-center gap-4">
+                {/* Price USD */}                <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="addonPriceUsd" className="text-left">Price (USD)</Label>
                 <Input id="addonPriceUsd" name="price_usd" type="number" value={formData.price_usd} onChange={onFormChange} className="col-span-3" placeholder="e.g., 2.50" />
-                </div>
-                {/* Duration (days) */}
-                <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="addonDuration" className="text-left">Duration (days, optional)</Label>
-                <Input id="addonDuration" name="duration" type="number" value={formData.duration || ''} onChange={onFormChange} className="col-span-3" placeholder="e.g., 30" />
                 </div>
                 {/* Category */}
                 <div className="grid grid-cols-4 items-center gap-4">

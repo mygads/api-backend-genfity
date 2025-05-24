@@ -15,8 +15,6 @@ const addonSchemaBase = z.object({
   price_usd: z.number().positive("Price (USD) must be a positive number").optional(),
   image: z.string().url("Image must be a valid URL").optional(),
   categoryId: z.string().cuid("Invalid Category ID").optional(),
-  duration: z.number().int().positive().optional(),
-  durationUnit: z.literal('day').optional(),
 });
 
 export async function OPTIONS() {
@@ -82,7 +80,7 @@ export async function PUT(
         headers: { "Content-Type": "application/json" },
       }));
     }    // Ambil semua field dari validation.data
-    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId, duration, durationUnit } = validation.data as any;
+    const { name_en, name_id, description_en, description_id, price_idr, price_usd, image, categoryId } = validation.data as any;
 
     if (Object.keys(validation.data).length === 0) {
         return withCORS(new NextResponse(JSON.stringify({ message: "No fields to update" }), {
@@ -161,8 +159,6 @@ export async function PUT(
     if (price_usd !== undefined) updateData.price_usd = price_usd;
     if (image !== undefined) updateData.image = image;
     if (categoryId !== undefined) updateData.categoryId = categoryId;
-    if (duration !== undefined) updateData.duration = duration;
-    if (durationUnit !== undefined) updateData.durationUnit = durationUnit;
 
     const updatedAddon = await prisma.addon.update({
       where: { id: addonId },

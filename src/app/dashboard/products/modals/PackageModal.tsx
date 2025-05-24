@@ -77,17 +77,11 @@ const PackageModal: React.FC<PackageModalProps> = ({
         {/* Price IDR */}
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="packagePriceIdr" className="text-left">Price (IDR)</Label>
-          <Input id="packagePriceIdr" name="price_idr" type="number" value={formData.price_idr} onChange={onFormChange} className="col-span-3" placeholder="e.g., 100000" />
-        </div>
+          <Input id="packagePriceIdr" name="price_idr" type="number" value={formData.price_idr} onChange={onFormChange} className="col-span-3" placeholder="e.g., 100000" />        </div>
         {/* Price USD */}
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="packagePriceUsd" className="text-left">Price (USD)</Label>
           <Input id="packagePriceUsd" name="price_usd" type="number" value={formData.price_usd} onChange={onFormChange} className="col-span-3" placeholder="e.g., 10" />
-        </div>
-        {/* Duration (days) */}
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="packageDuration" className="text-left">Duration (days, optional)</Label>
-          <Input id="packageDuration" name="duration" type="number" min="1" value={formData.duration || ''} onChange={onFormChange} className="col-span-3" placeholder="e.g., 30" />
         </div>
         {/* Category */}
         <div className="grid grid-cols-4 items-center gap-4">

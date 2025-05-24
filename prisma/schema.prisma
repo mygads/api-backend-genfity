@@ -120,8 +120,6 @@ model Addon {
   image          String?  @db.Text
   categoryId     String
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  duration       Int      // dalam hari, misal 30 untuk bulanan, 365 untuk tahunan
-  durationUnit   String   // "day", "month", "year"
   transactions   Transaction[]
 
   @@unique([categoryId, name_en])
@@ -145,8 +143,6 @@ model Package {
   popular         Boolean?
   bgColor         String?
   features        Feature[]
-  duration        Int      // dalam hari, misal 30 untuk bulanan, 365 untuk tahunan
-  durationUnit    String  // "day", "month", "year"
   transactions    Transaction[]
 
   @@index([categoryId])

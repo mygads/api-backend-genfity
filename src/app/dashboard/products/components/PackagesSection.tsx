@@ -11,8 +11,7 @@ const PackagesSection: React.FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);
-  const [packageFormData, setPackageFormData] = useState<PackageFormData>({
+  const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);  const [packageFormData, setPackageFormData] = useState<PackageFormData>({
     name_en: '',
     name_id: '',
     description_en: '',
@@ -26,7 +25,6 @@ const PackagesSection: React.FC = () => {
     features: [],
     image: undefined,
     addonIds: [],
-    duration: '', // default string agar konsisten dengan input
   });
   const [editingPackage, setEditingPackage] = useState<Package | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
@@ -62,7 +60,6 @@ const PackagesSection: React.FC = () => {
   useEffect(() => {
     fetchAll();
   }, []);
-
   const openCreatePackageModal = () => {
     setPackageFormData({
       name_en: '',
@@ -78,7 +75,6 @@ const PackagesSection: React.FC = () => {
       features: [],
       image: undefined,
       addonIds: [],
-      duration: '', // default string agar konsisten dengan input
     });
     setSelectedImageFile(null);
     setImagePreview(null);
@@ -104,10 +100,8 @@ const PackagesSection: React.FC = () => {
       subcategoryId: pkg.subcategoryId,
       image: pkg.image || undefined,
       popular: pkg.popular || false,
-      bgColor: pkg.bgColor || '#FFFFFF',
-      features: pkg.features.map(f => ({ id: f.id, name_en: f.name_en, name_id: f.name_id, included: f.included })),
+      bgColor: pkg.bgColor || '#FFFFFF',      features: pkg.features.map(f => ({ id: f.id, name_en: f.name_en, name_id: f.name_id, included: f.included })),
       addonIds: pkg.addons ? pkg.addons.map(a => a.id) : [],
-      duration: (pkg.duration !== undefined && pkg.duration !== null) ? pkg.duration.toString() : '',
     });
     setSelectedImageFile(null);
     setImagePreview(pkg.image || null);
@@ -253,13 +247,10 @@ const PackagesSection: React.FC = () => {
       price_usd: parseFloat(packageFormData.price_usd),
       image: imageUrl,
       features: packageFormData.features.map(f => ({
-        id: f.id?.startsWith('temp-') ? undefined : f.id,
-        name_en: f.name_en,
+        id: f.id?.startsWith('temp-') ? undefined : f.id,        name_en: f.name_en,
         name_id: f.name_id,
         included: f.included,
       })),
-      duration: packageFormData.duration ? parseInt(packageFormData.duration) : '',
-      durationUnit: 'day',
     };
     try {
       const response = await fetch(url, {
@@ -349,12 +340,8 @@ const PackagesSection: React.FC = () => {
                   <div>
                     <div className="font-medium text-gray-700 dark:text-gray-200">{pkg.name_en}</div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">{categoryName} / {subcategoryName}</div>
-                    {pkg.description_en && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description_en}</div>}
-                  </div>
+                    {pkg.description_en && <div className="text-xs text-gray-400 dark:text-gray-500">{pkg.description_en}</div>}                  </div>
                   {pkg.popular && <div className="px-2 py-1 text-xs font-semibold text-white bg-indigo-600 rounded-full">Popular</div>}
-                  <div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Duration: {pkg.duration} days</div>
-                  </div>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-sm font-semibold text-green-700 dark:text-green-400">

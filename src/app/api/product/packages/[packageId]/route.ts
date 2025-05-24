@@ -24,8 +24,6 @@ const packageUpdateSchema = z.object({
   popular: z.boolean().optional(),
   bgColor: z.string().optional().nullable(),
   features: z.array(featureSchema).optional(),
-  duration: z.number().int().positive().optional(),
-  durationUnit: z.literal('day').optional(),
 });
 
 export async function GET(
