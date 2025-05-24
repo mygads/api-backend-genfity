@@ -3,8 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const categorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  icon: z.string().min(1, "Icon is required"),
+  name_en: z.string().min(1, "English name is required"),
+  name_id: z.string().min(1, "Indonesian name is required"),
+  icon: z.string().url("Icon must be a valid URL"),
 });
 
 export async function GET(
@@ -69,13 +70,11 @@ export async function PUT(
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
-    }
-
-    const { name, icon } = validation.data;
+    }    const { name_en, name_id, icon } = validation.data;
 
     const existingCategoryWithName = await prisma.category.findFirst({
       where: {
-        name_en: name, // Changed from name to name_en
+        name_en: name_en,
         id: { not: categoryId },
       },
     });
@@ -85,13 +84,11 @@ export async function PUT(
         status: 409,
         headers: { "Content-Type": "application/json" },
       });
-    }
-
-    const updatedCategory = await prisma.category.update({
+    }    const updatedCategory = await prisma.category.update({
       where: { id: categoryId },
       data: {
-        name_en: name, // Changed from name to name_en
-        name_id: name, // Added name_id
+        name_en: name_en,
+        name_id: name_id,
         icon,
       },
     });

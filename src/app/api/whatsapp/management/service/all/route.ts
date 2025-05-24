@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET /api/whatsapp-api/service/all
+// GET /api/whatsapp/management/service/all
 export async function GET() {
   try {
     const services = await prisma.whatsappApiService.findMany({

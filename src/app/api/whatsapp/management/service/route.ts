@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// GET /api/whatsapp-api/service?userId=...
+// GET /api/whatsapp/management/service?userId=...
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url!);
   const userId = searchParams.get('userId');

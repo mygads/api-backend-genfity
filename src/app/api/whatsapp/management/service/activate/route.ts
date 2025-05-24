@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { addMonths, addYears } from 'date-fns';
 
-// POST /api/whatsapp-api/service/activate
+// POST /api/whatsapp/management/service/activate
 export async function POST(req: Request) {
   try {
     const body = await req.json();

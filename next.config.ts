@@ -20,12 +20,17 @@ const nextConfig: NextConfig = {
         hostname: 'cdn-icons-png.flaticon.com',
         port: '',
         pathname: '/**',
-      },
-      {
+      },      {
         protocol: 'https',
         hostname: 'api.ozwaretech.com',
         port: '',
         pathname: '/product-images/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+        port: '',
+        pathname: '/**',
       },
 
       // Add other trusted hostnames here as needed

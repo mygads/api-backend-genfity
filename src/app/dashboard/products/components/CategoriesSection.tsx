@@ -57,17 +57,32 @@ const CategoriesSection: React.FC = () => {
     setError(null);
     setIsCategoryModalOpen(true);
   };
-
   const handleCategoryFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCategoryFormData(prev => ({ ...prev, [name]: value }));
   };
+  const handleImageUpload = async (file: File) => {
+    try {
+      const response = await fetch(`/api/product/categories/upload?filename=${file.name}`, {
+        method: 'POST',
+        body: file,
+      });
 
-  const handleSaveCategory = async () => {
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+
+      const result = await response.json();
+      setCategoryFormData(prev => ({ ...prev, icon: result.url }));
+    } catch (error) {
+      console.error('Upload error:', error);
+      throw error;
+    }
+  };const handleSaveCategory = async () => {
     setIsLoading(true);
     setError(null);
-    if (!categoryFormData.name_en.trim() || !categoryFormData.name_id.trim()) {
-      setError('Both English and Indonesian names are required.');
+    if (!categoryFormData.name_en.trim() || !categoryFormData.name_id.trim() || !categoryFormData.icon?.trim()) {
+      setError('All fields including icon are required.');
       setIsLoading(false);
       return;
     }
@@ -151,8 +166,7 @@ const CategoriesSection: React.FC = () => {
             </li>
           ))}
         </ul>
-      )}
-      <CategoryModal
+      )}      <CategoryModal
         open={isCategoryModalOpen}
         onOpenChange={setIsCategoryModalOpen}
         formData={categoryFormData}
@@ -161,6 +175,7 @@ const CategoriesSection: React.FC = () => {
         error={error}
         editingCategory={editingCategory}
         onSave={handleSaveCategory}
+        onImageUpload={handleImageUpload}
       />
     </div>
   );

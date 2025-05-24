@@ -206,28 +206,39 @@ const PackagesSection: React.FC = () => {
       setError('At least one feature is required for a package.');
       setIsLoading(false);
       return;
-    }
-    if (packageFormData.features.some(f => !f.name_en.trim() || !f.name_id.trim())) {
+    }    if (packageFormData.features.some(f => !f.name_en.trim() || !f.name_id.trim())) {
       setError('All features must have a name in both languages.');
       setIsLoading(false);
       return;
     }
+    
+    // Enforce mandatory image for new packages
+    if (!editingPackage && !selectedImageFile) {
+      setError('Image is required for new packages.');
+      setIsLoading(false);
+      return;
+    }
+    
+    // For existing packages, require image if not already present
+    if (editingPackage && !editingPackage.image && !selectedImageFile) {
+      setError('Image is required for this package.');
+      setIsLoading(false);
+      return;
+    }
+
     let imageUrl = editingPackage?.image || undefined;
     if (selectedImageFile) {
       try {
-        const imageFormData = new FormData();
-        imageFormData.append('file', selectedImageFile);
-        const uploadResponse = await fetch('/api/product/images/upload', {
+        const response = await fetch(`/api/product/packages/upload?filename=${selectedImageFile.name}`, {
           method: 'POST',
-          body: imageFormData,
+          body: selectedImageFile,
         });
-        if (!uploadResponse.ok) {
-          const errorData = await uploadResponse.json();
-          throw new Error(errorData.message || 'Failed to upload image');
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to upload image');
         }
-        const uploadResult = await uploadResponse.json();
-        const absoluteUrl = `${window.location.origin}${uploadResult.filePath}`;
-        imageUrl = absoluteUrl;
+        const result = await response.json();
+        imageUrl = result.url;
       } catch (err: any) {
         setError(`Image upload failed: ${err.message}`);
         setIsLoading(false);

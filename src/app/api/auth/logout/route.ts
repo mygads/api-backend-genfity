@@ -29,9 +29,5 @@ export async function POST(request: Request) {
 
   // Masukkan token ke blacklist
   tokenBlacklist.add(token);
-
   return withCORS(NextResponse.json({ message: "Logout berhasil. Token di-blacklist di server." }, { status: 200 }));
 }
-
-// Export untuk testing/akses blacklist (opsional, hapus di production)
-export { tokenBlacklist };

@@ -106,7 +106,6 @@ const AddonsSection: React.FC = () => {
       setImagePreview(editingAddon?.image || null);
     }
   };
-
   const handleSaveAddon = async () => {
     setIsLoading(true);
     setError(null);
@@ -123,22 +122,34 @@ const AddonsSection: React.FC = () => {
       setIsLoading(false);
       return;
     }
+    
+    // Enforce mandatory image for new addons
+    if (!editingAddon && !selectedImageFile) {
+      setError('Image is required for new addons.');
+      setIsLoading(false);
+      return;
+    }
+    
+    // For existing addons, require image if not already present
+    if (editingAddon && !editingAddon.image && !selectedImageFile) {
+      setError('Image is required for this addon.');
+      setIsLoading(false);
+      return;
+    }
+
     let imageUrl = editingAddon?.image;
     if (selectedImageFile) {
       try {
-        const formData = new FormData();
-        formData.append('file', selectedImageFile);
-        const res = await fetch('/api/product/images/upload', {
+        const response = await fetch(`/api/product/addons/upload?filename=${selectedImageFile.name}`, {
           method: 'POST',
-          body: formData,
+          body: selectedImageFile,
         });
-        if (!res.ok) {
-          const errorData = await res.json();
-          throw new Error(errorData.message || 'Image upload failed');
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Image upload failed');
         }
-        const imageData = await res.json();
-        const absoluteUrl = `${window.location.origin}${imageData.filePath}`;
-        imageUrl = absoluteUrl;
+        const result = await response.json();
+        imageUrl = result.url;
       } catch (uploadError: any) {
         setError(`Image upload failed: ${uploadError.message}`);
         setIsLoading(false);

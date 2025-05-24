@@ -34,10 +34,8 @@ export async function middleware(req: NextRequest) {
     }
 
     // Ambil token hanya sekali di awal
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-
-    // Proteksi admin untuk semua API produk (selain GET/public)
-    if (pathname.startsWith('/api/product') || pathname.startsWith('/api/products')) {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });    // Proteksi admin untuk semua API produk (selain GET/public)
+    if (pathname.startsWith('/api/product')) {
         // Hanya batasi method selain GET (POST, PUT, PATCH, DELETE, dsb)
         if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
             if (!token || token.role !== 'admin') {

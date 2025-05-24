@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import { withCORS, corsOptionsResponse } from "@/lib/cors";
+import { withCORS, corsOptionsResponse } from "../../../lib/cors";
+import { prisma } from "../../../lib/prisma";
 
 const categorySchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  icon: z.string().min(1, "Icon is required"),
+  name_en: z.string().min(1, "English name is required"),
+  name_id: z.string().min(1, "Indonesian name is required"), 
+  icon: z.string().url("Icon must be a valid URL"),
 });
 
 export async function OPTIONS() {
@@ -22,12 +23,10 @@ export async function POST(request: Request) {
         status: 400,
         headers: { "Content-Type": "application/json" },
       }));
-    }
-
-    const { name, icon } = validation.data;
+    }    const { name_en, name_id, icon } = validation.data;
 
     const existingCategory = await prisma.category.findFirst({
-      where: { name_en: name },
+      where: { name_en: name_en },
     });
 
     if (existingCategory) {
@@ -39,8 +38,8 @@ export async function POST(request: Request) {
 
     const category = await prisma.category.create({
       data: {
-        name_en: name,
-        name_id: name,
+        name_en: name_en,
+        name_id: name_id,
         icon,
       },
     });

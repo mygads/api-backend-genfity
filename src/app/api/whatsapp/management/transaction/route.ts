@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// POST /api/whatsapp-api/transaction
+// POST /api/whatsapp/management/transaction
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -31,11 +31,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, data: trx });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error?.toString() });
-  }
+    return NextResponse.json({ success: false, error: error?.toString() });  }
 }
 
-// GET /api/whatsapp-api/transaction?userId=... (optional for admin)
+// GET /api/whatsapp/management/transaction?userId=... (optional for admin)
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url!);
   const userId = searchParams.get('userId');

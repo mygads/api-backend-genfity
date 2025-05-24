@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '../../../../../lib/prisma';
 
 // PATCH /api/whatsapp-api/service/[id] (update expiredAt)
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const body = await request.json();
   const { expiredAt } = body;
   if (!expiredAt) {
@@ -21,8 +21,8 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 }
 
 // DELETE /api/whatsapp-api/service/[id]
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   try {
     await prisma.whatsappApiService.delete({ where: { id } });
     return NextResponse.json({ success: true });

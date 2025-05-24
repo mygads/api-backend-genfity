@@ -24,6 +24,7 @@
     "@radix-ui/react-tabs": "^1.1.11",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/qrcode": "^1.5.5",
+    "@vercel/blob": "^1.1.1",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
