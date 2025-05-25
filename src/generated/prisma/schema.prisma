@@ -155,6 +155,7 @@ model WhatsAppSession {
   userId         String
   status         String
   qr             String?
+  message        String?
   isNotification Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

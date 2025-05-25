@@ -11341,6 +11341,7 @@ export namespace Prisma {
     userId: string | null
     status: string | null
     qr: string | null
+    message: string | null
     isNotification: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11352,6 +11353,7 @@ export namespace Prisma {
     userId: string | null
     status: string | null
     qr: string | null
+    message: string | null
     isNotification: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -11363,6 +11365,7 @@ export namespace Prisma {
     userId: number
     status: number
     qr: number
+    message: number
     isNotification: number
     createdAt: number
     updatedAt: number
@@ -11377,6 +11380,7 @@ export namespace Prisma {
     userId?: true
     status?: true
     qr?: true
+    message?: true
     isNotification?: true
     createdAt?: true
     updatedAt?: true
@@ -11388,6 +11392,7 @@ export namespace Prisma {
     userId?: true
     status?: true
     qr?: true
+    message?: true
     isNotification?: true
     createdAt?: true
     updatedAt?: true
@@ -11399,6 +11404,7 @@ export namespace Prisma {
     userId?: true
     status?: true
     qr?: true
+    message?: true
     isNotification?: true
     createdAt?: true
     updatedAt?: true
@@ -11484,6 +11490,7 @@ export namespace Prisma {
     userId: string
     status: string
     qr: string | null
+    message: string | null
     isNotification: boolean
     createdAt: Date
     updatedAt: Date
@@ -11513,6 +11520,7 @@ export namespace Prisma {
     userId?: boolean
     status?: boolean
     qr?: boolean
+    message?: boolean
     isNotification?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -11528,13 +11536,14 @@ export namespace Prisma {
     userId?: boolean
     status?: boolean
     qr?: boolean
+    message?: boolean
     isNotification?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     aiConfig?: boolean
   }
 
-  export type WhatsAppSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "userId" | "status" | "qr" | "isNotification" | "createdAt" | "updatedAt" | "aiConfig", ExtArgs["result"]["whatsAppSession"]>
+  export type WhatsAppSessionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sessionId" | "userId" | "status" | "qr" | "message" | "isNotification" | "createdAt" | "updatedAt" | "aiConfig", ExtArgs["result"]["whatsAppSession"]>
   export type WhatsAppSessionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -11550,6 +11559,7 @@ export namespace Prisma {
       userId: string
       status: string
       qr: string | null
+      message: string | null
       isNotification: boolean
       createdAt: Date
       updatedAt: Date
@@ -11929,6 +11939,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"WhatsAppSession", 'String'>
     readonly status: FieldRef<"WhatsAppSession", 'String'>
     readonly qr: FieldRef<"WhatsAppSession", 'String'>
+    readonly message: FieldRef<"WhatsAppSession", 'String'>
     readonly isNotification: FieldRef<"WhatsAppSession", 'Boolean'>
     readonly createdAt: FieldRef<"WhatsAppSession", 'DateTime'>
     readonly updatedAt: FieldRef<"WhatsAppSession", 'DateTime'>
@@ -17461,6 +17472,7 @@ export namespace Prisma {
     userId: 'userId',
     status: 'status',
     qr: 'qr',
+    message: 'message',
     isNotification: 'isNotification',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -17689,7 +17701,8 @@ export namespace Prisma {
     sessionId: 'sessionId',
     userId: 'userId',
     status: 'status',
-    qr: 'qr'
+    qr: 'qr',
+    message: 'message'
   };
 
   export type WhatsAppSessionOrderByRelevanceFieldEnum = (typeof WhatsAppSessionOrderByRelevanceFieldEnum)[keyof typeof WhatsAppSessionOrderByRelevanceFieldEnum]
@@ -18479,6 +18492,7 @@ export namespace Prisma {
     userId?: StringFilter<"WhatsAppSession"> | string
     status?: StringFilter<"WhatsAppSession"> | string
     qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    message?: StringNullableFilter<"WhatsAppSession"> | string | null
     isNotification?: BoolFilter<"WhatsAppSession"> | boolean
     createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
     updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
@@ -18492,6 +18506,7 @@ export namespace Prisma {
     userId?: SortOrder
     status?: SortOrder
     qr?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
     isNotification?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18509,6 +18524,7 @@ export namespace Prisma {
     userId?: StringFilter<"WhatsAppSession"> | string
     status?: StringFilter<"WhatsAppSession"> | string
     qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    message?: StringNullableFilter<"WhatsAppSession"> | string | null
     isNotification?: BoolFilter<"WhatsAppSession"> | boolean
     createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
     updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
@@ -18522,6 +18538,7 @@ export namespace Prisma {
     userId?: SortOrder
     status?: SortOrder
     qr?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
     isNotification?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18540,6 +18557,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"WhatsAppSession"> | string
     status?: StringWithAggregatesFilter<"WhatsAppSession"> | string
     qr?: StringNullableWithAggregatesFilter<"WhatsAppSession"> | string | null
+    message?: StringNullableWithAggregatesFilter<"WhatsAppSession"> | string | null
     isNotification?: BoolWithAggregatesFilter<"WhatsAppSession"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"WhatsAppSession"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WhatsAppSession"> | Date | string
@@ -19613,6 +19631,7 @@ export namespace Prisma {
     sessionId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19626,6 +19645,7 @@ export namespace Prisma {
     userId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19637,6 +19657,7 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19650,6 +19671,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19662,6 +19684,7 @@ export namespace Prisma {
     userId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19673,6 +19696,7 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19685,6 +19709,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20802,6 +20827,7 @@ export namespace Prisma {
     userId?: SortOrder
     status?: SortOrder
     qr?: SortOrder
+    message?: SortOrder
     isNotification?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20814,6 +20840,7 @@ export namespace Prisma {
     userId?: SortOrder
     status?: SortOrder
     qr?: SortOrder
+    message?: SortOrder
     isNotification?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20825,6 +20852,7 @@ export namespace Prisma {
     userId?: SortOrder
     status?: SortOrder
     qr?: SortOrder
+    message?: SortOrder
     isNotification?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -22392,6 +22420,7 @@ export namespace Prisma {
     sessionId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22403,6 +22432,7 @@ export namespace Prisma {
     sessionId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22592,6 +22622,7 @@ export namespace Prisma {
     userId?: StringFilter<"WhatsAppSession"> | string
     status?: StringFilter<"WhatsAppSession"> | string
     qr?: StringNullableFilter<"WhatsAppSession"> | string | null
+    message?: StringNullableFilter<"WhatsAppSession"> | string | null
     isNotification?: BoolFilter<"WhatsAppSession"> | boolean
     createdAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
     updatedAt?: DateTimeFilter<"WhatsAppSession"> | Date | string
@@ -24491,6 +24522,7 @@ export namespace Prisma {
     sessionId: string
     status: string
     qr?: string | null
+    message?: string | null
     isNotification?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24590,6 +24622,7 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24601,6 +24634,7 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24612,6 +24646,7 @@ export namespace Prisma {
     sessionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     qr?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     isNotification?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

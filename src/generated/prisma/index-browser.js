@@ -220,6 +220,7 @@ exports.Prisma.WhatsAppSessionScalarFieldEnum = {
   userId: 'userId',
   status: 'status',
   qr: 'qr',
+  message: 'message',
   isNotification: 'isNotification',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -388,7 +389,8 @@ exports.Prisma.WhatsAppSessionOrderByRelevanceFieldEnum = {
   sessionId: 'sessionId',
   userId: 'userId',
   status: 'status',
-  qr: 'qr'
+  qr: 'qr',
+  message: 'message'
 };
 
 exports.Prisma.TransactionOrderByRelevanceFieldEnum = {

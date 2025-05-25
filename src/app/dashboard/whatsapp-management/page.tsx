@@ -1,6 +1,6 @@
 // WhatsApp Management Page
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,6 +16,14 @@ interface Session {
   status?: string | null;
   message?: string | null;
   qr?: string | null;
+  userId?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  isConnected?: boolean;
+  needsQR?: boolean;
+  isLoading?: boolean;
+  hasError?: boolean;
+  qrImage?: string;
 }
 
 export default function WhatsAppManagementPage() {
@@ -29,12 +37,53 @@ export default function WhatsAppManagementPage() {
   const [qrImage, setQrImage] = useState<string | null>(null);
   const [qrSessionId, setQrSessionId] = useState<string | null>(null);
   const [showQrModal, setShowQrModal] = useState(false);
+  const [realTimeUpdates, setRealTimeUpdates] = useState(true);
+  const [sessionStats, setSessionStats] = useState({
+    total: 0,
+    connected: 0,
+    disconnected: 0,
+    needsQR: 0,
+    loading: 0,
+    error: 0
+  });  // New function to fetch real-time session data using webhook endpoints
+  const fetchRealtimeSessions = useCallback(async () => {
+    try {
+      const res = await fetch('/api/whatsapp/session/list-realtime');
+      const data = await res.json();
+      
+      if (data.success) {
+        setSessions(data.data || []);
+        setSessionStats(data.summary || {
+          total: 0,
+          connected: 0,
+          disconnected: 0,
+          needsQR: 0,
+          loading: 0,
+          error: 0
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch real-time sessions:', error);
+      // Fallback to old endpoint if real-time fails
+      fetchSessions();
+    }
+  }, []);
 
   useEffect(() => {
     // Ambil session utama dari .env (dari public env agar bisa diakses FE)
     setRootSessionId(process.env.NEXT_PUBLIC_WHATSAPP_SESSION_ID || null);
     fetchSessions();
-  }, []);
+
+    // Set up real-time updates using the new webhook endpoints
+    let interval: NodeJS.Timeout | null = null;
+    if (realTimeUpdates) {
+      interval = setInterval(fetchRealtimeSessions, 3000); // Poll every 3 seconds
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [realTimeUpdates, fetchRealtimeSessions]);
 
   async function fetchSessions() {
     setLoading(true);
@@ -66,14 +115,28 @@ export default function WhatsAppManagementPage() {
     await fetch(`/api/whatsapp/session/terminate/${sessionId}`, { method: 'POST' });
     fetchSessions();
   }
-
   async function handleViewQr(sessionId: string) {
     setQrImage(null);
     setQrSessionId(sessionId);
     setShowQrModal(true);
-    const res = await fetch(`/api/whatsapp/session/qr/${sessionId}`, { method: 'POST' });
-    const data = await res.json();
-    if (data.qrImage) setQrImage(data.qrImage);
+    
+    try {
+      // Use the new webhook session status endpoint that includes QR image generation
+      const res = await fetch(`/api/whatsapp/session/status/${sessionId}`);
+      const data = await res.json();
+      
+      if (data.success && data.data.qrImage) {
+        setQrImage(data.data.qrImage);
+      } else {
+        // Fallback to old endpoint if new one doesn't work
+        const oldRes = await fetch(`/api/whatsapp/session/qr/${sessionId}`, { method: 'POST' });
+        const oldData = await oldRes.json();
+        if (oldData.qrImage) setQrImage(oldData.qrImage);
+      }
+    } catch (error) {
+      console.error('Failed to fetch QR code:', error);
+    }
+    
     fetchSessions();
   }
 
@@ -110,16 +173,14 @@ export default function WhatsAppManagementPage() {
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           Create, monitor, and manage WhatsApp API sessions for seamless communication
         </p>
-      </div>
-
-      {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      </div>      {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg dark:shadow-gray-900/20 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Total Sessions</p>
-                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{sessions.length}</p>
+                  <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{sessionStats.total || sessions.length}</p>
                 </div>
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
                   <Activity className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -134,7 +195,7 @@ export default function WhatsAppManagementPage() {
                 <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Connected</p>
                   <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                    {sessions.filter(s => s.status === 'session_connected').length}
+                    {sessionStats.connected || sessions.filter(s => s.isConnected || s.status === 'session_connected').length}
                   </p>
                 </div>
                 <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-full">
@@ -148,9 +209,25 @@ export default function WhatsAppManagementPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Needs QR</p>
+                  <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                    {sessionStats.needsQR || sessions.filter(s => s.needsQR || s.status === 'qr_generated').length}
+                  </p>
+                </div>
+                <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-full">
+                  <Code className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg dark:shadow-gray-900/20 hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
                   <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Disconnected</p>
                   <p className="text-2xl font-bold text-red-600 dark:text-red-400">
-                    {sessions.filter(s => s.status === 'session_not_connected' || s.status === 'terminated').length}
+                    {sessionStats.disconnected || sessions.filter(s => s.status === 'session_not_connected' || s.status === 'terminated').length}
                   </p>
                 </div>
                 <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-full">
@@ -159,7 +236,7 @@ export default function WhatsAppManagementPage() {
               </div>
             </CardContent>
           </Card>
-        </div>        {/* Main Management Card */}
+        </div>{/* Main Management Card */}
         <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg dark:shadow-gray-900/20">
           <CardHeader className="border-b border-gray-200 dark:border-gray-700">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -178,13 +255,20 @@ export default function WhatsAppManagementPage() {
                   value={newSessionId}
                   onChange={e => setNewSessionId(e.target.value)}
                   className="w-40 border-gray-200 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                />
-                <Button 
+                />                <Button 
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 dark:from-blue-500 dark:to-indigo-500 dark:hover:from-blue-600 dark:hover:to-indigo-600 text-white shadow-lg" 
                   onClick={handleStartSession}
                 >
                   <Plus className="h-4 w-4 mr-2" /> 
                   New Session
+                </Button>
+                <Button
+                  variant={realTimeUpdates ? "default" : "outline"}
+                  onClick={() => setRealTimeUpdates(!realTimeUpdates)}
+                  className="ml-2"
+                >
+                  <Activity className={`h-4 w-4 mr-2 ${realTimeUpdates ? 'animate-pulse' : ''}`} />
+                  Real-time {realTimeUpdates ? 'ON' : 'OFF'}
                 </Button>
               </div>
             </div>
@@ -232,10 +316,10 @@ export default function WhatsAppManagementPage() {
             <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-800/90 overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50/80 dark:bg-gray-700/80">
-                    <tr>
+                  <thead className="bg-gray-50/80 dark:bg-gray-700/80">                    <tr>
                       <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Session ID</th>
                       <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Last Updated</th>
                       <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
                       <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -251,40 +335,75 @@ export default function WhatsAppManagementPage() {
                             </Badge>
                           )}
                         </div>
+                      </td>                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
+                          <Badge
+                            className={
+                              session.isConnected || session.status === 'session_connected'
+                                ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-700'
+                                : session.needsQR || session.status === 'qr_generated'
+                                ? 'bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300 border-orange-200 dark:border-orange-700'
+                                : session.isLoading || session.status === 'loading' || session.status === 'connecting'
+                                ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-700'
+                                : session.hasError || session.status === 'auth_failure' || session.status === 'error'
+                                ? 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-700'
+                                : session.status === 'session_not_connected' || session.status === 'disconnected'
+                                ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-700'
+                                : session.status === 'terminated'
+                                ? 'bg-gray-100 dark:bg-gray-700/50 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-600'
+                                : 'bg-gray-100 dark:bg-gray-700/50 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-600'
+                            }
+                          >
+                            {session.isConnected || session.status === 'session_connected' ? (
+                              <><CheckCircle className="w-3 h-3 mr-1" />Connected</>
+                            ) : session.needsQR || session.status === 'qr_generated' ? (
+                              <><Code className="w-3 h-3 mr-1" />Needs QR</>
+                            ) : session.isLoading || session.status === 'loading' || session.status === 'connecting' ? (
+                              <><RefreshCw className="w-3 h-3 mr-1 animate-spin" />Loading</>
+                            ) : session.hasError || session.status === 'auth_failure' ? (
+                              <><AlertCircle className="w-3 h-3 mr-1" />Auth Failed</>
+                            ) : session.status === 'session_not_connected' || session.status === 'disconnected' ? (
+                              <><Clock className="w-3 h-3 mr-1" />Disconnected</>
+                            ) : session.status === 'terminated' ? (
+                              <><AlertCircle className="w-3 h-3 mr-1" />Terminated</>
+                            ) : (
+                              <>{session.status || 'Unknown'}</>
+                            )}
+                          </Badge>
+                          {session.message && (
+                            <span className="text-xs text-gray-500 dark:text-gray-400 max-w-32 truncate" title={session.message}>
+                              {session.message}
+                            </span>
+                          )}                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <Badge
-                          className={
-                            session.status === 'session_connected'
-                              ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-700'
-                              : session.status === 'session_not_connected'
-                              ? 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-700'
-                              : session.status === 'started'
-                              ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-700'
-                              : session.status === 'terminated'
-                              ? 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-700'
-                              : 'bg-gray-100 dark:bg-gray-700/50 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-600'
-                          }
-                        >
-                          {session.status === 'session_connected' && <CheckCircle className="w-3 h-3 mr-1" />}
-                          {session.status === 'session_not_connected' && <Clock className="w-3 h-3 mr-1" />}
-                          {session.status === 'terminated' && <AlertCircle className="w-3 h-3 mr-1" />}
-                          {session.status || 'Unknown'}
-                        </Badge>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          {session.updatedAt ? new Date(session.updatedAt).toLocaleString() : 'Unknown'}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="text-sm text-gray-600 dark:text-gray-400">WhatsApp API</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                      </td>                      <td className="px-6 py-4 whitespace-nowrap text-right">
                         <div className="flex items-center justify-end gap-2">
+                          {(session.needsQR || session.qr) && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleViewQr(session.sessionId)}
+                              className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/20"
+                            >
+                              <Code className="h-4 w-4 mr-1" />
+                              QR
+                            </Button>
+                          )}
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => handleViewQr(session.sessionId)}
                             className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                           >
-                            <Code className="h-4 w-4 mr-1" />
-                            QR
+                            <Activity className="h-4 w-4 mr-1" />
+                            Status
                           </Button>
                           <Button
                             variant="ghost"
@@ -333,12 +452,56 @@ export default function WhatsAppManagementPage() {
           </CardContent>
         </Card>        {/* QR Code Modal */}
         <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
-          <DialogContent className="max-w-md bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <DialogContent className="max-w-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
             <DialogHeader>
-              <DialogTitle className="text-center text-gray-900 dark:text-gray-100">QR Code for Session</DialogTitle>
+              <DialogTitle className="text-center text-gray-900 dark:text-gray-100">Session Status & QR Code</DialogTitle>
               <p className="text-center text-sm text-gray-600 dark:text-gray-400 font-mono">{qrSessionId}</p>
             </DialogHeader>
             <div className="flex flex-col items-center space-y-4">
+              {/* Session Status Info */}
+              {qrSessionId && (
+                <div className="w-full p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  {(() => {
+                    const session = sessions.find(s => s.sessionId === qrSessionId);
+                    if (!session) return <p className="text-sm text-gray-500">Session not found</p>;
+                    
+                    return (
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Status:</span>
+                          <Badge className={
+                            session.isConnected ? 'bg-green-100 text-green-800' :
+                            session.needsQR ? 'bg-orange-100 text-orange-800' :
+                            session.isLoading ? 'bg-blue-100 text-blue-800' :
+                            session.hasError ? 'bg-red-100 text-red-800' :
+                            'bg-gray-100 text-gray-800'
+                          }>
+                            {session.isConnected ? 'Connected' :
+                             session.needsQR ? 'Needs QR' :
+                             session.isLoading ? 'Loading' :
+                             session.hasError ? 'Error' :
+                             session.status || 'Unknown'}
+                          </Badge>
+                        </div>
+                        {session.message && (
+                          <div className="flex justify-between items-start">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Message:</span>
+                            <span className="text-sm text-gray-800 dark:text-gray-200 text-right max-w-48">{session.message}</span>
+                          </div>
+                        )}
+                        {session.updatedAt && (
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Updated:</span>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">{new Date(session.updatedAt).toLocaleString()}</span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
+
+              {/* QR Code Display */}
               {qrImage ? (
                 <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg">
                   <Image
@@ -356,7 +519,9 @@ export default function WhatsAppManagementPage() {
                     <p className="text-gray-500 dark:text-gray-400">Loading QR Code...</p>
                   </div>
                 </div>
-              )}              <p className="text-sm text-gray-600 dark:text-gray-400 text-center max-w-xs">
+              )}
+
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center max-w-xs">
                 Scan this QR code with your WhatsApp mobile app to connect this session.
               </p>
             </div>
