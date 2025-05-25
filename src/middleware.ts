@@ -2,17 +2,72 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+// Edge Runtime compatible JWT verification
+async function verifyJWT(token: string, secret: string) {
+    try {
+        // Split the JWT token
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid JWT format');
+        }
+
+        const [headerB64, payloadB64, signatureB64] = parts;
+        
+        // Decode header and payload
+        const header = JSON.parse(atob(headerB64.replace(/-/g, '+').replace(/_/g, '/')));
+        const payload = JSON.parse(atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/')));
+        
+        // Check if token is expired
+        if (payload.exp && Date.now() >= payload.exp * 1000) {
+            throw new Error('Token expired');
+        }
+
+        // Create signature to verify
+        const encoder = new TextEncoder();
+        const data = encoder.encode(`${headerB64}.${payloadB64}`);
+        const key = await crypto.subtle.importKey(
+            'raw',
+            encoder.encode(secret),
+            { name: 'HMAC', hash: 'SHA-256' },
+            false,
+            ['sign', 'verify']
+        );
+
+        // Verify signature
+        const signature = Uint8Array.from(
+            atob(signatureB64.replace(/-/g, '+').replace(/_/g, '/')),
+            c => c.charCodeAt(0)
+        );
+        
+        const isValid = await crypto.subtle.verify(
+            'HMAC',
+            key,
+            signature,
+            data
+        );
+
+        if (!isValid) {
+            throw new Error('Invalid signature');
+        }        return payload;
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`JWT verification failed: ${errorMessage}`);
+    }
+}
+
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
     const apiKey = req.headers.get('API-KEY');
-    const serverApiKey = process.env.INTERNAL_CLIENT_API_KEY;
-
-    // Define API routes that require API key authentication
-    const apiKeyProtectedApiRoutes = [
-        '/api/auth/signin',
+    const serverApiKey = process.env.INTERNAL_CLIENT_API_KEY;    // Define API routes that require API key authentication
+    // Note: Customer authentication APIs are now public (no API key required)
+    const apiKeyProtectedApiRoutes: string[] = [
+        // All customer authentication APIs are now public
+        // '/api/auth/signin',
         // '/api/auth/signup',
         // '/api/auth/send-otp',
         // '/api/auth/verify-otp',
+        // '/api/auth/reset-password',
+        // '/api/auth/resend-otp',
         // '/api/auth/session'
     ];
 
@@ -30,11 +85,54 @@ export async function middleware(req: NextRequest) {
         }
         // If API key is valid, allow the request to proceed to the API route handler.
         // No further NextAuth session token checks are performed for these specific API routes.
+        return NextResponse.next();    }    // Ambil token hanya sekali di awal
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+      // Check for JWT token in Authorization header if NextAuth token is not present
+    let jwtToken = null;
+    if (!token) {
+        const authHeader = req.headers.get('authorization');
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            try {
+                const jwtSecret = process.env.JWT_SECRET || 'dev-secret-key';
+                jwtToken = await verifyJWT(authHeader.substring(7), jwtSecret);
+            } catch (error) {
+                console.error('JWT verification failed:', error);
+            }
+        }
+    }
+
+    // Customer API routes - allow authenticated customers
+    if (pathname.startsWith('/api/customer')) {
+        // All customer APIs require authentication except catalog APIs
+        const publicCustomerRoutes = [
+            '/api/customer/catalog/packages',
+            '/api/customer/catalog/addons',
+            '/api/customer/catalog/categories',
+            '/api/customer/catalog/details',
+            '/api/customer/whatsapp/packages',
+        ];
+        
+        if (!publicCustomerRoutes.includes(pathname) && req.method !== 'OPTIONS') {
+            if (!token && !jwtToken) {
+                return NextResponse.json({ message: 'Authentication required' }, { status: 401 });
+            }
+            // If using JWT token, add user info to request headers for API routes
+            if (jwtToken && !token) {
+                const requestHeaders = new Headers(req.headers);
+                requestHeaders.set('x-user-id', jwtToken.id);
+                requestHeaders.set('x-user-email', jwtToken.email || '');
+                requestHeaders.set('x-user-role', jwtToken.role || 'customer');
+                return NextResponse.next({
+                    request: {
+                        headers: requestHeaders,
+                    },
+                });
+            }
+        }
         return NextResponse.next();
     }
 
-    // Ambil token hanya sekali di awal
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });    // Proteksi admin untuk semua API produk (selain GET/public)
+    // Proteksi admin untuk semua API produk (selain GET/public)
     if (pathname.startsWith('/api/product')) {
         // Hanya batasi method selain GET (POST, PUT, PATCH, DELETE, dsb)
         if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {

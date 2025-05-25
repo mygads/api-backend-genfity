@@ -1,0 +1,916 @@
+{
+  "info": {
+    "name": "Genfity Customer APIs",
+    "description": "Complete collection of customer-facing APIs for the Genfity platform including authentication",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "sessionToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "jwtToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-set session cookie if sessionToken variable is set",
+          "if (pm.variables.get('sessionToken')) {",
+          "    pm.request.headers.add({",
+          "        key: 'Cookie',",
+          "        value: 'next-auth.session-token=' + pm.variables.get('sessionToken')",
+          "    });",
+          "}",
+          "",
+          "// Auto-set JWT token if jwtToken variable is set",
+          "if (pm.variables.get('jwtToken')) {",
+          "    pm.request.headers.add({",
+          "        key: 'Authorization',",
+          "        value: 'Bearer ' + pm.variables.get('jwtToken')",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"+628123456789\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            },
+            "description": "Register a new customer account. Supports email + phone or email only or phone only registration."
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Up - Email Only",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane.doe@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            },
+            "description": "Register with email only - will send email verification"
+          },
+          "response": []
+        },
+        {
+          "name": "Sign Up - Phone Only",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bob Smith\",\n  \"phone\": \"+628123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signup"]
+            },
+            "description": "Register with phone only - will send OTP and auto-generate password"
+          },
+          "response": []
+        },
+        {
+          "name": "Sign In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"john.doe@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signin"]            },
+            "description": "Sign in with email or phone number and password. Returns JWT token."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Extract JWT token from successful login response and store it",
+                  "if (pm.response.code === 200) {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.token) {",
+                  "        pm.collectionVariables.set('jwtToken', responseJson.token);",
+                  "        console.log('JWT token saved to collection variable');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Sign In - Phone Number",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"+628123456789\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/signin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "signin"]            },
+            "description": "Sign in using phone number as identifier"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Extract JWT token from successful login response and store it",
+                  "if (pm.response.code === 200) {",
+                  "    const responseJson = pm.response.json();",
+                  "    if (responseJson.token) {",
+                  "        pm.collectionVariables.set('jwtToken', responseJson.token);",
+                  "        console.log('JWT token saved to collection variable');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"+628123456789\",\n  \"otp\": \"1234\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/verify-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "verify-otp"]
+            },
+            "description": "Verify OTP code sent via WhatsApp during registration"
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"+628123456789\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/resend-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "resend-otp"]
+            },
+            "description": "Resend OTP code to phone number (rate limited to once per 60 seconds)"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Password Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"john.doe@example.com\",\n  \"method\": \"email\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/send-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "send-otp"]
+            },
+            "description": "Send password reset OTP via email or WhatsApp"
+          },
+          "response": []
+        },
+        {
+          "name": "Send Password Reset OTP - WhatsApp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"+628123456789\",\n  \"method\": \"whatsapp\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/send-otp",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "send-otp"]
+            },
+            "description": "Send password reset OTP via WhatsApp"
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"john.doe@example.com\",\n  \"otp\": \"1234\",\n  \"newPassword\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/reset-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "reset-password"]
+            },
+            "description": "Reset password using OTP code received via email or WhatsApp"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Session Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/session",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "session"]
+            },
+            "description": "Get current session information (NextAuth session)"
+          },
+          "response": []
+        }
+        ]
+      },
+    {
+      "name": "Product Catalog",
+      "item": [
+        {
+          "name": "Get All Packages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "packages"]
+            },
+            "description": "Get all packages with optional filtering by category, subcategory, or popular status"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Packages by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/packages?categoryId={{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "packages"],
+              "query": [
+                {
+                  "key": "categoryId",
+                  "value": "{{categoryId}}",
+                  "description": "Filter packages by category ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Popular Packages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/packages?popular=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "packages"],
+              "query": [
+                {
+                  "key": "popular",
+                  "value": "true",
+                  "description": "Filter only popular packages"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Addons",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/addons",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "addons"]
+            },
+            "description": "Get all addons with optional filtering by category"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Addons by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/addons?categoryId={{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "addons"],
+              "query": [
+                {
+                  "key": "categoryId",
+                  "value": "{{categoryId}}",
+                  "description": "Filter addons by category ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "categories"]
+            },
+            "description": "Get all categories with subcategories and item counts"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Package Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/details?packageId={{packageId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "details"],
+              "query": [
+                {
+                  "key": "packageId",
+                  "value": "{{packageId}}",
+                  "description": "Package ID to get details for"
+                }
+              ]
+            },
+            "description": "Get detailed information for a specific package"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Addon Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/catalog/details?addonId={{addonId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "catalog", "details"],
+              "query": [
+                {
+                  "key": "addonId",
+                  "value": "{{addonId}}",
+                  "description": "Addon ID to get details for"
+                }
+              ]
+            },
+            "description": "Get detailed information for a specific addon"
+          },
+          "response": []
+        }
+      ],
+      "description": "Public APIs for browsing product catalog (packages, addons, categories)"
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Get User Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/transactions?limit=10&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "transactions"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of items to skip"
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "Filter by status (pending, paid, expired, cancelled)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get user's transactions with pagination and optional status filtering"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pending Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/transactions?status=pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "transactions"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending",
+                  "description": "Filter by pending status"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Package Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"packageId\": \"{{packageId}}\",\n  \"startDate\": \"2025-05-25T00:00:00Z\",\n  \"endDate\": \"2025-06-25T00:00:00Z\",\n  \"referenceLink\": \"https://example.com/reference\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "transactions"]
+            },
+            "description": "Create a new transaction for a package"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Addon Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addonId\": \"{{addonId}}\",\n  \"startDate\": \"2025-05-25T00:00:00Z\",\n  \"endDate\": \"2025-06-25T00:00:00Z\",\n  \"referenceLink\": \"https://example.com/reference\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "transactions"]
+            },
+            "description": "Create a new transaction for an addon"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/transactions/{{transactionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "transactions", "{{transactionId}}"]
+            },
+            "description": "Get detailed information for a specific transaction"
+          },
+          "response": []
+        }
+      ],
+      "description": "APIs for managing customer transactions (requires authentication)"
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Process Payment - Midtrans",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"method\": \"midtrans\",\n  \"amount\": 100000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/payments/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "payments", "process"]
+            },
+            "description": "Process payment using Midtrans gateway"
+          },
+          "response": []
+        },
+        {
+          "name": "Process Payment - Xendit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"method\": \"xendit\",\n  \"amount\": 100000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/payments/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "payments", "process"]
+            },
+            "description": "Process payment using Xendit gateway"
+          },
+          "response": []
+        },
+        {
+          "name": "Process Payment - Manual",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"method\": \"manual\",\n  \"amount\": 100000\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/payments/process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "payments", "process"]
+            },
+            "description": "Process manual payment (bank transfer)"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Payment Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/payments/status/{{paymentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "payments", "status", "{{paymentId}}"]
+            },
+            "description": "Check the status of a payment"
+          },
+          "response": []
+        }
+      ],
+      "description": "APIs for processing and monitoring payments (requires authentication)"
+    },
+    {
+      "name": "WhatsApp Services",
+      "item": [
+        {
+          "name": "Get WhatsApp Packages",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/packages",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "packages"]
+            },
+            "description": "Get available WhatsApp API packages with pricing and features"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User WhatsApp Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/services",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "services"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "Filter by status (active, expired, all)",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get user's WhatsApp services with status and expiration info"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Active WhatsApp Services",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/services?status=active",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "services"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "active"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Subscribe Monthly",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"packageId\": \"{{whatsappPackageId}}\",\n  \"duration\": \"month\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/services",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "services"]
+            },
+            "description": "Subscribe to WhatsApp service for 1 month"
+          },
+          "response": []
+        },
+        {
+          "name": "Subscribe Yearly",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"packageId\": \"{{whatsappPackageId}}\",\n  \"duration\": \"year\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/services",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "services"]
+            },
+            "description": "Subscribe to WhatsApp service for 1 year"
+          },
+          "response": []
+        },
+        {
+          "name": "Get WhatsApp Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/transactions?limit=10&offset=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "transactions"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items per page"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of items to skip"
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "Filter by status",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get user's WhatsApp subscription transactions"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pending WhatsApp Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/whatsapp/transactions?status=pending",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "whatsapp", "transactions"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "APIs for WhatsApp service subscription and management (requires authentication)"
+    },
+    {
+      "name": "Profile",
+      "item": [
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "profile"]
+            },
+            "description": "Get user profile information and statistics"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"+1234567890\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/customer/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "customer", "profile"]
+            },
+            "description": "Update user profile information"
+          },
+          "response": []
+        }
+      ],
+      "description": "APIs for managing user profile (requires authentication)"
+    },
+    {
+      "name": "Authentication Setup",
+      "item": [
+        {
+          "name": "Get Session Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/session",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "session"]
+            },
+            "description": "Get current session information for testing authentication"
+          },
+          "response": []
+        }
+      ],
+      "description": "Helper endpoints for authentication setup and testing"
+    }
+  ]
+}

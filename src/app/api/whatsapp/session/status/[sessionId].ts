@@ -13,8 +13,8 @@ async function waFetch(path: string) {
 }
 
 // GET /api/whatsapp/session/status/[sessionId]
-export async function GET(request: Request, { params }: { params: { sessionId: string } }) {
-  const { sessionId } = params;
+export async function GET(request: Request, { params }: { params: Promise<{ sessionId: string }> }) {
+  const { sessionId } = await params;
   try {
     const statusRes = await waFetch(`/session/status/${sessionId}`);
     await prisma.whatsAppSession.update({ where: { sessionId }, data: { status: statusRes.state } });
